@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2da7458df92ffc47866e45da497f52e, type: 3}
+  m_Name: ObstacleData
+  m_EditorClassIdentifier: 
+  spawnPoints:
+  - {x: 85, y: 0, z: 3}
+  - {x: 85, y: 0, z: 0}
+  - {x: 85, y: 0, z: -3}
+  prefabs:
+  - {fileID: 5949356265677951015, guid: 4ce53ee1c25daed42851df0f8ebd3a6d, type: 3}
+  - {fileID: 6153597739652426176, guid: 078c908e481e026418facb27bb1d7a20, type: 3}
+  speed: -0.5
+  timeToDestroy: 5

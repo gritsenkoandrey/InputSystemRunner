@@ -1,0 +1,62 @@
+﻿using System;
+using System.IO;
+using UnityEngine;
+using Object = UnityEngine.Object;
+
+[CreateAssetMenu(fileName = "Data", menuName = "Data/Data")]
+public sealed class Data : ScriptableObject
+{
+    [SerializeField] private string _backgroundDataPath = null;
+    [SerializeField] private string _characterDataPath = null;
+    [SerializeField] private string _obstacleDataPath = null;
+
+    private static BackgroundData _backgroundData;
+    private static CharacterData _characterData;
+    private static ObstacleData _obstacleData;
+
+    private static readonly Lazy<Data> _instance = new Lazy<Data>(() => Load<Data>("Data/" + typeof(Data).Name));
+
+    public static Data Instance => _instance.Value;
+
+    public BackgroundData BackgroundsData
+    {
+        get
+        {
+            if (_backgroundData == null)
+            {
+                _backgroundData = Load<BackgroundData>("Data/" + Instance._backgroundDataPath);
+            }
+
+            return _backgroundData;
+        }
+    }
+
+    public CharacterData Character
+    {
+        get
+        {
+            if (_characterData == null)
+            {
+                _characterData = Load<CharacterData>("Data/" + Instance._characterDataPath);
+            }
+
+            return _characterData;
+        }
+    }
+
+    public ObstacleData Obstacle
+    {
+        get
+        {
+            if (_obstacleData == null)
+            {
+                _obstacleData = Load<ObstacleData>("Data/" + Instance._obstacleDataPath);
+            }
+
+            return _obstacleData;
+        }
+    }
+
+    private static T Load<T>(string resourcesPath) where T : Object =>
+        CustomResources.Load<T>(Path.ChangeExtension(resourcesPath, null));
+}
