@@ -3,7 +3,7 @@
 
 public static class ObstacleList
 {
-    private static List<ObstacleModel> _obstacleList;
+    private readonly static List<ObstacleModel> _obstacleList;
 
     static ObstacleList()
     {

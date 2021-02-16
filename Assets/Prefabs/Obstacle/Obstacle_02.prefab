@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 8472663689254969284}
   - component: {fileID: 3936183234562306906}
   m_Layer: 0
-  m_Name: Obstacle_04
+  m_Name: Obstacle_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1056620552624200953
 Transform:
   m_ObjectHideFlags: 0

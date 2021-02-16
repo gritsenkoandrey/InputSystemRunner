@@ -36,7 +36,6 @@ public class PoolManager : Singleton<PoolManager>
 		}
 		var pool = new ObjectPool<GameObject>(() => { return InstantiatePrefab(prefab); }, size);
 		_prefabLookup[prefab] = pool;
-
 		_dirty = true;
 	}
 

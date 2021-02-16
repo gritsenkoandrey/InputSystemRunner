@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 
 
-[RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
+[RequireComponent(typeof(Rigidbody),
+    typeof(BoxCollider),
+    typeof(Animator))]
 public sealed class CharacterModel : BaseModel
 {
     private CharacterData _characterData;
@@ -15,17 +17,22 @@ public sealed class CharacterModel : BaseModel
 
     private Vector3 _tempPos;
     private Rigidbody _body;
+    private Animator _animator;
 
     private void Awake()
     {
         InitializationCharacter();
+
         _body = GetComponent<Rigidbody>();
+        _animator = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter(Collider target)
     {
         if (target.TryGetComponent(out obstacle))
         {
+            EventBus.RaiseEvent<IPickItem>(h => h.PickItem());
+
             obstacle.DestroyObstacle();
         }
     }
@@ -35,6 +42,7 @@ public sealed class CharacterModel : BaseModel
         if (CheckGround())
         {
             _body.AddForce(Vector3.up * _jump, ForceMode.Impulse);
+            _animator.SetTrigger(AnimationNameHelper.JUMP_ANIMATION);
         }
     }
 

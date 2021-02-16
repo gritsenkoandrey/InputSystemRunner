@@ -16,6 +16,7 @@ public sealed class UIShowScore : MonoBehaviour
     private void Start()
     {
         _text = GetComponent<Text>();
+        _rectTransform = _text.GetComponent<RectTransform>();
     }
 
     public void SetActive(bool value)
@@ -23,9 +24,9 @@ public sealed class UIShowScore : MonoBehaviour
         _text.gameObject.SetActive(value);
     }
 
-    public void ChangeScore()
+    public void ChangeScore(float scale, float duration)
     {
-        _sequence.Insert(0f, _rectTransform.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0f));
-        _sequence.Append(_rectTransform.DOScale(Vector3.one, 1.0f));
+        _sequence.Insert(0f, _rectTransform.DOScale(new Vector3(scale, scale, scale), 0f));
+        _sequence.Append(_rectTransform.DOScale(Vector3.one, duration));
     }
 }
