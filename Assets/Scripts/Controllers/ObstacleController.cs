@@ -1,34 +1,24 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public sealed class SpawnObstacleController : IInitialization, IExecute
+public sealed class ObstacleController : BaseController, IInitialization, IExecute
 {
-    private ObstacleData _obstacleData;
-
-    private List<Vector3> _listSpawnPoints;
-    private List<GameObject> _listPrefabsObstacles;
+    private readonly ObstacleData _obstacleData;
+    private readonly List<Vector3> _listSpawnPoints;
+    private readonly List<GameObject> _listPrefabsObstacles;
 
     private ObstacleModel _obstacle;
     private readonly byte _countObstacle = 10;
 
-    private TimeRemaining _timeRemainingSpawn;
+    private readonly TimeRemaining _timeRemainingSpawn;
     private readonly float _timeToNextSpawn = 0.5f;
 
-    public void Initialization()
-    {
-        InitializationData();
-        PreSpawnObstacles();
-        StartTimer();
-    }
+    private readonly float _speed;
 
-    public void Execute()
-    {
-        ObstacleList.Execute();
-    }
-
-    private void InitializationData()
+    public ObstacleController()
     {
         _obstacleData = Data.Instance.Obstacle;
+        _speed = _obstacleData.speed;
 
         _listSpawnPoints = new List<Vector3>();
         for (var i = 0; i < _obstacleData.spawnPoints.Length; i++)
@@ -41,6 +31,19 @@ public sealed class SpawnObstacleController : IInitialization, IExecute
         {
             _listPrefabsObstacles.Add(_obstacleData.prefabs[i]);
         }
+
+        _timeRemainingSpawn = new TimeRemaining(Spawn, _timeToNextSpawn, true);
+    }
+
+    public void Initialization()
+    {
+        PreSpawnObstacles();
+        StartSpawn();
+    }
+
+    public void Execute()
+    {
+        ObstacleList.Execute(_speed);
     }
 
     private void PreSpawnObstacles()
@@ -51,13 +54,12 @@ public sealed class SpawnObstacleController : IInitialization, IExecute
         }
     }
 
-    private void StartTimer()
+    private void StartSpawn()
     {
-        _timeRemainingSpawn = new TimeRemaining(Spawn, _timeToNextSpawn, true);
         _timeRemainingSpawn.AddTimeRemaining();
     }
 
-    private void RemoveTimer()
+    private void StopSpawn()
     {
         _timeRemainingSpawn.RemoveTimeRemaining();
     }

@@ -29,11 +29,11 @@ public static class ObstacleList
         _obstacleList.Remove(obstacle);
     }
 
-    public static void Execute()
+    public static void Execute(float speed)
     {
         for (int i = 0; i < _obstacleList.Count; i++)
         {
-            _obstacleList[i].Move();
+            _obstacleList[i].Move(speed);
         }
     }
 }

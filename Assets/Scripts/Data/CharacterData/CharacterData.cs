@@ -3,13 +3,7 @@
 [CreateAssetMenu(fileName = "CharacterData", menuName = "Data/Character/CharacterData")]
 public sealed class CharacterData : ScriptableObject
 {
-    internal CharacterControl characterControl;
-    public void InitializationCharacter()
-    {
-        characterControl = FindObjectOfType<CharacterControl>();
-    }
-
-    [Header("Prefab Character")] public GameObject character;
+    [Header("Prefab Character")] public GameObject prefab;
 
     [Header("Lines")]
     public float maxPos = 3.0f;
@@ -21,4 +15,10 @@ public sealed class CharacterData : ScriptableObject
     public float jump = 5.0f;
 
     [Header("Ray cast Distance")] public float rayDis = 0.5f;
+
+    internal CharacterModel characterModel;
+    public void InitializationCharacter()
+    {
+        characterModel = FindObjectOfType<CharacterModel>();
+    }
 }

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d0c6a5228624d4e9a0898cfb4dab53, type: 3}
   m_Name: CharacterData
   m_EditorClassIdentifier: 
-  character: {fileID: 7368201214321045534, guid: 779d393e75236d14bb8827808fcffd01,
-    type: 3}
+  prefab: {fileID: 5823617461128038829, guid: 779d393e75236d14bb8827808fcffd01, type: 3}
   maxPos: 3
   minPos: -3
   middlePos: 0

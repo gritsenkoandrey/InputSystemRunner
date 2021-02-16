@@ -18,7 +18,7 @@ public sealed class Data : ScriptableObject
 
     public static Data Instance => _instance.Value;
 
-    public BackgroundData BackgroundsData
+    public BackgroundData Background
     {
         get
         {

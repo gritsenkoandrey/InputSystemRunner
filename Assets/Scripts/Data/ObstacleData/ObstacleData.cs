@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "ObstacleData", menuName = "Data/Obstacle/ObstacleData")]
 public sealed class ObstacleData : ScriptableObject
@@ -10,5 +9,11 @@ public sealed class ObstacleData : ScriptableObject
 
     [Header("Settings Obstacles")]
     public float speed = -0.5f;
-    public float timeToDestroy = 5.0f;
+
+    internal ObstacleModel obstacleModel;
+
+    public void InitializationObstacle()
+    {
+        obstacleModel = FindObjectOfType<ObstacleModel>();
+    }
 }

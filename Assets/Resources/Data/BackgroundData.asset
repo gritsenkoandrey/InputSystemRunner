@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8db9acf0a2ada42bd02907636d56e3, type: 3}
   m_Name: BackgroundData
   m_EditorClassIdentifier: 
+  prefab: {fileID: 4384956804108454531, guid: d411b699f0517bb4288b74e36b84b52a, type: 3}
   speed: -0.25
   destroyPos: -10

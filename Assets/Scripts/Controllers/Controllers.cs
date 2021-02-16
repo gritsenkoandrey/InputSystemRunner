@@ -10,12 +10,13 @@
 
     public Controllers()
     {
-        _initializations = new IInitialization[0];
+        _initializations = new IInitialization[1];
+        _initializations[0] = new CharacterController();
 
         _executeControllers = new IExecute[3];
         _executeControllers[0] = new TimeRemainingController();
-        _executeControllers[1] = new InputController();
-        _executeControllers[2] = new SpawnObstacleController();
+        _executeControllers[1] = new ObstacleController();
+        _executeControllers[2] = new BackgroundController();
 
         _cleanUps = new ICleanUp[1];
         _cleanUps[0] = new TimeRemainingCleanUp();

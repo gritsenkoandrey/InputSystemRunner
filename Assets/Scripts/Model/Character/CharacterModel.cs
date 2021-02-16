@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 
-[RequireComponent(typeof(Rigidbody))]
-public class CharacterControl : MonoBehaviour
+[RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
+public sealed class CharacterModel : BaseModel
 {
     private CharacterData _characterData;
 
@@ -18,19 +18,17 @@ public class CharacterControl : MonoBehaviour
 
     private void Awake()
     {
-        InitializationData();
+        InitializationCharacter();
         _body = GetComponent<Rigidbody>();
     }
 
-    //private void OnEnable()
-    //{
-    //    InputController.Instance.inputMaster.Enable();
-    //}
-
-    //private void OnDisable()
-    //{
-    //    InputController.Instance.inputMaster.Disable();
-    //}
+    private void OnTriggerEnter(Collider target)
+    {
+        if (target.TryGetComponent(out obstacle))
+        {
+            obstacle.DestroyObstacle();
+        }
+    }
 
     public void Jump()
     {
@@ -62,7 +60,7 @@ public class CharacterControl : MonoBehaviour
         return Physics.Raycast(transform.position, Vector3.down, _rayDis, LayerHelper.GroundLayer);
     }
 
-    private void InitializationData()
+    private void InitializationCharacter()
     {
         _characterData = Data.Instance.Character;
         _maxPos = _characterData.maxPos;

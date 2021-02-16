@@ -2,20 +2,16 @@
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
-public sealed class ObstacleModel : MonoBehaviour
+public sealed class ObstacleModel : BaseModel
 {
-    private ObstacleData _obstacleData;
-
     private TimeRemaining _timeRemainingDestroyAfterTime;
-    private float _timeToDestroy;
-    private float _speed;
+    private readonly float _timeToDestroy = 3.75f;
 
     public event Action<ObstacleModel> OnDieChange;
 
     private void Awake()
     {
-        InitializationData();
-        _timeRemainingDestroyAfterTime = new TimeRemaining(DestroyAfterTime, _timeToDestroy);
+        _timeRemainingDestroyAfterTime = new TimeRemaining(DestroyObstacle, _timeToDestroy);
     }
 
     private void OnEnable()
@@ -28,27 +24,14 @@ public sealed class ObstacleModel : MonoBehaviour
         _timeRemainingDestroyAfterTime.RemoveTimeRemaining();
     }
 
-    private void DestroyAfterTime()
+    public void Move(float speed)
+    {
+        transform.Translate(new Vector3(speed, 0f, 0f));
+    }
+
+    public void DestroyObstacle()
     {
         OnDieChange?.Invoke(this);
         PoolManager.ReleaseObject(this.gameObject);
-    }
-
-    public void Move()
-    {
-        transform.Translate(new Vector3(_speed, 0f, 0f));
-    }
-
-    public void DestroyAfterCollision()
-    {
-        OnDieChange?.Invoke(this);
-        PoolManager.ReleaseObject(this.gameObject);
-    }
-
-    private void InitializationData()
-    {
-        _obstacleData = Data.Instance.Obstacle;
-        _speed = _obstacleData.speed;
-        _timeToDestroy = _obstacleData.timeToDestroy;
     }
 }
