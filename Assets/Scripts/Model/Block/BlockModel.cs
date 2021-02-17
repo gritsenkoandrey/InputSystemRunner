@@ -6,8 +6,10 @@ public sealed class BlockModel : BaseModel
 {
     private TimeRemaining _timeRemainingDestroyAfterTime;
     private readonly float _timeToDestroy = 3.75f;
+    private readonly byte _damage = 1;
 
     public event Action<BlockModel> OnDieChange;
+    public byte Damage => _damage;
 
     private void Awake()
     {

@@ -2,7 +2,8 @@
 
 public abstract class BaseModel : MonoBehaviour
 {
-    protected CharacterModel character;
+    protected CharacterMove character;
     protected ObstacleModel obstacle;
+    protected BlockModel block;
     protected BackgroundModel background;
 }

@@ -7,7 +7,7 @@ public class GameMenu : MonoBehaviour
 {
     private InputMaster _inputMaster;
 
-    [SerializeField] private Button _pauseButton;
+    [SerializeField] private Button _pauseButton = null;
 
     private void Awake()
     {

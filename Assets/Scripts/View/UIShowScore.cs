@@ -6,7 +6,7 @@ public sealed class UIShowScore : MonoBehaviour
 {
     private Text _text;
     private RectTransform _rectTransform;
-    private readonly Sequence _sequence;
+    private readonly Sequence _sequence = null;
 
     public int Text
     {
@@ -26,7 +26,8 @@ public sealed class UIShowScore : MonoBehaviour
 
     public void ChangeScore(float scale, float duration)
     {
-        _sequence.Insert(0f, _rectTransform.DOScale(new Vector3(scale, scale, scale), 0f));
-        _sequence.Append(_rectTransform.DOScale(Vector3.one, duration));
+        _sequence
+            .Insert(0f, _rectTransform.DOScale(Vector3.one * scale, 0f))
+            .Append(_rectTransform.DOScale(Vector3.one, duration));
     }
 }
