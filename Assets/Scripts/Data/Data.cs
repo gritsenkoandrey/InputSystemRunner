@@ -10,11 +10,13 @@ public sealed class Data : ScriptableObject
     [SerializeField] private string _characterDataPath = null;
     [SerializeField] private string _obstacleDataPath = null;
     [SerializeField] private string _blockDataPath = null;
+    [SerializeField] private string _coinDataPath = null;
 
     private static BackgroundData _backgroundData;
     private static CharacterData _characterData;
     private static ObstacleData _obstacleData;
     private static BlockData _blockData;
+    private static CoinData _coinData;
 
     private static readonly Lazy<Data> _instance = new Lazy<Data>(() => Load<Data>("Data/" + typeof(Data).Name));
 
@@ -69,6 +71,19 @@ public sealed class Data : ScriptableObject
             }
 
             return _blockData;
+        }
+    }
+
+    public CoinData Coin
+    {
+        get
+        {
+            if (_coinData == null)
+            {
+                _coinData = Load<CoinData>("Data/" + Instance._coinDataPath);
+            }
+
+            return _coinData;
         }
     }
 

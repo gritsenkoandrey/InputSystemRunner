@@ -2,6 +2,7 @@
 
 public abstract class CharacterBase : BaseModel
 {
+    //todo скорее всего ошибка тут
     private CharacterData _data;
 
     protected CharacterMove characterMove;

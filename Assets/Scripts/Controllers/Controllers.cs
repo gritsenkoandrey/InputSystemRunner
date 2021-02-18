@@ -19,8 +19,9 @@
         _executeControllers[1] = new SpawnController();
         _executeControllers[2] = new BackgroundController();
 
-        _cleanUps = new ICleanUp[1];
+        _cleanUps = new ICleanUp[2];
         _cleanUps[0] = new TimeRemainingCleanUp();
+        _cleanUps[1] = new SpawnController();
     }
 
     public void Initialization()

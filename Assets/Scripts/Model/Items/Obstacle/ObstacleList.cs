@@ -36,4 +36,9 @@ public static class ObstacleList
             _obstacleList[i].Move(speed);
         }
     }
+
+    public static void ClearList()
+    {
+        _obstacleList.Clear();
+    }
 }

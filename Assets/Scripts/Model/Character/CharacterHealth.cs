@@ -7,24 +7,18 @@ public sealed class CharacterHealth : CharacterBase
     {
         if (target.TryGetComponent(out obstacle))
         {
-            EventBus.RaiseEvent<IPickItem>(h => h.PickItem());
-            obstacle.DestroyObstacle();
+            obstacle.Destroy();
+            EventBus.RaiseEvent<ICollision>(h => h.PickObstacle());
         }
         else if (target.TryGetComponent(out block))
         {
-            DealDamage(block.Damage);
+            characterAnimator.GetDamage();
+            EventBus.RaiseEvent<ICollision>(h => h.PickBlock());
         }
-    }
-
-    private void DealDamage(int damage)
-    {
-        health -= damage;
-        characterAnimator.GetDamage();
-        EventBus.RaiseEvent<IChangeHealth>(h => h.ChangeHealth(health));
-
-        if (health <= 0)
+        else if (target.TryGetComponent(out coin))
         {
-            Debug.Log("You Died");
+            coin.Destroy();
+            EventBus.RaiseEvent<ICollision>(h => h.PickCoin());
         }
     }
 }

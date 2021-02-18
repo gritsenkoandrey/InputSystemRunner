@@ -16,3 +16,4 @@ MonoBehaviour:
   _characterDataPath: CharacterData
   _obstacleDataPath: ObstacleData
   _blockDataPath: BlockData
+  _coinDataPath: CoinData

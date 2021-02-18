@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Multiplicative Congruence generator using a modulus of 2^31
 /// </summary>
-public sealed class FastRandom : IRandom
+public sealed class CustomRandom : IRandom
 {
     public int Seed { get; private set; }
 
@@ -13,10 +13,10 @@ public sealed class FastRandom : IRandom
 
     private ulong _next;
 
-    public FastRandom()
+    public CustomRandom()
         : this(RandomSeed.Crypto()) { }
 
-    public FastRandom(int seed)
+    public CustomRandom(int seed)
     {
         NewSeed(seed);
     }

@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {x: 85, y: 0, z: 0}
   prefabs:
-  - {fileID: 9195507446881954071, guid: 16854816f5927d14bbdc6c89e1e3854d, type: 3}
+  - {fileID: 5676825908546482243, guid: 1aa2c3d8c5269de488721be50f0ad471, type: 3}
   - {fileID: 5448481357097381088, guid: 4974e17f355d89f42921b9f0de69cd9d, type: 3}
   - {fileID: 382087103879948901, guid: 5e701f14df34b33499600af0ec97fdbd, type: 3}
   - {fileID: 1274200552429517458, guid: 1039bdc8d51e86d4fbf8e62303720b2a, type: 3}
+  - {fileID: 7389434390028168792, guid: 29ffb9e2b61af134d8265efb5393c450, type: 3}
+  - {fileID: 5084757529165183512, guid: 16854816f5927d14bbdc6c89e1e3854d, type: 3}
+  - {fileID: 1164150090406392374, guid: 36ec2de77c062f14594fb99b0a62885b, type: 3}
   speed: -0.5

@@ -15,6 +15,7 @@ public sealed class CharacterMove : CharacterBase
         {
             body.AddForce(Vector3.up * jump, ForceMode.Impulse);
             characterAnimator.Jump();
+            Debug.Log(jump);
         }
     }
 

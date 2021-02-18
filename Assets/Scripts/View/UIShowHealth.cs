@@ -14,6 +14,11 @@ public sealed class UIShowHealth : MonoBehaviour
         }
     }
 
+    public void SetActive(bool value)
+    {
+        gameObject.SetActive(value);
+    }
+
     public void RefreshHealth(int health)
     {
         for (var i = 0; i < _health.Length; i++)

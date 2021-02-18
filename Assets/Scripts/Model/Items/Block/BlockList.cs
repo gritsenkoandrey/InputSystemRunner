@@ -35,4 +35,9 @@ public static class BlockList
             _blockList[i].Move(speed);
         }
     }
+    public static void ClearList()
+    {
+        _blockList.Clear();
+    }
+
 }

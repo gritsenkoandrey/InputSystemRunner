@@ -1,26 +1,69 @@
-﻿public sealed class LevelController : BaseController, IInitialization, IPickItem, IChangeHealth
-{
-    private int _countScore = 0;
+﻿using UnityEngine;
 
-    private readonly float _scale = 2.0f;
-    private readonly float _duration = 1.0f;
+public sealed class LevelController : BaseController, IInitialization, ICollision
+{
+    private int _countCoin = 0;
+
+    private int _timer = 10;
+    private int _health;
+
+    private readonly TimeRemaining _timeRemainingTimer;
+    private readonly float _time = 1.0f;
+
+    public LevelController()
+    {
+        EventBus.Subscribe(this);
+        _health = Data.Instance.Character.health;
+        _timeRemainingTimer = new TimeRemaining(Timer, _time, true);
+    }
 
     public void Initialization()
     {
-        EventBus.Subscribe(this);
+        uInterface.UiShowTime.Text = _timer;
+        uInterface.UiShowCoin.Text = _countCoin;
 
-        uInterface.UiShowScore.Text = _countScore;
+        _timeRemainingTimer.AddTimeRemaining();
     }
 
-    public void PickItem()
+    private void Timer()
     {
-        uInterface.UiShowScore.ChangeScore(_scale, _duration);
-        _countScore++;
-        uInterface.UiShowScore.Text = _countScore;
+        _timer--;
+        uInterface.UiShowTime.Text = _timer;
+
+        if (_timer < 6)
+        {
+            uInterface.UiShowTime.ScaleText();
+        }
+
+        if (_timer <= 0 || _health <= 0)
+        {
+            uInterface.UiShowTime.SetActive(false);
+            uInterface.UiShowCoin.SetActive(false);
+            uInterface.UiShowHealth.SetActive(false);
+            _timeRemainingTimer.RemoveTimeRemaining();
+            UserData.SaveData(_countCoin);
+            EventBus.Unsubscribe(this);
+            uInterface.GameMenu.GameOver();
+        }
     }
 
-    public void ChangeHealth(int health)
+    public void PickObstacle()
     {
-        uInterface.uiShowHealth.RefreshHealth(health);
+        _timer++;
+        uInterface.UiShowTime.ColorText(Color.green);
+        uInterface.UiShowTime.Text = _timer;
+    }
+
+    public void PickCoin()
+    {
+        _countCoin++;
+        uInterface.UiShowCoin.ScaleText();
+        uInterface.UiShowCoin.Text = _countCoin;
+    }
+
+    public void PickBlock()
+    {
+        _health--;
+        uInterface.UiShowHealth.RefreshHealth(_health);
     }
 }
