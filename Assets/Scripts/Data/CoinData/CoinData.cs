@@ -9,13 +9,4 @@ public sealed class CoinData : ScriptableObject
 
     [Header("Settings Coin")]
     public float speed = -0.5f;
-    public float rotate = 1.0f;
-
-    internal CoinModel coinModel;
-
-    public void InitializationObstacle()
-    {
-        coinModel = FindObjectOfType<CoinModel>();
-    }
-
 }

@@ -1,18 +1,17 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "BackgroundData", menuName = "Data/Background/BackgroundData")]
-
 public sealed class BackgroundData : ScriptableObject
 {
-    [Header("Background Prefab")] public GameObject prefab;
-
     [Header("Platform Settings")]
     public float speed = -0.25f;
     public float destroyPos = -10.0f;
 
-    internal BackgroundModel backgroundModel;
-    public void InitializationBackground()
+    internal BackgroundBehaviour backgroundBehaviour;
+    public void Initialization()
     {
-        backgroundModel = FindObjectOfType<BackgroundModel>();
+        var background = CustomResources.Load<BackgroundBehaviour>
+            (AssetsPathGameObject.GameObjects[GameObjectType.Background]);
+        backgroundBehaviour = Instantiate(background);
     }
 }

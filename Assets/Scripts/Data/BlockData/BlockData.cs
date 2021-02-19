@@ -9,11 +9,4 @@ public sealed class BlockData : ScriptableObject
 
     [Header("Settings Blocks")]
     public float speed = -0.5f;
-
-    internal BlockModel blockModel;
-
-    public void InitializationBlock()
-    {
-        blockModel = FindObjectOfType<BlockModel>();
-    }
 }

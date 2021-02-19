@@ -9,6 +9,8 @@ public sealed class GameController : MonoBehaviour
     {
         _controllers = new Controllers();
         Cleaner();
+        //todo обдумать
+        Services.Instance.CameraServices.SetCamera(Camera.main);
         Initialization();
     }
 

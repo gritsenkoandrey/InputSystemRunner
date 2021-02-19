@@ -2,14 +2,14 @@
 
 public static class CoinList
 {
-    private readonly static List<CoinModel> _coinsList;
+    private readonly static List<CoinBehaviour> _coinsList;
 
     static CoinList()
     {
-        _coinsList = new List<CoinModel>();
+        _coinsList = new List<CoinBehaviour>();
     }
 
-    public static void AddCoinToList(CoinModel coin)
+    public static void AddCoinToList(CoinBehaviour coin)
     {
         if (!_coinsList.Contains(coin))
         {
@@ -18,7 +18,7 @@ public static class CoinList
         }
     }
 
-    private static void RemoveCoinToList(CoinModel coin)
+    private static void RemoveCoinToList(CoinBehaviour coin)
     {
         if (!_coinsList.Contains(coin))
         {

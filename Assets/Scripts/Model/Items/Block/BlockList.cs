@@ -2,14 +2,14 @@
 
 public static class BlockList
 {
-    private readonly static List<BlockModel> _blockList;
+    private readonly static List<BlockBehaviour> _blockList;
 
     static BlockList()
     {
-        _blockList = new List<BlockModel>();
+        _blockList = new List<BlockBehaviour>();
     }
 
-    public static void AddBlockToList(BlockModel block)
+    public static void AddBlockToList(BlockBehaviour block)
     {
         if (!_blockList.Contains(block))
         {
@@ -18,7 +18,7 @@ public static class BlockList
         }
     }
 
-    private static void RemoveBlockToList(BlockModel block)
+    private static void RemoveBlockToList(BlockBehaviour block)
     {
         if (!_blockList.Contains(block))
         {

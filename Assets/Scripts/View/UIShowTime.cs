@@ -13,7 +13,7 @@ public sealed class UIShowTime : MonoBehaviour
 
     public int Text { set { _text.text = $"{value}"; } }
 
-    private void Start()
+    private void OnEnable()
     {
         _text = GetComponentInChildren<Text>();
         _rectTransform = _text.GetComponent<RectTransform>();
@@ -22,6 +22,7 @@ public sealed class UIShowTime : MonoBehaviour
     private void OnDisable()
     {
         _rectTransform.DOKill();
+        _text.DOKill();
     }
 
     public void SetActive(bool value)
@@ -36,10 +37,10 @@ public sealed class UIShowTime : MonoBehaviour
             .Append(_rectTransform.DOScale(Vector3.one, _duration));
     }
 
-    public void ColorText(Color color)
+    public void ColorText()
     {
         _sequence
-            .Insert(0f, _text.DOColor(color, 0f))
+            .Insert(0f, _text.DOColor(Color.green, 0f))
             .Append(_text.DOColor(_color, _duration));
     }
 }

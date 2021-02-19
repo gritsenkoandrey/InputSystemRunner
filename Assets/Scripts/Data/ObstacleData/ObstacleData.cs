@@ -9,11 +9,4 @@ public sealed class ObstacleData : ScriptableObject
 
     [Header("Settings Obstacles")]
     public float speed = -0.5f;
-
-    internal ObstacleModel obstacleModel;
-
-    public void InitializationObstacle()
-    {
-        obstacleModel = FindObjectOfType<ObstacleModel>();
-    }
 }

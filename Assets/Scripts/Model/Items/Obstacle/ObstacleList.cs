@@ -3,14 +3,14 @@
 
 public static class ObstacleList
 {
-    private readonly static List<ObstacleModel> _obstacleList;
+    private readonly static List<ObstacleBehaviour> _obstacleList;
 
     static ObstacleList()
     {
-        _obstacleList = new List<ObstacleModel>();
+        _obstacleList = new List<ObstacleBehaviour>();
     }
 
-    public static void AddObstacleToList(ObstacleModel obstacle)
+    public static void AddObstacleToList(ObstacleBehaviour obstacle)
     {
         if (!_obstacleList.Contains(obstacle))
         {
@@ -19,7 +19,7 @@ public static class ObstacleList
         }
     }
 
-    private static void RemoveObstacleToList(ObstacleModel obstacle)
+    private static void RemoveObstacleToList(ObstacleBehaviour obstacle)
     {
         if (!_obstacleList.Contains(obstacle))
         {

@@ -12,7 +12,7 @@ public sealed class UIShowCoin : MonoBehaviour
 
     public int Text { set { _text.text = $"{value}"; } }
 
-    private void Start()
+    private void OnEnable()
     {
         _text = GetComponentInChildren<Text>();
         _rectTransform = _text.GetComponent<RectTransform>();

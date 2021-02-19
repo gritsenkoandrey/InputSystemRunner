@@ -40,7 +40,7 @@
             ],
             "bindings": [
                 {
-                    "name": "Axis",
+                    "name": "AD",
                     "id": "e29ae265-b8c3-48ea-b8b6-bc075ea3af88",
                     "path": "1DAxis",
                     "interactions": "Press",
@@ -73,7 +73,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Axis",
+                    "name": "D-Pad",
                     "id": "3b048387-dd5f-4a06-bd36-b7710f8d5d4b",
                     "path": "1DAxis",
                     "interactions": "Press",
@@ -152,7 +152,7 @@
                 {
                     "name": "",
                     "id": "ff980401-73f3-4724-b3dc-31c53d60ec1e",
-                    "path": "<Pointer>/press",
+                    "path": "<Mouse>/press",
                     "interactions": "",
                     "processors": "",
                     "groups": "Touch;Mouse",

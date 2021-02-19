@@ -4,7 +4,7 @@ public sealed class UIShowHealth : MonoBehaviour
 {
     private Transform[] _health;
 
-    private void Start()
+    private void OnEnable()
     {
         _health = new Transform[Data.Instance.Character.health];
 

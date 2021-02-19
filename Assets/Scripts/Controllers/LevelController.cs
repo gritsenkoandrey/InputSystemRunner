@@ -1,24 +1,24 @@
-﻿using UnityEngine;
-
-public sealed class LevelController : BaseController, IInitialization, ICollision
+﻿public sealed class LevelController : BaseController, IInitialization, ICollision
 {
     private int _countCoin = 0;
 
-    private int _timer = 10;
+    private int _timer;
+    private readonly int _maxTimer = 10;
     private int _health;
 
     private readonly TimeRemaining _timeRemainingTimer;
-    private readonly float _time = 1.0f;
+    private readonly float _timeToNextTimer = 1.0f;
 
     public LevelController()
     {
         EventBus.Subscribe(this);
         _health = Data.Instance.Character.health;
-        _timeRemainingTimer = new TimeRemaining(Timer, _time, true);
+        _timeRemainingTimer = new TimeRemaining(Timer, _timeToNextTimer, true);
     }
 
     public void Initialization()
     {
+        _timer = _maxTimer;
         uInterface.UiShowTime.Text = _timer;
         uInterface.UiShowCoin.Text = _countCoin;
 
@@ -30,10 +30,7 @@ public sealed class LevelController : BaseController, IInitialization, ICollisio
         _timer--;
         uInterface.UiShowTime.Text = _timer;
 
-        if (_timer < 6)
-        {
-            uInterface.UiShowTime.ScaleText();
-        }
+        if (_timer <= 5) uInterface.UiShowTime.ScaleText();
 
         if (_timer <= 0 || _health <= 0)
         {
@@ -43,14 +40,15 @@ public sealed class LevelController : BaseController, IInitialization, ICollisio
             _timeRemainingTimer.RemoveTimeRemaining();
             UserData.SaveData(_countCoin);
             EventBus.Unsubscribe(this);
-            uInterface.GameMenu.GameOver();
+            uInterface.GameMenuBehaviour.GameOver();
         }
     }
 
     public void PickObstacle()
     {
         _timer++;
-        uInterface.UiShowTime.ColorText(Color.green);
+        if (_timer > _maxTimer) _timer = _maxTimer;
+        uInterface.UiShowTime.ColorText();
         uInterface.UiShowTime.Text = _timer;
     }
 

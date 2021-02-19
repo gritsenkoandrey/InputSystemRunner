@@ -5,7 +5,7 @@ public sealed class UInterface
     private UIShowTime _uiShowTime;
     private UIShowHealth _uiShowHealth;
     private UIShowCoin _uiShowCoin;
-    private GameMenu _gameMenu;
+    private GameMenuBehaviour _gameMenuBehaviour;
 
     public UIShowTime UiShowTime
     {
@@ -34,12 +34,12 @@ public sealed class UInterface
         }
     }
 
-    public GameMenu GameMenu
+    public GameMenuBehaviour GameMenuBehaviour
     {
         get
         {
-            if (!_gameMenu) _gameMenu = Object.FindObjectOfType<GameMenu>();
-            return _gameMenu;
+            if (!_gameMenuBehaviour) _gameMenuBehaviour = Object.FindObjectOfType<GameMenuBehaviour>();
+            return _gameMenuBehaviour;
         }
     }
 }

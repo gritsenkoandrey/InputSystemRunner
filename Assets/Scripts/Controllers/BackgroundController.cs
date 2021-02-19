@@ -1,28 +1,20 @@
-﻿using UnityEngine;
-
-public sealed class BackgroundController : BaseController, IInitialization, IExecute
+﻿public sealed class BackgroundController : BaseController, IInitialization, IExecute
 {
-    private readonly BackgroundData _backgroundData;
-    private readonly float _speed;
-    private readonly float _destroyPos;
+    private readonly BackgroundInitialize _init;
 
     private readonly TimeRemaining _timeRemainingMove;
     private readonly float _timeToNextMove = 0.02f;
 
     public BackgroundController()
     {
-        _backgroundData = Data.Instance.Background;
-        _speed = _backgroundData.speed;
-        _destroyPos = _backgroundData.destroyPos;
-
-        _backgroundData.InitializationBackground();
-
+        _init = new BackgroundInitialize();
+        _init.data.Initialization();
         _timeRemainingMove = new TimeRemaining(Move, _timeToNextMove, true);
     }
 
     public void Initialization()
     {
-        Switch(_backgroundData.backgroundModel);
+        Switch(_init.data.backgroundBehaviour);
     }
 
     public void Execute()
@@ -32,15 +24,15 @@ public sealed class BackgroundController : BaseController, IInitialization, IExe
             return;
         }
 
-        _backgroundData.backgroundModel.ChangeBackgroundPosition(_destroyPos);
+        _init.data.backgroundBehaviour.ChangeBackgroundPosition(_init.destroyPos);
     }
 
     public override void On(params BaseModel[] models)
     {
         if (IsActive) return;
-        if (models.Length > 0) _backgroundData.backgroundModel = models[0] as BackgroundModel;
-        if (_backgroundData.backgroundModel == null) return;
-        base.On(_backgroundData.backgroundModel);
+        if (models.Length > 0) _init.data.backgroundBehaviour = models[0] as BackgroundBehaviour;
+        if (_init.data.backgroundBehaviour == null) return;
+        base.On(_init.data.backgroundBehaviour);
 
         StartMove();
     }
@@ -55,7 +47,7 @@ public sealed class BackgroundController : BaseController, IInitialization, IExe
 
     private void Move()
     {
-        _backgroundData.backgroundModel.Move(_speed);
+        _init.data.backgroundBehaviour.Move(_init.speed);
     }
 
     private void StartMove()
