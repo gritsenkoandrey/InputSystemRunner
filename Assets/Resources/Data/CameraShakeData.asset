@@ -12,4 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7707a8e0ed40e984ca5830548f863b4e, type: 3}
   m_Name: CameraShakeData
   m_EditorClassIdentifier: 
-  _shakes: []
+  _shakes:
+  - shakeType: 1
+    shakeInfo:
+      duration: 0.25
+      strength: 0.5
+      vibrato: 10
+      randomness: 40
+      defaultCameraPos: {x: -10, y: 10, z: 0}
+  - shakeType: 2
+    shakeInfo:
+      duration: 0.25
+      strength: 0.5
+      vibrato: 25
+      randomness: 40
+      defaultCameraPos: {x: -10, y: 10, z: 0}
+  - shakeType: 3
+    shakeInfo:
+      duration: 0.25
+      strength: 0.75
+      vibrato: 50
+      randomness: 40
+      defaultCameraPos: {x: -10, y: 10, z: 0}

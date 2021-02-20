@@ -1,4 +1,6 @@
-﻿public sealed class ScreenController : BaseController, IInitialization
+﻿using UnityEngine;
+
+public sealed class ScreenController : BaseController, IInitialization
 {
     private readonly CanvasData _data;
 
@@ -10,5 +12,6 @@
 
     public void Initialization()
     {
+        Services.Instance.CameraServices.SetCamera(Camera.main);
     }
 }

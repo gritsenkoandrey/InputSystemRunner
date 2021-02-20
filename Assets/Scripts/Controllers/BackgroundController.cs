@@ -1,20 +1,20 @@
 ﻿public sealed class BackgroundController : BaseController, IInitialization, IExecute
 {
-    private readonly BackgroundInitialize _init;
-
+    private readonly BackgroundData _data;
     private readonly TimeRemaining _timeRemainingMove;
     private readonly float _timeToNextMove = 0.02f;
 
     public BackgroundController()
     {
-        _init = new BackgroundInitialize();
-        _init.data.Initialization();
+        _data = Data.Instance.Background;
+        _data.Initialization();
+
         _timeRemainingMove = new TimeRemaining(Move, _timeToNextMove, true);
     }
 
     public void Initialization()
     {
-        Switch(_init.data.backgroundBehaviour);
+        Switch(_data.backgroundBehaviour);
     }
 
     public void Execute()
@@ -24,15 +24,15 @@
             return;
         }
 
-        _init.data.backgroundBehaviour.ChangeBackgroundPosition(_init.destroyPos);
+        _data.backgroundBehaviour.ChangeBackgroundPosition();
     }
 
     public override void On(params BaseModel[] models)
     {
         if (IsActive) return;
-        if (models.Length > 0) _init.data.backgroundBehaviour = models[0] as BackgroundBehaviour;
-        if (_init.data.backgroundBehaviour == null) return;
-        base.On(_init.data.backgroundBehaviour);
+        if (models.Length > 0) _data.backgroundBehaviour = models[0] as BackgroundBehaviour;
+        if (_data.backgroundBehaviour == null) return;
+        base.On(_data.backgroundBehaviour);
 
         StartMove();
     }
@@ -47,7 +47,7 @@
 
     private void Move()
     {
-        _init.data.backgroundBehaviour.Move(_init.speed);
+        _data.backgroundBehaviour.Move();
     }
 
     private void StartMove()

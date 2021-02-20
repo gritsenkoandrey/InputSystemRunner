@@ -19,4 +19,3 @@ MonoBehaviour:
   prefabs:
   - {fileID: 8279584022363620311, guid: c4848d8641216e54b9890d44ebf3c2c7, type: 3}
   speed: -0.5
-  rotate: 1

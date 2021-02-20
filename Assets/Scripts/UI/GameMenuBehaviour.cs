@@ -22,7 +22,7 @@ public sealed class GameMenuBehaviour : MonoBehaviour
     public void RestartGame()
     {
         Services.Instance.TimeService.SetTimeScale(1.0f);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GameOver()

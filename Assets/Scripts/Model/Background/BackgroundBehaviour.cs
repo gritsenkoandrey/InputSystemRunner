@@ -2,14 +2,21 @@
 
 public sealed class BackgroundBehaviour : BaseModel
 {
-    public void Move(float speed)
+    private BackgroundInitialize _init;
+
+    private void Awake()
     {
-        transform.Translate(new Vector3(speed, 0.0f, 0.0f));
+        _init = new BackgroundInitialize();
     }
 
-    public void ChangeBackgroundPosition(float destroyPos)
+    public void Move()
     {
-        if (transform.position.x < destroyPos)
+        transform.Translate(new Vector3(_init.speed, 0.0f, 0.0f));
+    }
+
+    public void ChangeBackgroundPosition()
+    {
+        if (transform.position.x < _init.destroyPos)
         {
             transform.position = Vector3.zero;
         }

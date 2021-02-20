@@ -2,20 +2,22 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 {
+    private static T _instance;
+
 	public static T Instance
 	{
 		get
 		{
-			if (instance == null)
+			if (_instance == null)
 			{
 				T[] managers = Object.FindObjectsOfType(typeof(T)) as T[];
 				if (managers.Length != 0)
 				{
 					if (managers.Length == 1)
 					{
-						instance = managers[0];
-						instance.gameObject.name = typeof(T).Name;
-						return instance;
+						_instance = managers[0];
+						_instance.gameObject.name = typeof(T).Name;
+						return _instance;
 					}
 					else
 					{
@@ -27,15 +29,14 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 					}
 				}
                 var go = new GameObject(typeof(T).Name, typeof(T));
-                instance = go.GetComponent<T>();
+                _instance = go.GetComponent<T>();
                 //DontDestroyOnLoad(go);
             }
-			return instance;
+			return _instance;
 		}
 		set
 		{
-			instance = value as T;
+			_instance = value as T;
 		}
 	}
-	private static T instance;
 }

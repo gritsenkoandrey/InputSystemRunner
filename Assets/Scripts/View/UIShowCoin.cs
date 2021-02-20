@@ -6,7 +6,7 @@ public sealed class UIShowCoin : MonoBehaviour
 {
     private Text _text;
     private RectTransform _rectTransform;
-    private readonly Sequence _sequence = null;
+    private Sequence _sequence;
     private readonly float _scale = 2.0f;
     private readonly float _duration = 1.0f;
 
@@ -16,6 +16,7 @@ public sealed class UIShowCoin : MonoBehaviour
     {
         _text = GetComponentInChildren<Text>();
         _rectTransform = _text.GetComponent<RectTransform>();
+        _sequence = DOTween.Sequence();
     }
 
     private void OnDisable()

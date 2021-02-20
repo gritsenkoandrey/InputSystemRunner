@@ -10,7 +10,7 @@ public sealed class CharacterBehaviour : BaseModel
     private Vector3 _tempPos;
     private Rigidbody _body;
     private Animator _animator;
-    private readonly Sequence _sequence = null;
+    private Sequence _sequence;
     private SkinnedMeshRenderer _mesh;
 
     private void Awake()
@@ -21,6 +21,7 @@ public sealed class CharacterBehaviour : BaseModel
         _body = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _mesh = GetComponentInChildren<SkinnedMeshRenderer>();
+        _sequence = DOTween.Sequence();
     }
 
     private void OnEnable()

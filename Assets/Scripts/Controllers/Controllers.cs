@@ -12,8 +12,8 @@
     {
         _initializations = new IInitialization[3];
         _initializations[0] = new CharacterController();
-        _initializations[1] = new LevelController();
-        _initializations[2] = new ScreenController();
+        _initializations[1] = new ScreenController();
+        _initializations[2] = new LevelController();
 
         _executeControllers = new IExecute[3];
         _executeControllers[0] = new TimeRemainingController();

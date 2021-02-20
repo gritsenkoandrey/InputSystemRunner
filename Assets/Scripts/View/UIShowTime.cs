@@ -7,7 +7,7 @@ public sealed class UIShowTime : MonoBehaviour
     private Text _text;
     private RectTransform _rectTransform;
     private Color _color;
-    private readonly Sequence _sequence = null;
+    private Sequence _sequence;
     private readonly float _scale = 2.0f;
     private readonly float _duration = 1.0f;
 
@@ -18,7 +18,9 @@ public sealed class UIShowTime : MonoBehaviour
         _text = GetComponentInChildren<Text>();
         _rectTransform = _text.GetComponent<RectTransform>();
         _color = _text.color;
+        _sequence = DOTween.Sequence();
     }
+
     private void OnDisable()
     {
         _rectTransform.DOKill();

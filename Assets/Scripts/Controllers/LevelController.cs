@@ -1,4 +1,6 @@
-﻿public sealed class LevelController : BaseController, IInitialization, ICollision
+﻿using UnityEngine;
+
+public sealed class LevelController : BaseController, IInitialization, ICollision
 {
     private int _countCoin = 0;
 
@@ -18,11 +20,7 @@
 
     public void Initialization()
     {
-        _timer = _maxTimer;
-        uInterface.UiShowTime.Text = _timer;
-        uInterface.UiShowCoin.Text = _countCoin;
-
-        _timeRemainingTimer.AddTimeRemaining();
+        StartGame();
     }
 
     private void Timer()
@@ -31,17 +29,26 @@
         uInterface.UiShowTime.Text = _timer;
 
         if (_timer <= 5) uInterface.UiShowTime.ScaleText();
+        if (_timer <= 0 || _health <= 0) GameOver();
+    }
 
-        if (_timer <= 0 || _health <= 0)
-        {
-            uInterface.UiShowTime.SetActive(false);
-            uInterface.UiShowCoin.SetActive(false);
-            uInterface.UiShowHealth.SetActive(false);
-            _timeRemainingTimer.RemoveTimeRemaining();
-            UserData.SaveData(_countCoin);
-            EventBus.Unsubscribe(this);
-            uInterface.GameMenuBehaviour.GameOver();
-        }
+    private void StartGame()
+    {
+        _timer = _maxTimer;
+        uInterface.UiShowTime.Text = _timer;
+        uInterface.UiShowCoin.Text = _countCoin;
+        _timeRemainingTimer.AddTimeRemaining();
+    }
+
+    private void GameOver()
+    {
+        uInterface.UiShowTime.SetActive(false);
+        uInterface.UiShowCoin.SetActive(false);
+        uInterface.UiShowHealth.SetActive(false);
+        uInterface.GameMenuBehaviour.GameOver();
+        _timeRemainingTimer.RemoveTimeRemaining();
+        UserData.SaveData(_countCoin);
+        EventBus.Unsubscribe(this);
     }
 
     public void PickObstacle()
