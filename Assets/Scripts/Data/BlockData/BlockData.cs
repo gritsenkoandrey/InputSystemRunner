@@ -4,9 +4,6 @@
 public sealed class BlockData : ScriptableObject
 {
     [Header("Spawn Position")] public Vector3 spawnPoint;
-
     [Header("Prefabs Blocks")] public GameObject[] prefabs;
-
-    [Header("Settings Blocks")]
-    public float speed = -0.5f;
+    [Header("Settings Blocks")] public float speed = -0.5f;
 }

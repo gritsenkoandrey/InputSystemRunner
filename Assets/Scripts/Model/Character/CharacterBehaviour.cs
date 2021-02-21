@@ -4,40 +4,22 @@ using UnityEngine;
 [RequireComponent (typeof(BoxCollider), typeof(Rigidbody), typeof(Animator))]
 public sealed class CharacterBehaviour : BaseModel
 {
-    public InputMaster input;
-
     private CharacterInitialize _init;
+
     private Vector3 _tempPos;
     private Rigidbody _body;
     private Animator _animator;
-    private Sequence _sequence;
     private SkinnedMeshRenderer _mesh;
+    private Sequence _sequence;
 
     private void Awake()
     {
-        input = new InputMaster();
-
         _init = new CharacterInitialize();
+
         _body = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _mesh = GetComponentInChildren<SkinnedMeshRenderer>();
         _sequence = DOTween.Sequence();
-    }
-
-    private void OnEnable()
-    {
-        input.Enable();
-    }
-
-    private void OnDisable()
-    {
-        input.Disable();
-        _mesh.DOKill();
-    }
-
-    private void OnDestroy()
-    {
-        input.Disable();
     }
 
     private void OnTriggerEnter(Collider target)
@@ -49,8 +31,7 @@ public sealed class CharacterBehaviour : BaseModel
         }
         else if (target.TryGetComponent(out block))
         {
-            GetDamage();
-            Services.Instance.CameraServices.CreateShake(ShakeType.Low);
+            Damage();
             EventBus.RaiseEvent<ICollision>(h => h.PickBlock());
         }
         else if (target.TryGetComponent(out coin))
@@ -60,11 +41,18 @@ public sealed class CharacterBehaviour : BaseModel
         }
     }
 
-    private void GetDamage()
+    private void Damage()
     {
+        Services.Instance.CameraServices.CreateShake(ShakeType.Low);
+
         _sequence
             .Insert(0f, _mesh.material.DOFade(0f, 0f))
             .Append(_mesh.material.DOFade(1.0f, 1.0f));
+    }
+
+    private bool CheckGround()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, _init.rayDis, LayerHelper.GroundLayer);
     }
 
     public void Jump()
@@ -76,7 +64,7 @@ public sealed class CharacterBehaviour : BaseModel
         }
     }
 
-    public void Move(float value)
+    public void Move(float input)
     {
         if (CheckGround())
         {
@@ -84,17 +72,12 @@ public sealed class CharacterBehaviour : BaseModel
 
             if (Mathf.Approximately(_tempPos.z, _init.middlePos))
             {
-                _body.MovePosition(Vector3.forward * value * _init.speed);
+                _body.MovePosition(Vector3.forward * input * _init.speed);
             }
-            else if (Mathf.Approximately(_tempPos.z, _init.minPos) && value > 0 || Mathf.Approximately(_tempPos.z, _init.maxPos) && value < 0)
+            else if (Mathf.Approximately(_tempPos.z, _init.minPos) && input > 0 || Mathf.Approximately(_tempPos.z, _init.maxPos) && input < 0)
             {
                 _body.MovePosition(Vector3.zero);
             }
         }
-    }
-
-    private bool CheckGround()
-    {
-        return Physics.Raycast(transform.position, Vector3.down, _init.rayDis, LayerHelper.GroundLayer);
     }
 }

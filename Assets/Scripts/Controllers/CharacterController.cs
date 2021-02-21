@@ -1,10 +1,11 @@
 ﻿public sealed class CharacterController : BaseController, IInitialization
 {
     private readonly CharacterData _data;
-    private bool _isPaused = false;
+    private readonly InputManager _input;
 
     public CharacterController()
     {
+        _input = InputManager.Instance;
         _data = Data.Instance.Character;
         _data.Initialization();
     }
@@ -21,29 +22,16 @@
         if (_data.characterBehaviour == null) return;
         base.On(_data.characterBehaviour);
 
-        _data.characterBehaviour.input.Player.Move.performed +=
-            context => _data.characterBehaviour.Move(context.ReadValue<float>());
-        _data.characterBehaviour.input.Player.Jump.performed += context => _data.characterBehaviour.Jump();
-        _data.characterBehaviour.input.Player.Pause.performed += context => Pause();
+        _input.OnStartMove += _data.characterBehaviour.Move;
+        _input.OnStartJump += _data.characterBehaviour.Jump;
     }
 
     public override void Off()
     {
         if (!IsActive) return;
         base.Off();
-    }
 
-    private void Pause()
-    {
-        if (!_isPaused)
-        {
-            Services.Instance.TimeService.SetTimeScale(1.0f);
-            _isPaused = true;
-        }
-        else
-        {
-            Services.Instance.TimeService.SetTimeScale(0f);
-            _isPaused = false;
-        }
+        _input.OnStartMove -= _data.characterBehaviour.Move;
+        _input.OnStartJump -= _data.characterBehaviour.Jump;
     }
 }

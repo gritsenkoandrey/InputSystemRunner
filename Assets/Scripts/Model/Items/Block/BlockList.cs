@@ -30,14 +30,14 @@ public static class BlockList
 
     public static void Execute(float speed)
     {
-        for (int i = 0; i < _blockList.Count; i++)
+        for (var i = 0; i < _blockList.Count; i++)
         {
             _blockList[i].Move(speed);
         }
     }
+
     public static void ClearList()
     {
         _blockList.Clear();
     }
-
 }

@@ -14,7 +14,7 @@ public sealed class BackgroundBehaviour : BaseModel
         transform.Translate(new Vector3(_init.speed, 0.0f, 0.0f));
     }
 
-    public void ChangeBackgroundPosition()
+    public void Loop()
     {
         if (transform.position.x < _init.destroyPos)
         {

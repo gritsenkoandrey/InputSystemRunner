@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 public sealed class GameController : MonoBehaviour
 {
     private Controllers _controllers;
@@ -8,15 +7,24 @@ public sealed class GameController : MonoBehaviour
     private void Start()
     {
         _controllers = new Controllers();
+
         Cleaner();
         Initialization();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        for (var i = 0; i < _controllers.Length; i++)
+        for (var i = 0; i < _controllers.ExecuteLength; i++)
         {
             _controllers[i].Execute();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        for (var i = 0; i < _controllers.FixedLength; i++)
+        {
+            _controllers[(byte)i].FixedExecute();
         }
     }
 

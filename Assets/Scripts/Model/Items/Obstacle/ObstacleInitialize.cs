@@ -5,25 +5,26 @@ public sealed class ObstacleInitialize
 {
     private readonly ObstacleData _data;
 
-    public readonly float speedObstacle;
-    public readonly List<Vector3> spawnPointsObstacles;
-    public readonly List<GameObject> prefabsObstacles;
+    public readonly float speed;
+    public readonly List<Vector3> spawnPoints;
+    public readonly List<GameObject> prefabs;
 
     public ObstacleInitialize()
     {
         _data = Data.Instance.Obstacle;
-        speedObstacle = _data.speed;
-        spawnPointsObstacles = new List<Vector3>();
-        prefabsObstacles = new List<GameObject>();
+
+        speed = _data.speed;
+        spawnPoints = new List<Vector3>();
+        prefabs = new List<GameObject>();
 
         for (var i = 0; i < _data.spawnPoints.Length; i++)
         {
-            spawnPointsObstacles.Add(_data.spawnPoints[i]);
+            spawnPoints.Add(_data.spawnPoints[i]);
         }
 
         for (var i = 0; i < _data.prefabs.Length; i++)
         {
-            prefabsObstacles.Add(_data.prefabs[i]);
+            prefabs.Add(_data.prefabs[i]);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public sealed class LevelController : BaseController, IInitialization, ICollision
+﻿public sealed class LevelController : BaseController, IInitialization, ICollision
 {
     private int _countCoin = 0;
 
@@ -9,13 +7,13 @@ public sealed class LevelController : BaseController, IInitialization, ICollisio
     private int _health;
 
     private readonly TimeRemaining _timeRemainingTimer;
-    private readonly float _timeToNextTimer = 1.0f;
+    private readonly float _secondTimer = 1.0f;
 
     public LevelController()
     {
         EventBus.Subscribe(this);
         _health = Data.Instance.Character.health;
-        _timeRemainingTimer = new TimeRemaining(Timer, _timeToNextTimer, true);
+        _timeRemainingTimer = new TimeRemaining(Timer, _secondTimer, true);
     }
 
     public void Initialization()

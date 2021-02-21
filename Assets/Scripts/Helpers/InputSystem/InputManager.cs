@@ -1,39 +1,62 @@
-﻿using UnityEngine;
-using UnityEngine.InputSystem;
+﻿using UnityEngine.InputSystem;
 
-[DefaultExecutionOrder(-1)]
-public class InputManager : /*InputSingleton<InputManager>*/ MonoBehaviour
+public sealed class InputManager : Singleton<InputManager>
 {
-    private InputMaster _inputMaster;
+    #region InputMaster
+
+    private InputMaster _input;
+
+    #endregion
+
+    #region Delegate
+
+    public delegate void StartMoveEvent(float input);
+    public event StartMoveEvent OnStartMove;
+
+    public delegate void StartJumpEvent();
+    public event StartJumpEvent OnStartJump;
+
+    #endregion
+
+    #region UnityMethods
 
     private void Awake()
     {
-        _inputMaster = new InputMaster();
+        _input = new InputMaster();
     }
 
     private void OnEnable()
     {
-        _inputMaster.Enable();
+        _input.Enable();
     }
 
     private void OnDisable()
     {
-        _inputMaster.Disable();
+        _input.Disable();
     }
 
     private void Start()
     {
-        _inputMaster.Player.TouchPress.started += context => StartTouch(context);
-        _inputMaster.Player.TouchPress.started += context => EndTouch(context);
+        _input.Player.Move.performed += StartMove;
+        _input.Player.Jump.performed += StartJump;
 
+        //_input.Player.Move.performed += context => OnStartMove?.Invoke(context.ReadValue<float>());
+        //_input.Player.Jump.performed += context => OnStartJump?.Invoke();
     }
 
-    private void StartTouch(InputAction.CallbackContext context)
+    #endregion
+
+    #region Methods
+
+    private void StartMove(InputAction.CallbackContext context)
     {
-        Debug.Log("Touch started " + _inputMaster.Player.TouchPosition.ReadValue<Vector2>());
+        OnStartMove?.Invoke(context.ReadValue<float>());
     }
-    private void EndTouch(InputAction.CallbackContext context)
+
+    private void StartJump(InputAction.CallbackContext context)
     {
-        Debug.Log("Touch ended");
+        OnStartJump?.Invoke();
     }
+
+    #endregion
 }

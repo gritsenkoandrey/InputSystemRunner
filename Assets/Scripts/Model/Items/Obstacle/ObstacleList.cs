@@ -31,7 +31,7 @@ public static class ObstacleList
 
     public static void Execute(float speed)
     {
-        for (int i = 0; i < _obstacleList.Count; i++)
+        for (var i = 0; i < _obstacleList.Count; i++)
         {
             _obstacleList[i].Move(speed);
         }

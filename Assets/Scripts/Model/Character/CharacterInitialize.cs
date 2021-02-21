@@ -13,6 +13,7 @@
     public CharacterInitialize()
     {
         _data = Data.Instance.Character;
+
         health = _data.health;
         maxPos = _data.maxPos;
         minPos = _data.minPos;

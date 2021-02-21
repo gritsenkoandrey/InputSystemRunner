@@ -192,7 +192,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0b2723bb-b0a2-4060-89ec-838357e8f024"",
-                    ""path"": ""<Touchscreen>/primaryTouch/indirectTouch"",
+                    ""path"": ""<Touchscreen>/primaryTouch/press"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Touch"",
@@ -259,6 +259,11 @@ public class @InputMaster : IInputActionCollection, IDisposable
             ""devices"": [
                 {
                     ""devicePath"": ""<Touchscreen>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Pen>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
