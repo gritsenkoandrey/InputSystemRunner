@@ -16,7 +16,7 @@ public static class UserData
         Debug.Log($"Save Data: maximum coin is {_maxCoin}");
     }
 
-    private static int LoadMaxCoin()
+    public static int LoadMaxCoin()
     {
         return Services.Instance.SaveData.GetInt(_coin);
     }

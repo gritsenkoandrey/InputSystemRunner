@@ -15,8 +15,8 @@
     {
         _initializations = new IInitialization[3];
         _initializations[0] = new CharacterController();
-        _initializations[1] = new ScreenController();
-        _initializations[2] = new LevelController();
+        _initializations[1] = new LevelController();
+        _initializations[2] = new CameraController();
 
         _executeControllers = new IExecute[1];
         _executeControllers[0] = new TimeRemainingController();
@@ -25,9 +25,10 @@
         _fixExecuteController[0] = new SpawnController();
         _fixExecuteController[1] = new BackgroundController();
 
-        _cleanUps = new ICleanUp[2];
+        _cleanUps = new ICleanUp[3];
         _cleanUps[0] = new TimeRemainingCleanUp();
         _cleanUps[1] = new SpawnController();
+        _cleanUps[2] = new ScreenController();
     }
 
     public void Initialization()

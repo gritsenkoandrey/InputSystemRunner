@@ -37,6 +37,5 @@
     private void MovementBackground()
     {
         _data.backgroundBehaviour.Move();
-        _data.backgroundBehaviour.Loop();
     }
 }

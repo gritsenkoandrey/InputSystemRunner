@@ -1,17 +1,7 @@
-﻿using UnityEngine;
-
-public sealed class ScreenController : BaseController, IInitialization
+﻿public sealed class ScreenController : BaseController, ICleanUp
 {
-    private readonly CanvasData _data;
-
-    public ScreenController()
+    public void Cleaner()
     {
-        _data = Data.Instance.Canvas;
-        _data.Initialization();
-    }
-
-    public void Initialization()
-    {
-        Services.Instance.CameraServices.SetCamera(Camera.main);
+        ScreenInterface.CleanScreenInterface();
     }
 }

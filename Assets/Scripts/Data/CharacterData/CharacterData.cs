@@ -13,6 +13,7 @@ public sealed class CharacterData : ScriptableObject
     public float jump = 5.0f;
     public float rayDis = 0.5f;
     public int health = 5;
+    public int power = 10;
 
     internal CharacterBehaviour characterBehaviour;
     public void Initialization()

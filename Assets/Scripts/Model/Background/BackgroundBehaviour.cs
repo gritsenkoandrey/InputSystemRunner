@@ -12,10 +12,7 @@ public sealed class BackgroundBehaviour : BaseModel
     public void Move()
     {
         transform.Translate(new Vector3(_init.speed, 0.0f, 0.0f));
-    }
 
-    public void Loop()
-    {
         if (transform.position.x < _init.destroyPos)
         {
             transform.position = Vector3.zero;

@@ -16,6 +16,9 @@ public sealed class InputManager : Singleton<InputManager>
     public delegate void StartJumpEvent();
     public event StartJumpEvent OnStartJump;
 
+    public delegate void StartPauseEvent();
+    public event StartPauseEvent OnStartPause;
+
     #endregion
 
     #region UnityMethods
@@ -39,6 +42,7 @@ public sealed class InputManager : Singleton<InputManager>
     {
         _input.Player.Move.performed += StartMove;
         _input.Player.Jump.performed += StartJump;
+        _input.Player.Pause.performed += context => OnStartPause?.Invoke();
 
         //_input.Player.Move.performed += context => OnStartMove?.Invoke(context.ReadValue<float>());
         //_input.Player.Jump.performed += context => OnStartJump?.Invoke();

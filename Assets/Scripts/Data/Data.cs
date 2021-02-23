@@ -11,7 +11,6 @@ public sealed class Data : ScriptableObject
     [SerializeField] private string _obstacleDataPath = null;
     [SerializeField] private string _blockDataPath = null;
     [SerializeField] private string _coinDataPath = null;
-    [SerializeField] private string _canvasDataPath = null;
     [SerializeField] private string _cameraShakeDataPath = null;
 
     private static BackgroundData _backgroundData;
@@ -19,7 +18,6 @@ public sealed class Data : ScriptableObject
     private static ObstacleData _obstacleData;
     private static BlockData _blockData;
     private static CoinData _coinData;
-    private static CanvasData _canvasData;
     private static CameraShakeData _cameraShakeData;
 
     private static readonly Lazy<Data> _instance = new Lazy<Data>(() => Load<Data>("Data/" + typeof(Data).Name));
@@ -88,19 +86,6 @@ public sealed class Data : ScriptableObject
             }
 
             return _coinData;
-        }
-    }
-
-    public CanvasData Canvas
-    {
-        get
-        {
-            if (_canvasData == null)
-            {
-                _canvasData = Load<CanvasData>("Data/" + Instance._canvasDataPath);
-            }
-
-            return _canvasData;
         }
     }
 

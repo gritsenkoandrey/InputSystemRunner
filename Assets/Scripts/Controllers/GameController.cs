@@ -10,6 +10,7 @@ public sealed class GameController : MonoBehaviour
 
         Cleaner();
         Initialization();
+        ScreenInterface.GetScreenInterface().Execute(ScreenType.MainMenu);
     }
 
     private void Update()

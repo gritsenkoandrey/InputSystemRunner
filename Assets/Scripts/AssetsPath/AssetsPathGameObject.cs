@@ -11,7 +11,7 @@ public sealed class AssetsPathGameObject
             GameObjectType.Background, "Prefabs/Backgrounds/Background"
         },
         {
-            GameObjectType.Canvas, "Prefabs/Canvas/UI"
+            GameObjectType.Canvas, "Prefabs/Canvas/Canvas"
         }
     };
 }

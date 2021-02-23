@@ -157,7 +157,7 @@
                 {
                     "name": "",
                     "id": "1d5cf93b-418a-4c99-951d-a60a24744167",
-                    "path": "<Keyboard>/p",
+                    "path": "<Keyboard>/enter",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard",

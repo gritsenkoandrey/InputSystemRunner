@@ -13,6 +13,7 @@ public sealed class SpawnController : BaseController, IInitialization, IFixExecu
     private int _random;
 
     private readonly int _count = 5;
+
     public SpawnController()
     {
         _block = new BlockInitialize();
@@ -25,7 +26,7 @@ public sealed class SpawnController : BaseController, IInitialization, IFixExecu
 
     public void Initialization()
     {
-        CreatePool(_count);
+        CreatePool();
         StartSpawn();
     }
 
@@ -36,21 +37,21 @@ public sealed class SpawnController : BaseController, IInitialization, IFixExecu
         CoinList.Execute(_coin.speed);
     }
 
-    private void CreatePool(int count)
+    private void CreatePool()
     {
         for (var i = 0; i < _obstacle.prefabs.Count; i++)
         {
-            PoolManager.WarmPool(_obstacle.prefabs[i], count);
+            PoolManager.WarmPool(_obstacle.prefabs[i], _count);
         }
 
         for (var i = 0; i < _block.prefabs.Count; i++)
         {
-            PoolManager.WarmPool(_block.prefabs[i], count);
+            PoolManager.WarmPool(_block.prefabs[i], _count);
         }
 
         for (var i = 0; i < _coin.prefabs.Count; i++)
         {
-            PoolManager.WarmPool(_coin.prefabs[i], count);
+            PoolManager.WarmPool(_coin.prefabs[i], _count);
         }
     }
 

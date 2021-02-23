@@ -3,6 +3,7 @@
     private readonly CharacterData _data;
 
     public readonly int health;
+    public readonly int power;
     public readonly float maxPos;
     public readonly float minPos;
     public readonly float middlePos;
@@ -15,6 +16,7 @@
         _data = Data.Instance.Character;
 
         health = _data.health;
+        power = _data.power;
         maxPos = _data.maxPos;
         minPos = _data.minPos;
         middlePos = _data.middlePos;

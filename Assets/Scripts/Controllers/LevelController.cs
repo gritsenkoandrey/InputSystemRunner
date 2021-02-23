@@ -1,49 +1,47 @@
-﻿public sealed class LevelController : BaseController, IInitialization, ICollision
+﻿public sealed class LevelController : BaseController, IInitialization, ICollision, IStartGame
 {
     private int _countCoin = 0;
 
-    private int _timer;
-    private readonly int _maxTimer = 10;
+    private int _power;
     private int _health;
+    private readonly int _maxPower;
 
     private readonly TimeRemaining _timeRemainingTimer;
-    private readonly float _secondTimer = 1.0f;
+    private readonly float _secondTimer = 1.25f;
 
     public LevelController()
     {
-        EventBus.Subscribe(this);
         _health = Data.Instance.Character.health;
+        _maxPower = Data.Instance.Character.power;
         _timeRemainingTimer = new TimeRemaining(Timer, _secondTimer, true);
     }
 
     public void Initialization()
     {
-        StartGame();
+        EventBus.Subscribe(this);
     }
 
     private void Timer()
     {
-        _timer--;
-        uInterface.UiShowTime.Text = _timer;
-
-        if (_timer <= 5) uInterface.UiShowTime.ScaleText();
-        if (_timer <= 0 || _health <= 0) GameOver();
+        _power--;
+        uInterface.UiShowPower.RefreshPower(_power);
+        if (_power <= 0 || _health <= 0) GameOver();
     }
 
-    private void StartGame()
+    public void StartGame()
     {
-        _timer = _maxTimer;
-        uInterface.UiShowTime.Text = _timer;
+        _power = _maxPower;
+        uInterface.UiShowPower.RefreshPower(_power);
         uInterface.UiShowCoin.Text = _countCoin;
         _timeRemainingTimer.AddTimeRemaining();
     }
 
     private void GameOver()
     {
-        uInterface.UiShowTime.SetActive(false);
+        uInterface.UiShowPower.SetActive(false);
         uInterface.UiShowCoin.SetActive(false);
         uInterface.UiShowHealth.SetActive(false);
-        uInterface.GameMenuBehaviour.GameOver();
+        uInterface.GameMenuBehaviour.ShowGameOver();
         _timeRemainingTimer.RemoveTimeRemaining();
         UserData.SaveData(_countCoin);
         EventBus.Unsubscribe(this);
@@ -51,10 +49,9 @@
 
     public void PickObstacle()
     {
-        _timer++;
-        if (_timer > _maxTimer) _timer = _maxTimer;
-        uInterface.UiShowTime.ColorText();
-        uInterface.UiShowTime.Text = _timer;
+        _power++;
+        if (_power > _maxPower) _power = _maxPower;
+        uInterface.UiShowPower.RefreshPower(_power);
     }
 
     public void PickCoin()

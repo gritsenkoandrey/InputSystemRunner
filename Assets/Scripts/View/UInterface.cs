@@ -4,8 +4,11 @@ public sealed class UInterface
 {
     private UIShowTime _uiShowTime;
     private UIShowHealth _uiShowHealth;
+    private UIShowPower _uiShowPower;
     private UIShowCoin _uiShowCoin;
+
     private GameMenuBehaviour _gameMenuBehaviour;
+    private MainMenuBehaviour _mainMenuBehaviour;
 
     public UIShowTime UiShowTime
     {
@@ -25,6 +28,15 @@ public sealed class UInterface
         }
     }
 
+    public UIShowPower UiShowPower
+    {
+        get
+        {
+            if (!_uiShowPower) _uiShowPower = Object.FindObjectOfType<UIShowPower>();
+            return _uiShowPower;
+        }
+    }
+
     public UIShowCoin UiShowCoin
     {
         get
@@ -40,6 +52,15 @@ public sealed class UInterface
         {
             if (!_gameMenuBehaviour) _gameMenuBehaviour = Object.FindObjectOfType<GameMenuBehaviour>();
             return _gameMenuBehaviour;
+        }
+    }
+
+    public MainMenuBehaviour MainMenuBehaviour
+    {
+        get
+        {
+            if (!_mainMenuBehaviour) _mainMenuBehaviour = Object.FindObjectOfType<MainMenuBehaviour>();
+            return _mainMenuBehaviour;
         }
     }
 }

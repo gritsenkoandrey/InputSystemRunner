@@ -24,6 +24,7 @@
 
         _input.OnStartMove += _data.characterBehaviour.Move;
         _input.OnStartJump += _data.characterBehaviour.Jump;
+        _input.OnStartPause += PauseButton;
     }
 
     public override void Off()
@@ -33,5 +34,12 @@
 
         _input.OnStartMove -= _data.characterBehaviour.Move;
         _input.OnStartJump -= _data.characterBehaviour.Jump;
+        _input.OnStartPause -= PauseButton;
+    }
+
+    private void PauseButton()
+    {
+        if (uInterface.GameMenuBehaviour) uInterface.GameMenuBehaviour.PauseButton();
+        if (uInterface.MainMenuBehaviour) uInterface.MainMenuBehaviour.PauseButton();
     }
 }
