@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public sealed class GameMenuBehaviour : BaseMenu
+public sealed class GameMenuBehaviour : BaseUI
 {
     [SerializeField] private Button _restartButton = null;
 
@@ -34,7 +34,7 @@ public sealed class GameMenuBehaviour : BaseMenu
 
     private void StartGame()
     {
-        isShowedMenu = false;
+        isShowedUI = false;
 
         _isPaused = false;
         _pauseMenuUI.SetActive(false);
@@ -50,7 +50,7 @@ public sealed class GameMenuBehaviour : BaseMenu
 
     public void PauseButton()
     {
-        if (!isShowedMenu)
+        if (!isShowedUI)
         {
             if (_isPaused)
             {
@@ -73,7 +73,7 @@ public sealed class GameMenuBehaviour : BaseMenu
 
     public void ShowGameOver()
     {
-        isShowedMenu = true;
+        isShowedUI = true;
 
         _gameOverUI.SetActive(true);
         Services.Instance.TimeService.SetTimeScale(0f);

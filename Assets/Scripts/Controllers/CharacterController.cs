@@ -22,8 +22,8 @@
         if (_data.characterBehaviour == null) return;
         base.On(_data.characterBehaviour);
 
-        _input.OnStartMove += _data.characterBehaviour.Move;
-        _input.OnStartJump += _data.characterBehaviour.Jump;
+        _input.OnStartMove += MoveButton;
+        _input.OnStartJump += JumpButton;
         _input.OnStartPause += PauseButton;
     }
 
@@ -32,14 +32,24 @@
         if (!IsActive) return;
         base.Off();
 
-        _input.OnStartMove -= _data.characterBehaviour.Move;
-        _input.OnStartJump -= _data.characterBehaviour.Jump;
+        _input.OnStartMove -= MoveButton;
+        _input.OnStartJump -= JumpButton;
         _input.OnStartPause -= PauseButton;
+    }
+
+    private void MoveButton(float input)
+    {
+        _data.characterBehaviour.Move(input);
+    }
+
+    private void JumpButton()
+    {
+        _data.characterBehaviour.Jump();
     }
 
     private void PauseButton()
     {
         if (uInterface.GameMenuBehaviour) uInterface.GameMenuBehaviour.PauseButton();
-        if (uInterface.MainMenuBehaviour) uInterface.MainMenuBehaviour.PauseButton();
+        else if (uInterface.MainMenuBehaviour) uInterface.MainMenuBehaviour.PauseButton();
     }
 }

@@ -21,6 +21,10 @@ public abstract class BaseItem : BaseModel
         _timeRemainingDestroyAfterTime.RemoveTimeRemaining();
     }
 
-    public abstract void Move(float speed);
+    public virtual void Move(float speed)
+    {
+        transform.Translate(new Vector3(speed, 0f, 0f));
+    }
+
     public abstract void Destroy();
 }

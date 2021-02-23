@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public sealed class MainMenuBehaviour : BaseMenu
+public sealed class MainMenuBehaviour : BaseUI
 {
     private GameObject _haveCoins;
     [SerializeField] private Button _startButton = null;
@@ -28,7 +28,7 @@ public sealed class MainMenuBehaviour : BaseMenu
 
     private void StartGame()
     {
-        isShowedMenu = true;
+        isShowedUI = true;
 
         _haveCoins.GetComponent<Text>().text = $"You have: {UserData.LoadMaxCoin()} coins";
         Services.Instance.TimeService.SetTimeScale(0f);
@@ -36,8 +36,6 @@ public sealed class MainMenuBehaviour : BaseMenu
 
     private void StartButton()
     {
-        Hide();
-
         ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
         EventBus.RaiseEvent<IStartGame>(h => h.StartGame());
     }

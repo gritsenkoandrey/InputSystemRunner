@@ -1,13 +1,14 @@
 ﻿public sealed class LevelController : BaseController, IInitialization, ICollision, IStartGame
 {
     private int _countCoin = 0;
+    private int _time = 0;
 
     private int _power;
     private int _health;
     private readonly int _maxPower;
 
     private readonly TimeRemaining _timeRemainingTimer;
-    private readonly float _secondTimer = 1.25f;
+    private readonly float _secondTimer = 1.0f;
 
     public LevelController()
     {
@@ -24,7 +25,9 @@
     private void Timer()
     {
         _power--;
+        _time++;
         uInterface.UiShowPower.RefreshPower(_power);
+        uInterface.UiShowTime.Text = _time;
         if (_power <= 0 || _health <= 0) GameOver();
     }
 
@@ -33,6 +36,7 @@
         _power = _maxPower;
         uInterface.UiShowPower.RefreshPower(_power);
         uInterface.UiShowCoin.Text = _countCoin;
+        uInterface.UiShowTime.Text = _time;
         _timeRemainingTimer.AddTimeRemaining();
     }
 
@@ -41,6 +45,7 @@
         uInterface.UiShowPower.SetActive(false);
         uInterface.UiShowCoin.SetActive(false);
         uInterface.UiShowHealth.SetActive(false);
+        uInterface.UiShowTime.SetActive(false);
         uInterface.GameMenuBehaviour.ShowGameOver();
         _timeRemainingTimer.RemoveTimeRemaining();
         UserData.SaveData(_countCoin);

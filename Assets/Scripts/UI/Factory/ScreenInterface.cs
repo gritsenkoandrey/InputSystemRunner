@@ -1,6 +1,6 @@
 ﻿public sealed class ScreenInterface
 {
-    private BaseMenu _currentWindow;
+    private BaseUI _currentWindow;
     private readonly ScreenFactory _screenFactory;
     private static ScreenInterface _instance;
 
@@ -17,17 +17,19 @@
 
     public void Execute(ScreenType screenType)
     {
+        _currentWindow?.Hide();
+
         switch (screenType)
         {
             case ScreenType.GameMenu:
                 _currentWindow = _screenFactory.GetGameMenu();
-                _currentWindow.Show();
                 break;
             case ScreenType.MainMenu:
                 _currentWindow = _screenFactory.GetMainMenu();
-                _currentWindow.Show();
                 break;
         }
+
+        _currentWindow?.Show();
     }
 
     public static void CleanScreenInterface()
