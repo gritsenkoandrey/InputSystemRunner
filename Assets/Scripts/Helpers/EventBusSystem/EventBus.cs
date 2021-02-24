@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public static class EventBus
 {
     private static Dictionary<Type, SubscribersList<IGlobalSubscriber>> _subscribers

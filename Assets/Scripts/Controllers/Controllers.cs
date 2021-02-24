@@ -13,13 +13,13 @@
 
     public Controllers()
     {
-        _initializations = new IInitialization[3];
-        _initializations[0] = new CharacterController();
-        _initializations[1] = new LevelController();
-        _initializations[2] = new CameraController();
+        _initializations = new IInitialization[2];
+        _initializations[0] = new LevelController();
+        _initializations[1] = new CameraController();
 
-        _executeControllers = new IExecute[1];
+        _executeControllers = new IExecute[2];
         _executeControllers[0] = new TimeRemainingController();
+        _executeControllers[1] = new CharacterController();
 
         _fixExecuteController = new IFixExecute[2];
         _fixExecuteController[0] = new SpawnController();

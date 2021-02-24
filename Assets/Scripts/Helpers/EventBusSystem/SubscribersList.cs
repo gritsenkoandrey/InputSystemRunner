@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-
 public class SubscribersList<TSubscriber> where TSubscriber : class
 {
     private bool _isNeedCleanup = false;

@@ -8,7 +8,7 @@ public sealed class MainMenuBehaviour : BaseUI
 
     private void Awake()
     {
-        _haveCoins = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TypeTag.HAVECOINS));
+        _haveCoins = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TypeTag.HaveCoinUI));
     }
 
     private void OnEnable()
@@ -22,11 +22,6 @@ public sealed class MainMenuBehaviour : BaseUI
     }
 
     private void Start()
-    {
-        StartGame();
-    }
-
-    private void StartGame()
     {
         isShowedUI = true;
 

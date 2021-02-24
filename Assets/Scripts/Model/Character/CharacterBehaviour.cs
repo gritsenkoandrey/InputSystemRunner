@@ -22,6 +22,16 @@ public sealed class CharacterBehaviour : BaseModel
         _sequence = DOTween.Sequence();
     }
 
+    private void OnEnable()
+    {
+        IsActive = true;
+    }
+
+    private void OnDisable()
+    {
+        IsActive = false;
+    }
+
     private void OnTriggerEnter(Collider target)
     {
         if (target.TryGetComponent(out obstacle))

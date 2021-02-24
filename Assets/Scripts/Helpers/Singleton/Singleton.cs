@@ -28,8 +28,8 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 						}
 					}
 				}
-                var go = new GameObject(typeof(T).Name, typeof(T));
-                _instance = go.GetComponent<T>();
+                var obj = new GameObject(typeof(T).Name, typeof(T));
+                _instance = obj.GetComponent<T>();
                 //DontDestroyOnLoad(go);
             }
 			return _instance;
@@ -39,4 +39,12 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 			_instance = value as T;
 		}
 	}
+
+    private void OnDestroy()
+    {
+        if (_instance == this)
+        {
+            _instance = null;
+        }
+    }
 }

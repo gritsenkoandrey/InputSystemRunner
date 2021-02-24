@@ -16,6 +16,8 @@
     public void FixedExecute()
     {
         if (!IsActive) return;
+        if (IsActive && _data.backgroundBehaviour.IsActive) On();
+        else if (IsActive && !_data.backgroundBehaviour.IsActive) Off();
 
         MovementBackground();
     }

@@ -1,4 +1,4 @@
-﻿public sealed class CharacterController : BaseController, IInitialization
+﻿public sealed class CharacterController : BaseController, IInitialization, IExecute
 {
     private readonly CharacterData _data;
     private readonly InputManager _input;
@@ -13,6 +13,13 @@
     public void Initialization()
     {
         Switch(_data.characterBehaviour);
+    }
+
+    public void Execute()
+    {
+        if (!IsActive) return;
+        if (IsActive && _data.characterBehaviour.IsActive) On();
+        else if (IsActive && !_data.characterBehaviour.IsActive) Off();
     }
 
     public override void On(params BaseModel[] model)

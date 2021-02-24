@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-
 public static class ObstacleList
 {
     private readonly static List<ObstacleBehaviour> _obstacleList;

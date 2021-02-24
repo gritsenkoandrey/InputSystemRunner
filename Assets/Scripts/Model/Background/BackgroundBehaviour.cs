@@ -4,6 +4,16 @@ public sealed class BackgroundBehaviour : BaseModel
 {
     private BackgroundInitialize _init;
 
+    private void OnEnable()
+    {
+        IsActive = true;
+    }
+
+    private void OnDisable()
+    {
+        IsActive = false;
+    }
+
     private void Awake()
     {
         _init = new BackgroundInitialize();

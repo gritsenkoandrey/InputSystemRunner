@@ -2,26 +2,28 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class PoolManager : Singleton<PoolManager>
 {
-	public bool logStatus;
-	public Transform root;
+	[SerializeField] private bool _logStatus;
+    private bool _dirty = false;
+
+	private Transform _root;
 
 	private Dictionary<GameObject, ObjectPool<GameObject>> _prefabLookup;
 	private Dictionary<GameObject, ObjectPool<GameObject>> _instanceLookup; 
 	
-	private bool _dirty = false;
-	
 	private void Awake ()
     {
+        _root = new GameObject().transform;
+        _root.name = "Created Pool";
+
 		_prefabLookup = new Dictionary<GameObject, ObjectPool<GameObject>>();
 		_instanceLookup = new Dictionary<GameObject, ObjectPool<GameObject>>();
 	}
 
 	private void Update()
 	{
-		if(logStatus && _dirty)
+		if(_logStatus && _dirty)
 		{
 			PrintStatus();
 			_dirty = false;
@@ -30,6 +32,8 @@ public class PoolManager : Singleton<PoolManager>
 
 	private void Warm(GameObject prefab, int size)
 	{
+		prefab.gameObject.SetActive(false);
+
 		if(_prefabLookup.ContainsKey(prefab))
 		{
 			throw new Exception("Pool for prefab " + prefab.name + " has already been created");
@@ -83,9 +87,9 @@ public class PoolManager : Singleton<PoolManager>
 	private GameObject InstantiatePrefab(GameObject prefab)
 	{
 		var go = Instantiate(prefab) as GameObject;
-        if (root != null)
+        if (_root != null)
         {
-            go.transform.parent = root;
+            go.transform.parent = _root;
         }
 		return go;
 	}

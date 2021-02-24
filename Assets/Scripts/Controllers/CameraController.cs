@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public sealed class CameraController : IInitialization
+public sealed class CameraController : BaseController, IInitialization
 {
     public void Initialization()
     {

@@ -13,8 +13,8 @@ public sealed class GameMenuBehaviour : BaseUI
 
     private void Awake()
     {
-        _gameOverUI = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TypeTag.GAMEOVERUI));
-        _pauseMenuUI = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TypeTag.PAUSEMENUUI));
+        _gameOverUI = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TypeTag.GameOverUI));
+        _pauseMenuUI = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TypeTag.PauseMenuUI));
     }
 
     private void OnEnable()
@@ -28,11 +28,6 @@ public sealed class GameMenuBehaviour : BaseUI
     }
 
     private void Start()
-    {
-        StartGame();
-    }
-
-    private void StartGame()
     {
         isShowedUI = false;
 

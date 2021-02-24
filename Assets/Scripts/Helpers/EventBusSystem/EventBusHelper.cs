@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
 internal static class EventBusHelper
 {
     private static Dictionary<Type, List<Type>> _cachedSubscriberTypes = new Dictionary<Type, List<Type>>();
