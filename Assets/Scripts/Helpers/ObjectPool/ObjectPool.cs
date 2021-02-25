@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
-
 
 public class ObjectPool<T>
 {
@@ -80,7 +78,7 @@ public class ObjectPool<T>
         }
         else
         {
-            Debug.LogWarning("This object pool does not contain the item provided: " + item);
+            CustomDebug.LogWarning($"This object pool does not contain the item provided: {item}");
         }
     }
 

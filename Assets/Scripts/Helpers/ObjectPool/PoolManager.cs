@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PoolManager : Singleton<PoolManager>
 {
-	[SerializeField] private bool _logStatus;
+	[SerializeField] private bool _logStatus = false;
     private bool _dirty = false;
 
 	private Transform _root;
@@ -15,7 +15,7 @@ public class PoolManager : Singleton<PoolManager>
 	private void Awake ()
     {
         _root = new GameObject().transform;
-        _root.name = "Created Pool";
+        _root.name = "CreatedPool";
 
 		_prefabLookup = new Dictionary<GameObject, ObjectPool<GameObject>>();
 		_instanceLookup = new Dictionary<GameObject, ObjectPool<GameObject>>();
@@ -36,7 +36,7 @@ public class PoolManager : Singleton<PoolManager>
 
 		if(_prefabLookup.ContainsKey(prefab))
 		{
-			throw new Exception("Pool for prefab " + prefab.name + " has already been created");
+			throw new Exception($"Pool for prefab {prefab.name} has already been created");
 		}
 		var pool = new ObjectPool<GameObject>(() => { return InstantiatePrefab(prefab); }, size);
 		_prefabLookup[prefab] = pool;
@@ -79,7 +79,7 @@ public class PoolManager : Singleton<PoolManager>
 		}
 		else
 		{
-			Debug.LogWarning("No pool contains the object: " + clone.name);
+			CustomDebug.LogWarning($"No pool contains the object: {clone.name}");
 		}
 	}
 
@@ -98,7 +98,7 @@ public class PoolManager : Singleton<PoolManager>
 	{
 		foreach (KeyValuePair<GameObject, ObjectPool<GameObject>> keyVal in _prefabLookup)
 		{
-			Debug.Log(string.Format("Object Pool for Prefab: {0} In Use: {1} Total {2}", keyVal.Key.name, keyVal.Value.CountUsedItems, keyVal.Value.Count));
+			CustomDebug.Log($"Object Pool for Prefab: {keyVal.Key.name} In Use: {keyVal.Value.CountUsedItems} Total {keyVal.Value.Count}");
 		}
 	}
 

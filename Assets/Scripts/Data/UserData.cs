@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public static class UserData
+﻿public static class UserData
 {
     private static string _coin = "Coin";
 
@@ -13,7 +11,7 @@ public static class UserData
         _maxCoin = LoadMaxCoin();
         _maxCoin += _curCoin;
         SaveMaxCoin();
-        Debug.Log($"Save Data: maximum coin is {_maxCoin}");
+        CustomDebug.Log($"Save Data: maximum coin is {_maxCoin}");
     }
 
     public static int LoadMaxCoin()
@@ -29,6 +27,6 @@ public static class UserData
     public static void CleanData()
     {
         Services.Instance.SaveData.DeleteAll();
-        Debug.Log("Clean Data");
+        CustomDebug.Log("Clean Data");
     }
 }

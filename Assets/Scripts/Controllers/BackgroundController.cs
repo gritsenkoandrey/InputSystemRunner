@@ -5,21 +5,37 @@
     public BackgroundController()
     {
         _data = Data.Instance.Background;
-        _data.Initialization();
     }
 
     public void Initialization()
     {
-        Switch(_data.backgroundBehaviour);
+        _data.Initialization();
     }
 
     public void FixedExecute()
     {
-        if (!IsActive) return;
-        if (IsActive && _data.backgroundBehaviour.IsActive) On();
-        else if (IsActive && !_data.backgroundBehaviour.IsActive) Off();
+        if (!IsActive)
+        {
+            if (_data.backgroundBehaviour && _data.backgroundBehaviour.IsActive)
+            {
+                On(_data.backgroundBehaviour);
+            }
+            return;
+        }
+        else
+        {
+            if (!_data.backgroundBehaviour.IsActive)
+            {
+                Off();
+            }
 
-        MovementBackground();
+            MovementBackground();
+        }
+    }
+
+    private void MovementBackground()
+    {
+        _data.backgroundBehaviour.Move();
     }
 
     public override void On(params BaseModel[] models)
@@ -34,10 +50,5 @@
     {
         if (!IsActive) return;
         base.Off();
-    }
-
-    private void MovementBackground()
-    {
-        _data.backgroundBehaviour.Move();
     }
 }

@@ -1,16 +1,12 @@
-﻿using DG.Tweening;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent (typeof(BoxCollider), typeof(Rigidbody), typeof(Animator))]
 public sealed class CharacterBehaviour : BaseModel
 {
     private CharacterInitialize _init;
 
-    private Vector3 _tempPos;
     private Rigidbody _body;
     private Animator _animator;
-    private SkinnedMeshRenderer _mesh;
-    private Sequence _sequence;
 
     private void Awake()
     {
@@ -18,8 +14,6 @@ public sealed class CharacterBehaviour : BaseModel
 
         _body = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
-        _mesh = GetComponentInChildren<SkinnedMeshRenderer>();
-        _sequence = DOTween.Sequence();
     }
 
     private void OnEnable()
@@ -54,10 +48,6 @@ public sealed class CharacterBehaviour : BaseModel
     private void Damage()
     {
         Services.Instance.CameraServices.CreateShake(ShakeType.Low);
-
-        _sequence
-            .Insert(0f, _mesh.material.DOFade(0f, 0f))
-            .Append(_mesh.material.DOFade(1.0f, 1.0f));
     }
 
     private bool CheckGround()
@@ -78,13 +68,13 @@ public sealed class CharacterBehaviour : BaseModel
     {
         if (CheckGround())
         {
-            _tempPos = transform.position;
+            var tempPos = transform.position;
 
-            if (Mathf.Approximately(_tempPos.z, _init.middlePos))
+            if (Mathf.Approximately(tempPos.z, _init.middlePos))
             {
                 _body.MovePosition(Vector3.forward * input * _init.speed);
             }
-            else if (Mathf.Approximately(_tempPos.z, _init.minPos) && input > 0 || Mathf.Approximately(_tempPos.z, _init.maxPos) && input < 0)
+            else if (Mathf.Approximately(tempPos.z, _init.minPos) && input > 0 || Mathf.Approximately(tempPos.z, _init.maxPos) && input < 0)
             {
                 _body.MovePosition(Vector3.zero);
             }

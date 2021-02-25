@@ -1,4 +1,4 @@
-﻿public sealed class CharacterController : BaseController, IInitialization, IExecute
+﻿public sealed class CharacterController : BaseController, IInitialization, IFixExecute
 {
     private readonly CharacterData _data;
     private readonly InputManager _input;
@@ -7,19 +7,30 @@
     {
         _input = InputManager.Instance;
         _data = Data.Instance.Character;
-        _data.Initialization();
     }
 
     public void Initialization()
     {
-        Switch(_data.characterBehaviour);
+        _data.Initialization();
     }
 
-    public void Execute()
+    public void FixedExecute()
     {
-        if (!IsActive) return;
-        if (IsActive && _data.characterBehaviour.IsActive) On();
-        else if (IsActive && !_data.characterBehaviour.IsActive) Off();
+        if (!IsActive)
+        {
+            if (_data.characterBehaviour && _data.characterBehaviour.IsActive)
+            {
+                On(_data.characterBehaviour);
+            }
+            return;
+        }
+        else
+        {
+            if (!_data.characterBehaviour.IsActive)
+            {
+                Off();
+            }
+        }
     }
 
     public override void On(params BaseModel[] model)

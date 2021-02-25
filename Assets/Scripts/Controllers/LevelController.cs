@@ -2,7 +2,6 @@
 {
     private int _countCoin = 0;
     private int _time = 0;
-
     private int _power;
     private int _health;
     private readonly int _maxPower;

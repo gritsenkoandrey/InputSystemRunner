@@ -21,7 +21,7 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 					}
 					else
 					{
-						Debug.LogError("Class " + typeof(T).Name + " exists multiple times in violation of singleton pattern. Destroying all copies");
+						CustomDebug.LogError($"Class {typeof(T).Name} exists multiple times in violation of singleton pattern.Destroying all copies");
 						foreach (T manager in managers)
 						{
 							Destroy(manager.gameObject);
@@ -30,7 +30,7 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 				}
                 var obj = new GameObject(typeof(T).Name, typeof(T));
                 _instance = obj.GetComponent<T>();
-                //DontDestroyOnLoad(go);
+                //DontDestroyOnLoad(obj);
             }
 			return _instance;
 		}
