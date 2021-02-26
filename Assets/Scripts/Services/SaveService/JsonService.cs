@@ -2,7 +2,6 @@
 using System.IO;
 using UnityEngine;
 
-
 public sealed class JsonService : Service
 {
     private readonly string _folderName = "dataSave";

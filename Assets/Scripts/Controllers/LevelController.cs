@@ -1,4 +1,4 @@
-﻿public sealed class LevelController : BaseController, IInitialization, ICollision, IStartGame
+﻿public sealed class LevelController : BaseController, IInitialization, ICollisionItem
 {
     private int _countCoin = 0;
     private int _time = 0;
@@ -13,33 +13,42 @@
     {
         _health = Data.Instance.Character.health;
         _maxPower = Data.Instance.Character.power;
+
         _timeRemainingTimer = new TimeRemaining(Timer, _secondTimer, true);
     }
 
     public void Initialization()
     {
         EventBus.Subscribe(this);
+        Services.Instance.EventService.StartLevel += StartGame;
+        Services.Instance.EventService.StopLevel += EndGame;
     }
 
     private void Timer()
     {
         _power--;
-        _time++;
         uInterface.UiShowPower.RefreshPower(_power);
+
+        _time++;
         uInterface.UiShowTime.Text = _time;
-        if (_power <= 0 || _health <= 0) GameOver();
+
+        if (_power <= 0 || _health <= 0)
+        {
+            Services.Instance.GameLevelService.GameOver();
+        }
     }
 
-    public void StartGame()
+    private void StartGame()
     {
         _power = _maxPower;
         uInterface.UiShowPower.RefreshPower(_power);
         uInterface.UiShowCoin.Text = _countCoin;
         uInterface.UiShowTime.Text = _time;
         _timeRemainingTimer.AddTimeRemaining();
+        Services.Instance.EventService.StartLevel -= StartGame;
     }
 
-    private void GameOver()
+    private void EndGame()
     {
         uInterface.UiShowPower.SetActive(false);
         uInterface.UiShowCoin.SetActive(false);
@@ -49,12 +58,16 @@
         _timeRemainingTimer.RemoveTimeRemaining();
         UserData.SaveData(_countCoin);
         EventBus.Unsubscribe(this);
+        Services.Instance.EventService.StopLevel -= EndGame;
     }
 
     public void PickObstacle()
     {
         _power++;
-        if (_power > _maxPower) _power = _maxPower;
+        if (_power > _maxPower)
+        {
+            _power = _maxPower;
+        }
         uInterface.UiShowPower.RefreshPower(_power);
     }
 

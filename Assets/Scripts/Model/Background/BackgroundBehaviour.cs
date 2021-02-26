@@ -4,19 +4,21 @@ public sealed class BackgroundBehaviour : BaseModel
 {
     private BackgroundInitialize _init;
 
+    private void Awake()
+    {
+        _init = new BackgroundInitialize();
+    }
+
     private void OnEnable()
     {
-        IsActive = true;
+        IsVisible = true;
+        Services.Instance.EventService.OffBackground += DestroyBackground;
     }
 
     private void OnDisable()
     {
-        IsActive = false;
-    }
-
-    private void Awake()
-    {
-        _init = new BackgroundInitialize();
+        IsVisible = false;
+        Services.Instance.EventService.OffBackground -= DestroyBackground;
     }
 
     public void Move()
@@ -27,5 +29,10 @@ public sealed class BackgroundBehaviour : BaseModel
         {
             transform.position = Vector3.zero;
         }
+    }
+
+    private void DestroyBackground()
+    {
+        gameObject.SetActive(false);
     }
 }

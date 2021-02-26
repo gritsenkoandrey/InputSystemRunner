@@ -34,12 +34,10 @@ public sealed class GameMenuBehaviour : BaseUI
         _isPaused = false;
         _pauseMenuUI.SetActive(false);
         _gameOverUI.SetActive(false);
-        Services.Instance.TimeService.SetTimeScale(1.0f);
     }
 
     private void RestartButton()
     {
-        Services.Instance.TimeService.SetTimeScale(1.0f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -71,7 +69,6 @@ public sealed class GameMenuBehaviour : BaseUI
         isShowedUI = true;
 
         _gameOverUI.SetActive(true);
-        Services.Instance.TimeService.SetTimeScale(0f);
     }
 
     public override void Show()

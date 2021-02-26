@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 
-
 public sealed class PrefsService : Service, ISaveData
 {
     private static readonly DateTime DefaultDateTimeValue = DateTime.Now;

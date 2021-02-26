@@ -1,10 +1,11 @@
 ﻿public enum GameObjectType : byte
 {
-    None       = 0,
-    Character  = 1,
-    Obstacle   = 2,
-    Block      = 3,
-    Coin       = 4,
-    Background = 5,
-    Canvas     = 6
+    None           = 0,
+    CharacterFat   = 1,
+    CharacterElvis = 2,
+    Obstacle       = 3,
+    Block          = 4,
+    Coin           = 5,
+    Background     = 6,
+    Canvas         = 7
 }

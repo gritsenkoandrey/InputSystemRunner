@@ -11,14 +11,20 @@
 
     public void Initialization()
     {
-        _data.Initialization();
+        Services.Instance.EventService.OnCharacter += SpawnCharacter;
+    }
+
+    private void SpawnCharacter(CharacterType characterType)
+    {
+        _data.Initialization(characterType);
+        Services.Instance.EventService.OnCharacter -= SpawnCharacter;
     }
 
     public void FixedExecute()
     {
         if (!IsActive)
         {
-            if (_data.characterBehaviour && _data.characterBehaviour.IsActive)
+            if (_data.characterBehaviour && _data.characterBehaviour.IsVisible)
             {
                 On(_data.characterBehaviour);
             }
@@ -26,7 +32,7 @@
         }
         else
         {
-            if (!_data.characterBehaviour.IsActive)
+            if (!_data.characterBehaviour.IsVisible)
             {
                 Off();
             }
@@ -65,6 +71,7 @@
         _data.characterBehaviour.Jump();
     }
 
+    //todo подписка осуществляется только после спавна персонажа
     private void PauseButton()
     {
         if (uInterface.GameMenuBehaviour) uInterface.GameMenuBehaviour.PauseButton();

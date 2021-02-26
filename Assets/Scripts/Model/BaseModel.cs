@@ -8,5 +8,5 @@ public abstract class BaseModel : MonoBehaviour
     protected BlockBehaviour block;
     protected CoinBehaviour coin;
 
-    public bool IsActive { get; protected set; }
+    public bool IsVisible { get; protected set; }
 }

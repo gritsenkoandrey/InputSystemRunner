@@ -3,8 +3,9 @@ using UnityEngine.UI;
 
 public sealed class MainMenuBehaviour : BaseUI
 {
+    [SerializeField] private Button _startButtonFatBoy = null;
+    [SerializeField] private Button _startButtonElvis = null;
     private GameObject _haveCoins;
-    [SerializeField] private Button _startButton = null;
 
     private void Awake()
     {
@@ -13,12 +14,14 @@ public sealed class MainMenuBehaviour : BaseUI
 
     private void OnEnable()
     {
-        _startButton.onClick.AddListener(StartButton);
+        _startButtonFatBoy.onClick.AddListener(StartButtonFatBoy);
+        _startButtonElvis.onClick.AddListener(StartButtonElvis);
     }
 
     private void OnDisable()
     {
-        _startButton.onClick.RemoveListener(StartButton);
+        _startButtonFatBoy.onClick.RemoveListener(StartButtonFatBoy);
+        _startButtonElvis.onClick.RemoveListener(StartButtonElvis);
     }
 
     private void Start()
@@ -26,18 +29,23 @@ public sealed class MainMenuBehaviour : BaseUI
         isShowedUI = true;
 
         _haveCoins.GetComponent<Text>().text = $"You have: {UserData.LoadMaxCoin()} coins";
-        Services.Instance.TimeService.SetTimeScale(0f);
     }
 
-    private void StartButton()
+    private void StartButtonFatBoy()
     {
         ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
-        EventBus.RaiseEvent<IStartGame>(h => h.StartGame());
+        Services.Instance.GameLevelService.StartGame(CharacterType.FatBoy);
+    }
+
+    private void StartButtonElvis()
+    {
+        ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
+        Services.Instance.GameLevelService.StartGame(CharacterType.Elvis);
     }
 
     public void PauseButton()
     {
-        StartButton();
+        CustomDebug.Log("StartGame");
     }
 
     public override void Show()

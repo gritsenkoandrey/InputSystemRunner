@@ -16,10 +16,20 @@ public sealed class CharacterData : ScriptableObject
     public int power = 10;
 
     internal CharacterBehaviour characterBehaviour;
-    public void Initialization()
+    public void Initialization(CharacterType characterType)
     {
-        var character = CustomResources.Load<CharacterBehaviour>
-            (AssetsPathGameObject.GameObjects[GameObjectType.Character]);
-        characterBehaviour = Instantiate(character);
+        CharacterBehaviour character;
+
+        switch (characterType)
+        {
+            case CharacterType.FatBoy:
+                character = CustomResources.Load<CharacterBehaviour>(AssetsPathGameObject.GameObjects[GameObjectType.CharacterFat]);
+                characterBehaviour = Instantiate(character);
+                break;
+            case CharacterType.Elvis:
+                character = CustomResources.Load<CharacterBehaviour>(AssetsPathGameObject.GameObjects[GameObjectType.CharacterElvis]);
+                characterBehaviour = Instantiate(character);
+                break;
+        }
     }
 }

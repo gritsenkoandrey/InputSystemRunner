@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 public sealed class UnityTimeService : Service, ITimeService
 {
     private int _deltaTimeResetFrame;

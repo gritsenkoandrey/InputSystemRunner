@@ -17,8 +17,8 @@ MonoBehaviour:
     shakeInfo:
       duration: 0.25
       strength: 0.5
-      vibrato: 10
-      randomness: 40
+      vibrato: 15
+      randomness: 90
       defaultCameraPos: {x: -10, y: 10, z: 0}
   - shakeType: 2
     shakeInfo:

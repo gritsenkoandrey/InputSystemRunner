@@ -9,14 +9,14 @@
 
     public void Initialization()
     {
-        _data.Initialization();
+        Services.Instance.EventService.OnBackground += SpawnBackground;
     }
 
     public void FixedExecute()
     {
         if (!IsActive)
         {
-            if (_data.backgroundBehaviour && _data.backgroundBehaviour.IsActive)
+            if (_data.backgroundBehaviour && _data.backgroundBehaviour.IsVisible)
             {
                 On(_data.backgroundBehaviour);
             }
@@ -24,13 +24,19 @@
         }
         else
         {
-            if (!_data.backgroundBehaviour.IsActive)
+            if (!_data.backgroundBehaviour.IsVisible)
             {
                 Off();
             }
 
             MovementBackground();
         }
+    }
+
+    private void SpawnBackground()
+    {
+        _data.Initialization();
+        Services.Instance.EventService.OnBackground -= SpawnBackground;
     }
 
     private void MovementBackground()

@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 public interface ISaveData
 {
     int GetInt(string key, int defaultValue = 0);

@@ -18,12 +18,14 @@ public sealed class CharacterBehaviour : BaseModel
 
     private void OnEnable()
     {
-        IsActive = true;
+        IsVisible = true;
+        Services.Instance.EventService.OffCharacter += DestroyCharacter;
     }
 
     private void OnDisable()
     {
-        IsActive = false;
+        IsVisible = false;
+        Services.Instance.EventService.OffCharacter -= DestroyCharacter;
     }
 
     private void OnTriggerEnter(Collider target)
@@ -31,23 +33,28 @@ public sealed class CharacterBehaviour : BaseModel
         if (target.TryGetComponent(out obstacle))
         {
             obstacle.Destroy();
-            EventBus.RaiseEvent<ICollision>(h => h.PickObstacle());
+            EventBus.RaiseEvent<ICollisionItem>(h => h.PickObstacle());
         }
         else if (target.TryGetComponent(out block))
         {
             Damage();
-            EventBus.RaiseEvent<ICollision>(h => h.PickBlock());
+            EventBus.RaiseEvent<ICollisionItem>(h => h.PickBlock());
         }
         else if (target.TryGetComponent(out coin))
         {
             coin.Destroy();
-            EventBus.RaiseEvent<ICollision>(h => h.PickCoin());
+            EventBus.RaiseEvent<ICollisionItem>(h => h.PickCoin());
         }
     }
 
     private void Damage()
     {
         Services.Instance.CameraServices.CreateShake(ShakeType.Low);
+    }
+
+    private void DestroyCharacter()
+    {
+        gameObject.SetActive(false);
     }
 
     private bool CheckGround()
