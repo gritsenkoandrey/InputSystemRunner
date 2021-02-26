@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public sealed class MainMenuBehaviour : BaseUI
 {
-    [SerializeField] private Button _startButtonFatBoy = null;
+    [SerializeField] private Button _startButtonOrtiz = null;
     [SerializeField] private Button _startButtonElvis = null;
     private GameObject _haveCoins;
 
@@ -14,13 +14,13 @@ public sealed class MainMenuBehaviour : BaseUI
 
     private void OnEnable()
     {
-        _startButtonFatBoy.onClick.AddListener(StartButtonFatBoy);
+        _startButtonOrtiz.onClick.AddListener(StartButtonOrtiz);
         _startButtonElvis.onClick.AddListener(StartButtonElvis);
     }
 
     private void OnDisable()
     {
-        _startButtonFatBoy.onClick.RemoveListener(StartButtonFatBoy);
+        _startButtonOrtiz.onClick.RemoveListener(StartButtonOrtiz);
         _startButtonElvis.onClick.RemoveListener(StartButtonElvis);
     }
 
@@ -31,10 +31,10 @@ public sealed class MainMenuBehaviour : BaseUI
         _haveCoins.GetComponent<Text>().text = $"You have: {UserData.LoadMaxCoin()} coins";
     }
 
-    private void StartButtonFatBoy()
+    private void StartButtonOrtiz()
     {
         ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
-        Services.Instance.GameLevelService.StartGame(CharacterType.FatBoy);
+        Services.Instance.GameLevelService.StartGame(CharacterType.Ortiz);
     }
 
     private void StartButtonElvis()

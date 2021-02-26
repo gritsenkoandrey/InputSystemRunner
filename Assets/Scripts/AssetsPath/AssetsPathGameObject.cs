@@ -5,7 +5,7 @@ public sealed class AssetsPathGameObject
     public static readonly Dictionary<GameObjectType, string> GameObjects = new Dictionary<GameObjectType, string>
     {
         {
-            GameObjectType.CharacterFat, "Prefabs/Characters/Character_FatBoy"
+            GameObjectType.CharacterOrtiz, "Prefabs/Characters/Character_Ortiz"
         },
         {
             GameObjectType.CharacterElvis, "Prefabs/Characters/Character_Elvis"

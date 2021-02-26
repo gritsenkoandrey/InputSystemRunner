@@ -22,8 +22,8 @@ public sealed class CharacterData : ScriptableObject
 
         switch (characterType)
         {
-            case CharacterType.FatBoy:
-                character = CustomResources.Load<CharacterBehaviour>(AssetsPathGameObject.GameObjects[GameObjectType.CharacterFat]);
+            case CharacterType.Ortiz:
+                character = CustomResources.Load<CharacterBehaviour>(AssetsPathGameObject.GameObjects[GameObjectType.CharacterOrtiz]);
                 characterBehaviour = Instantiate(character);
                 break;
             case CharacterType.Elvis:
