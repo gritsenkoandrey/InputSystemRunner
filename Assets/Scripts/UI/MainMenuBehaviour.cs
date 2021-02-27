@@ -27,7 +27,7 @@ public sealed class MainMenuBehaviour : BaseUI
     private void Start()
     {
         isShowedUI = true;
-
+        Services.Instance.AudioService.PlayMusic(AudioName.MAIN_THEME);
         _haveCoins.GetComponent<Text>().text = $"You have: {UserData.LoadMaxCoin()} coins";
     }
 
@@ -35,12 +35,14 @@ public sealed class MainMenuBehaviour : BaseUI
     {
         ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
         Services.Instance.GameLevelService.StartGame(CharacterType.Ortiz);
+        Services.Instance.AudioService.StopMusic();
     }
 
     private void StartButtonElvis()
     {
         ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
         Services.Instance.GameLevelService.StartGame(CharacterType.Elvis);
+        Services.Instance.AudioService.StopMusic();
     }
 
     public void PauseButton()

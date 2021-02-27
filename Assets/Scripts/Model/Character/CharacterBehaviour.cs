@@ -33,6 +33,7 @@ public sealed class CharacterBehaviour : BaseModel
         if (target.TryGetComponent(out obstacle))
         {
             obstacle.Destroy();
+            Services.Instance.AudioService.PlaySound(AudioName.PICK_OBSTACLE);
             EventBus.RaiseEvent<ICollisionItem>(h => h.PickObstacle());
         }
         else if (target.TryGetComponent(out block))
@@ -43,6 +44,7 @@ public sealed class CharacterBehaviour : BaseModel
         else if (target.TryGetComponent(out coin))
         {
             coin.Destroy();
+            Services.Instance.AudioService.PlaySound(AudioName.PICK_COIN);
             EventBus.RaiseEvent<ICollisionItem>(h => h.PickCoin());
         }
     }
@@ -50,6 +52,7 @@ public sealed class CharacterBehaviour : BaseModel
     private void Damage()
     {
         Services.Instance.CameraServices.CreateShake(ShakeType.Low);
+        Services.Instance.AudioService.PlaySound(AudioName.DAMAGE_ELVIS);
     }
 
     private void DestroyCharacter()
@@ -67,7 +70,8 @@ public sealed class CharacterBehaviour : BaseModel
         if (CheckGround())
         {
             _body.AddForce(Vector3.up * _init.jump, ForceMode.Impulse);
-            _animator.SetTrigger(AnimationNameHelper.JUMP_ANIMATION);
+            _animator.SetTrigger(AnimationName.JUMP_ANIMATION);
+            Services.Instance.AudioService.PlaySound(AudioName.JUM_ELVIS);
         }
     }
 

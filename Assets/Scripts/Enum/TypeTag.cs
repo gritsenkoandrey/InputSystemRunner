@@ -2,5 +2,6 @@
 {
     GameOverUI  = 0,
     PauseMenuUI = 1,
-    HaveCoinUI  = 2
+    GameMenuUI  = 2,
+    HaveCoinUI  = 3
 }

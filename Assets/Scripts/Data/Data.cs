@@ -12,6 +12,7 @@ public sealed class Data : ScriptableObject
     [SerializeField] private string _blockDataPath = null;
     [SerializeField] private string _coinDataPath = null;
     [SerializeField] private string _cameraShakeDataPath = null;
+    [SerializeField] private string _soundDataPath = null;
 
     private static BackgroundData _backgroundData;
     private static CharacterData _characterData;
@@ -19,6 +20,7 @@ public sealed class Data : ScriptableObject
     private static BlockData _blockData;
     private static CoinData _coinData;
     private static CameraShakeData _cameraShakeData;
+    private static SoundData _soundData;
 
     private static readonly Lazy<Data> _instance = new Lazy<Data>(() => Load<Data>("Data/" + typeof(Data).Name));
 
@@ -99,6 +101,19 @@ public sealed class Data : ScriptableObject
             }
 
             return _cameraShakeData;
+        }
+    }
+
+    public SoundData SoundData
+    {
+        get
+        {
+            if (_soundData == null)
+            {
+                _soundData = Load<SoundData>("Data/" + Instance._soundDataPath);
+            }
+
+            return _soundData;
         }
     }
 

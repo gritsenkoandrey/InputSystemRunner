@@ -16,6 +16,11 @@ public sealed class CameraServices : Service
 
     public void SetCamera(Camera camera)
     {
+        if (CameraMain != null)
+        {
+            return;
+        }
+
         CameraMain = camera;
     }
 

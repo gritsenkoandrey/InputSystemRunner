@@ -10,6 +10,7 @@ public static class TagHelper
         {
             {TypeTag.GameOverUI, "GameOverUI" },
             {TypeTag.PauseMenuUI, "PauseMenuUI" },
+            {TypeTag.GameMenuUI, "GameMenuUI"},
             {TypeTag.HaveCoinUI, "HaveCoinsUI"}
         };
     }

@@ -8,11 +8,13 @@ public sealed class GameMenuBehaviour : BaseUI
 
     private GameObject _gameOverUI;
     private GameObject _pauseMenuUI;
+    private GameObject _gameMenuUI;
 
     private bool _isPaused;
 
     private void Awake()
     {
+        _gameMenuUI = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TypeTag.GameMenuUI));
         _gameOverUI = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TypeTag.GameOverUI));
         _pauseMenuUI = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TypeTag.PauseMenuUI));
     }
@@ -32,6 +34,9 @@ public sealed class GameMenuBehaviour : BaseUI
         isShowedUI = false;
 
         _isPaused = false;
+
+        Services.Instance.AudioService.PlayMusic(AudioName.GAME_THEME);
+        _gameMenuUI.SetActive(true);
         _pauseMenuUI.SetActive(false);
         _gameOverUI.SetActive(false);
     }
@@ -48,13 +53,17 @@ public sealed class GameMenuBehaviour : BaseUI
             if (_isPaused)
             {
                 Services.Instance.TimeService.SetTimeScale(1.0f);
+                Services.Instance.AudioService.UnPauseMusic();
                 _pauseMenuUI.SetActive(false);
+                _gameMenuUI.SetActive(true);
                 _isPaused = !_isPaused;
             }
             else
             {
                 Services.Instance.TimeService.SetTimeScale(0f);
+                Services.Instance.AudioService.PauseMusic();
                 _pauseMenuUI.SetActive(true);
+                _gameMenuUI.SetActive(false);
                 _isPaused = !_isPaused;
             }
         }
@@ -67,7 +76,9 @@ public sealed class GameMenuBehaviour : BaseUI
     public void ShowGameOver()
     {
         isShowedUI = true;
-
+        Services.Instance.AudioService.StopMusic();
+        Services.Instance.AudioService.PlayMusic(AudioName.GAME_OVER);
+        _gameMenuUI.SetActive(false);
         _gameOverUI.SetActive(true);
     }
 

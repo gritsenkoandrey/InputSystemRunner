@@ -7,6 +7,7 @@ TagManager:
   - GameOverUI
   - PauseMenuUI
   - HaveCoinsUI
+  - GameMenuUI
   layers:
   - Default
   - TransparentFX

@@ -16,6 +16,7 @@ public sealed class Services
     public JsonService JsonService { get; private set; }
     public EventService EventService { get; private set; }
     public GameLevelService GameLevelService { get; private set; }
+    public AudioService AudioService { get; private set; }
 
     private void Initialize()
     {
@@ -25,5 +26,6 @@ public sealed class Services
         JsonService = new JsonService();
         EventService = new EventService();
         GameLevelService = new GameLevelService();
+        AudioService = new AudioService();
     }
 }
