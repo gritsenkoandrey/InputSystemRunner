@@ -50,10 +50,6 @@
 
     private void EndGame()
     {
-        //uInterface.UiShowPower.SetActive(false);
-        //uInterface.UiShowCoin.SetActive(false);
-        //uInterface.UiShowHealth.SetActive(false);
-        //uInterface.UiShowTime.SetActive(false);
         uInterface.GameMenuBehaviour.ShowGameOver();
         _timeRemainingTimer.RemoveTimeRemaining();
         UserData.SaveData(_countCoin);

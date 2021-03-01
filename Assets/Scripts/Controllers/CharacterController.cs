@@ -71,10 +71,8 @@
         _data.characterBehaviour.Jump();
     }
 
-    //todo подписка осуществляется только после спавна персонажа
     private void PauseButton()
     {
         if (uInterface.GameMenuBehaviour) uInterface.GameMenuBehaviour.PauseButton();
-        else if (uInterface.MainMenuBehaviour) uInterface.MainMenuBehaviour.PauseButton();
     }
 }

@@ -38,7 +38,8 @@ public sealed class CharacterBehaviour : BaseModel
         }
         else if (target.TryGetComponent(out block))
         {
-            Damage();
+            Services.Instance.CameraServices.CreateShake(ShakeType.Low);
+            Services.Instance.AudioService.PlaySound(AudioName.DAMAGE_ELVIS);
             EventBus.RaiseEvent<ICollisionItem>(h => h.PickBlock());
         }
         else if (target.TryGetComponent(out coin))
@@ -47,12 +48,6 @@ public sealed class CharacterBehaviour : BaseModel
             Services.Instance.AudioService.PlaySound(AudioName.PICK_COIN);
             EventBus.RaiseEvent<ICollisionItem>(h => h.PickCoin());
         }
-    }
-
-    private void Damage()
-    {
-        Services.Instance.CameraServices.CreateShake(ShakeType.Low);
-        Services.Instance.AudioService.PlaySound(AudioName.DAMAGE_ELVIS);
     }
 
     private void DestroyCharacter()

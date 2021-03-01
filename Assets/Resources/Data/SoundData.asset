@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d49b44a74443d1489b26bb0e30e094a, type: 3}
   m_Name: SoundData
   m_EditorClassIdentifier: 
-  MusicAudioMixerGroup: {fileID: 4949064460111590430, guid: a7cfa3275149a02488a57bb4e1fa647b,
+  musicAudioMixerGroup: {fileID: 3262061362275318152, guid: a7cfa3275149a02488a57bb4e1fa647b,
     type: 2}
-  SoundAudioMixerGroup: {fileID: 3262061362275318152, guid: a7cfa3275149a02488a57bb4e1fa647b,
+  soundAudioMixerGroup: {fileID: 4949064460111590430, guid: a7cfa3275149a02488a57bb4e1fa647b,
     type: 2}

@@ -17,5 +17,5 @@ MonoBehaviour:
   _obstacleDataPath: ObstacleData
   _blockDataPath: BlockData
   _coinDataPath: CoinData
-  _canvasDataPath: CanvasData
   _cameraShakeDataPath: CameraShakeData
+  _soundDataPath: SoundData

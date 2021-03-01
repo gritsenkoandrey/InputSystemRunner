@@ -29,8 +29,8 @@ public sealed class EventService : Service
         StopSpawn += delegate { };
     }
 
-    public void StartTimer() => StartLevel?.Invoke();
-    public void StopTimer() => StopLevel?.Invoke();
+    public void StartLevelTimer() => StartLevel?.Invoke();
+    public void StopLevelTimer() => StopLevel?.Invoke();
     public void SpawnCharacter(CharacterType characterType) => OnCharacter?.Invoke(characterType);
     public void DestroyCharacter() => OffCharacter?.Invoke();
     public void SpawnBackground() => OnBackground?.Invoke();

@@ -45,11 +45,6 @@ public sealed class MainMenuBehaviour : BaseUI
         Services.Instance.AudioService.StopMusic();
     }
 
-    public void PauseButton()
-    {
-        CustomDebug.Log("StartGame");
-    }
-
     public override void Show()
     {
         gameObject.SetActive(true);
