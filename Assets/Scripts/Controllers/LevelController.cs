@@ -64,12 +64,14 @@
         {
             _power = _maxPower;
         }
+        Services.Instance.AudioService.PlaySound(AudioName.PICK_OBSTACLE);
         uInterface.UiShowPower.RefreshPower(_power);
     }
 
     public void PickCoin()
     {
         _countCoin++;
+        Services.Instance.AudioService.PlaySound(AudioName.PICK_COIN);
         uInterface.UiShowCoin.ScaleText();
         uInterface.UiShowCoin.Text = _countCoin;
     }
@@ -77,6 +79,8 @@
     public void PickBlock()
     {
         _health--;
+        Services.Instance.CameraServices.CreateShake(ShakeType.Low);
+        Services.Instance.AudioService.PlaySound(AudioName.DAMAGE_ELVIS);
         uInterface.UiShowHealth.RefreshHealth(_health);
     }
 }

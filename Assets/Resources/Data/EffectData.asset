@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1414804c7179d594da75b4265febcc05, type: 3}
+  m_Name: EffectData
+  m_EditorClassIdentifier: 
+  coin: {fileID: 410713097524031389, guid: a37ab47e194ed064da6694a4dbad9ec3, type: 3}
+  block: {fileID: 410713097524031389, guid: 8ccb3f13000ec4a44853beda0e69577e, type: 3}
+  obstacle: {fileID: 410713097524031389, guid: 1dc2611e246727d40ba679b2f605e848, type: 3}

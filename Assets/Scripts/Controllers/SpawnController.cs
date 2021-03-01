@@ -26,7 +26,8 @@ public sealed class SpawnController : BaseController, IInitialization, IFixExecu
 
     public void Initialization()
     {
-        CreatePool();
+        CreatePool(_count);
+
         Services.Instance.EventService.StartSpawn += StartSpawn;
         Services.Instance.EventService.StopSpawn += StopSpawn;
     }
@@ -38,22 +39,24 @@ public sealed class SpawnController : BaseController, IInitialization, IFixExecu
         CoinList.Execute(_coin.speed);
     }
 
-    private void CreatePool()
+    private void CreatePool(int count)
     {
         for (var i = 0; i < _obstacle.prefabs.Count; i++)
         {
-            PoolManager.WarmPool(_obstacle.prefabs[i], _count);
+            PoolManager.WarmPool(_obstacle.prefabs[i], count);
         }
 
         for (var i = 0; i < _block.prefabs.Count; i++)
         {
-            PoolManager.WarmPool(_block.prefabs[i], _count);
+            PoolManager.WarmPool(_block.prefabs[i], count);
         }
 
         for (var i = 0; i < _coin.prefabs.Count; i++)
         {
-            PoolManager.WarmPool(_coin.prefabs[i], _count);
+            PoolManager.WarmPool(_coin.prefabs[i], count);
         }
+
+        PoolManager.WarmPool(Services.Instance.EffectService.Particle, count);
     }
 
     private void StartSpawn()

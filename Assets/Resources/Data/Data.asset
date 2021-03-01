@@ -19,3 +19,4 @@ MonoBehaviour:
   _coinDataPath: CoinData
   _cameraShakeDataPath: CameraShakeData
   _soundDataPath: SoundData
+  _effectDataPath: EffectData

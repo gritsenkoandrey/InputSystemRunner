@@ -33,19 +33,19 @@ public sealed class CharacterBehaviour : BaseModel
         if (target.TryGetComponent(out obstacle))
         {
             obstacle.Destroy();
-            Services.Instance.AudioService.PlaySound(AudioName.PICK_OBSTACLE);
+            Services.Instance.EffectService.CreateEffectWithColorObject(obstacle, obstacle.transform.position);
             EventBus.RaiseEvent<ICollisionItem>(h => h.PickObstacle());
         }
         else if (target.TryGetComponent(out block))
         {
-            Services.Instance.CameraServices.CreateShake(ShakeType.Low);
-            Services.Instance.AudioService.PlaySound(AudioName.DAMAGE_ELVIS);
+            block.Destroy();
+            Services.Instance.EffectService.CreateEffectWithColorObject(block, gameObject.transform.position);
             EventBus.RaiseEvent<ICollisionItem>(h => h.PickBlock());
         }
         else if (target.TryGetComponent(out coin))
         {
             coin.Destroy();
-            Services.Instance.AudioService.PlaySound(AudioName.PICK_COIN);
+            Services.Instance.EffectService.CreateEffectWithColorObject(coin, coin.transform.position);
             EventBus.RaiseEvent<ICollisionItem>(h => h.PickCoin());
         }
     }

@@ -7,6 +7,7 @@ public abstract class BaseModel : MonoBehaviour
     protected ObstacleBehaviour obstacle;
     protected BlockBehaviour block;
     protected CoinBehaviour coin;
+    protected EffectBehaviour effect;
 
     public bool IsVisible { get; protected set; }
 }
