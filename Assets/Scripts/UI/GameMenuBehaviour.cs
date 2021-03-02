@@ -76,7 +76,6 @@ public sealed class GameMenuBehaviour : BaseUI
     public void ShowGameOver()
     {
         isShowedUI = true;
-        Services.Instance.AudioService.StopMusic();
         Services.Instance.AudioService.PlayMusic(AudioName.GAME_OVER);
         _gameMenuUI.SetActive(false);
         _gameOverUI.SetActive(true);

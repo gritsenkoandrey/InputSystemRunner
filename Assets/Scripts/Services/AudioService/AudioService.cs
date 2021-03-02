@@ -3,9 +3,11 @@
 public sealed class AudioService : Service
 {
     private readonly SoundData _data;
-    private AudioClip _audioClip;
-    private AudioSource _soundAudioSource;
-    private AudioSource _musicAudioSource;
+
+    private AudioClip _soundClip;
+    private AudioClip _musicClip;
+    private AudioSource _soundSource;
+    private AudioSource _musicSource;
 
     public AudioService()
     {
@@ -15,49 +17,52 @@ public sealed class AudioService : Service
 
     private void SetAudioSource()
     {
-        if (_soundAudioSource != null) return;
+        if (_soundSource != null) return;
         else
         {
             var sound = new GameObject("SoundManager");
-            _soundAudioSource = sound.AddComponent<AudioSource>();
-            _soundAudioSource.outputAudioMixerGroup = _data.soundAudioMixerGroup;
+            _soundSource = sound.AddComponent<AudioSource>();
+            _soundSource.outputAudioMixerGroup = _data.soundAudioMixerGroup;
             Object.DontDestroyOnLoad(sound);
         }
 
-        if (_musicAudioSource != null) return;
+        if (_musicSource != null) return;
         else
         {
             var music = new GameObject("MusicManager");
-            _musicAudioSource = music.AddComponent<AudioSource>();
-            _musicAudioSource.outputAudioMixerGroup = _data.musicAudioMixerGroup;
+            _musicSource = music.AddComponent<AudioSource>();
+            _musicSource.outputAudioMixerGroup = _data.musicAudioMixerGroup;
             Object.DontDestroyOnLoad(music);
         }
     }
 
     public void PlaySound(string audio)
     {
-        _audioClip = CustomResources.Load<AudioClip>(audio);
-        _soundAudioSource.PlayOneShot(_audioClip);
+        if (_soundClip != null)
+        {
+            _soundClip.UnloadAudioData();
+        }
+        _soundClip = CustomResources.Load<AudioClip>(audio);
+        _soundSource.PlayOneShot(_soundClip);
     }
 
     public void PlayMusic(string audio)
     {
-        _audioClip = CustomResources.Load<AudioClip>(audio);
-        _musicAudioSource.PlayOneShot(_audioClip);
-    }
-
-    public void StopMusic()
-    {
-        _musicAudioSource.Stop();
+        if (_musicClip != null)
+        {
+            _musicClip.UnloadAudioData();
+        }
+        _musicClip = CustomResources.Load<AudioClip>(audio);
+        _musicSource.PlayOneShot(_musicClip);
     }
 
     public void PauseMusic()
     {
-        _musicAudioSource.Pause();
+        _musicSource.Pause();
     }
 
     public void UnPauseMusic()
     {
-        _musicAudioSource.UnPause();
+        _musicSource.UnPause();
     }
 }

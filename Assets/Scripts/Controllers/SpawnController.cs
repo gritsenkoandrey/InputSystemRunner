@@ -77,22 +77,58 @@ public sealed class SpawnController : BaseController, IInitialization, IFixExecu
 
         if (_random > 4)
         {
-            var obstacle = PoolManager.SpawnObject(_obstacle.prefabs[_customRandom.Range(0, _obstacle.prefabs.Count)],
-                _obstacle.spawnPoints[_customRandom.Range(0, _obstacle.spawnPoints.Count)], Quaternion.identity).GetComponent<ObstacleBehaviour>();
-            ObstacleList.AddObstacleToList(obstacle);
+            SpawnObstacle();
         }
         else if (_random < 3)
         {
-            var block = PoolManager.SpawnObject(_block.prefabs[_customRandom.Range(0, _block.prefabs.Count)],
-                _block.spawnPoint, Quaternion.identity).GetComponent<BlockBehaviour>();
-            BlockList.AddBlockToList(block);
+            SpawnBlock();
         }
         else if (_random == 3 || _random == 4)
         {
-            var coin = PoolManager.SpawnObject(_coin.prefabs[_customRandom.Range(0, _coin.prefabs.Count)],
-                _coin.spawnPoints[_customRandom.Range(0, _coin.spawnPoints.Count)], Quaternion.identity).GetComponent<CoinBehaviour>();
-            CoinList.AddCoinToList(coin);
+            SpawnCoin();
         }
+    }
+
+    private void SpawnObstacle()
+    {
+        var obstacle = PoolManager.SpawnObject(_obstacle.prefabs[_customRandom.Range(0, _obstacle.prefabs.Count)],
+            _obstacle.spawnPoints[_customRandom.Range(0, _obstacle.spawnPoints.Count)], Quaternion.identity).GetComponent<ObstacleBehaviour>();
+        ObstacleList.AddObstacleToList(obstacle);
+    }
+
+    private void SpawnBlock()
+    {
+        var count = 0;
+
+        for (var i = 0; i < _block.spawnPoints.Count; i++)
+        {
+            if (count == _block.prefabs.Count)
+            {
+                return;
+            }
+
+            _random = _customRandom.Range(0, _block.prefabs.Count + 1);
+            if (_random == _block.prefabs.Count)
+            {
+                return;
+            }
+
+            if (_random == (int)BlockType.BigBlock)
+            {
+                count++;
+            }
+
+            var block = PoolManager.SpawnObject(_block.prefabs[_random],
+                _block.spawnPoints[i], Quaternion.identity).GetComponent<BlockBehaviour>();
+            BlockList.AddBlockToList(block);
+        }
+    }
+
+    private void SpawnCoin()
+    {
+        var coin = PoolManager.SpawnObject(_coin.prefabs[_customRandom.Range(0, _coin.prefabs.Count)],
+            _coin.spawnPoints[_customRandom.Range(0, _coin.spawnPoints.Count)], Quaternion.identity).GetComponent<CoinBehaviour>();
+        CoinList.AddCoinToList(coin);
     }
 
     public void Cleaner()

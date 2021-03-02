@@ -35,14 +35,12 @@ public sealed class MainMenuBehaviour : BaseUI
     {
         ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
         Services.Instance.GameLevelService.StartGame(CharacterType.Ortiz);
-        Services.Instance.AudioService.StopMusic();
     }
 
     private void StartButtonElvis()
     {
         ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
         Services.Instance.GameLevelService.StartGame(CharacterType.Elvis);
-        Services.Instance.AudioService.StopMusic();
     }
 
     public override void Show()
