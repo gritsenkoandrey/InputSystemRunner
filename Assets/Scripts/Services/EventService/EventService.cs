@@ -14,6 +14,10 @@ public sealed class EventService : Service
     public event Action StartSpawn;
     public event Action StopSpawn;
 
+    public event Action OnPickObstacle;
+    public event Action OnPickCoin;
+    public event Action OnPickBlock;
+
     public EventService()
     {
         StartLevel += delegate { };
@@ -27,6 +31,10 @@ public sealed class EventService : Service
 
         StartSpawn += delegate { };
         StopSpawn += delegate { };
+
+        OnPickObstacle += delegate { };
+        OnPickCoin += delegate { };
+        OnPickBlock += delegate { };
     }
 
     public void StartLevelTimer() => StartLevel?.Invoke();
@@ -37,4 +45,7 @@ public sealed class EventService : Service
     public void DestroyBackground() => OffBackground?.Invoke();
     public void StartSpawnItems() => StartSpawn?.Invoke();
     public void StopSpawnItems() => StopSpawn?.Invoke();
+    public void PickObstacle() => OnPickObstacle?.Invoke();
+    public void PickCoin() => OnPickCoin?.Invoke();
+    public void PickBlock() => OnPickBlock?.Invoke();
 }

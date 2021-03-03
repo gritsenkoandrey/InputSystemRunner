@@ -1,4 +1,4 @@
-﻿public sealed class LevelController : BaseController, IInitialization, ICollisionItem
+﻿public sealed class LevelController : BaseController, IInitialization
 {
     private int _countCoin = 0;
     private int _time = 0;
@@ -19,9 +19,7 @@
 
     public void Initialization()
     {
-        EventBus.Subscribe(this);
         Services.Instance.EventService.StartLevel += StartGame;
-        Services.Instance.EventService.StopLevel += EndGame;
     }
 
     private void Timer()
@@ -46,6 +44,10 @@
         uInterface.UiShowTime.Text = _time;
         _timeRemainingTimer.AddTimeRemaining();
         Services.Instance.EventService.StartLevel -= StartGame;
+        Services.Instance.EventService.StopLevel += EndGame;
+        Services.Instance.EventService.OnPickObstacle += PickObstacle;
+        Services.Instance.EventService.OnPickCoin += PickCoin;
+        Services.Instance.EventService.OnPickBlock += PickBlock;
     }
 
     private void EndGame()
@@ -53,11 +55,13 @@
         uInterface.GameMenuBehaviour.ShowGameOver();
         _timeRemainingTimer.RemoveTimeRemaining();
         UserData.SaveData(_countCoin);
-        EventBus.Unsubscribe(this);
         Services.Instance.EventService.StopLevel -= EndGame;
+        Services.Instance.EventService.OnPickObstacle -= PickObstacle;
+        Services.Instance.EventService.OnPickCoin -= PickCoin;
+        Services.Instance.EventService.OnPickBlock -= PickBlock;
     }
 
-    public void PickObstacle()
+    private void PickObstacle()
     {
         _power++;
         if (_power > _maxPower)
@@ -68,7 +72,7 @@
         uInterface.UiShowPower.RefreshPower(_power);
     }
 
-    public void PickCoin()
+    private void PickCoin()
     {
         _countCoin++;
         Services.Instance.AudioService.PlaySound(AudioName.PICK_COIN);
@@ -76,7 +80,7 @@
         uInterface.UiShowCoin.Text = _countCoin;
     }
 
-    public void PickBlock()
+    private void PickBlock()
     {
         _health--;
         Services.Instance.CameraServices.CreateShake(ShakeType.Low);

@@ -34,19 +34,19 @@ public sealed class CharacterBehaviour : BaseModel
         {
             obstacle.Destroy();
             Services.Instance.EffectService.CreateEffectWithColorObject(obstacle, obstacle.transform.position);
-            EventBus.RaiseEvent<ICollisionItem>(h => h.PickObstacle());
+            Services.Instance.EventService.PickObstacle();
         }
         else if (target.TryGetComponent(out block))
         {
             block.Destroy();
             Services.Instance.EffectService.CreateEffectWithColorObject(block, gameObject.transform.position);
-            EventBus.RaiseEvent<ICollisionItem>(h => h.PickBlock());
+            Services.Instance.EventService.PickBlock();
         }
         else if (target.TryGetComponent(out coin))
         {
             coin.Destroy();
             Services.Instance.EffectService.CreateEffectWithColorObject(coin, coin.transform.position);
-            EventBus.RaiseEvent<ICollisionItem>(h => h.PickCoin());
+            Services.Instance.EventService.PickCoin();
         }
     }
 
