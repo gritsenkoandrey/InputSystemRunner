@@ -35,7 +35,7 @@ public sealed class CharacterController : BaseController, IInitialization, IFixE
         _data.Initialization(characterType);
         Services.Instance.EventService.OnCharacter -= SpawnCharacter;
     }
-
+    //todo во время паузы нужно отключать управление
     public void FixedExecute()
     {
         if (!IsActive)
@@ -95,7 +95,7 @@ public sealed class CharacterController : BaseController, IInitialization, IFixE
 
     private void PauseButton()
     {
-        if (uInterface.GameMenuBehaviour) uInterface.GameMenuBehaviour.PauseButton();
+        if (uInterface.GameMenuBehaviour) uInterface.GameMenuBehaviour.PressPauseButton();
     }
 
     private void SwipeStart(Vector2 pos, float time)

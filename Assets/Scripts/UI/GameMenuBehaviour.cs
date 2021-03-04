@@ -5,12 +5,13 @@ using UnityEngine.UI;
 public sealed class GameMenuBehaviour : BaseUI
 {
     [SerializeField] private Button _restartButton = null;
+    [SerializeField] private Button[] _pauseButton = null;
 
     private GameObject _gameOverUI;
     private GameObject _pauseMenuUI;
     private GameObject _gameMenuUI;
 
-    private bool _isPaused;
+    public bool IsPaused { get; private set; }
 
     private void Awake()
     {
@@ -22,18 +23,22 @@ public sealed class GameMenuBehaviour : BaseUI
     private void OnEnable()
     {
         _restartButton.onClick.AddListener(RestartButton);
+        _pauseButton[0].onClick.AddListener(PauseButton);
+        _pauseButton[1].onClick.AddListener(PauseButton);
     }
 
     private void OnDisable()
     {
         _restartButton.onClick.RemoveListener(RestartButton);
+        _pauseButton[0].onClick.RemoveListener(PauseButton);
+        _pauseButton[1].onClick.RemoveListener(PauseButton);
     }
 
     private void Start()
     {
         isShowedUI = false;
 
-        _isPaused = false;
+        IsPaused = false;
 
         Services.Instance.AudioService.PlayMusic(AudioName.GAME_THEME);
         _gameMenuUI.SetActive(true);
@@ -46,26 +51,31 @@ public sealed class GameMenuBehaviour : BaseUI
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void PauseButton()
+    private void PauseButton()
+    {
+        if (IsPaused)
+        {
+            Services.Instance.TimeService.SetTimeScale(1.0f);
+            Services.Instance.AudioService.UnPauseMusic();
+            _pauseMenuUI.SetActive(false);
+            _gameMenuUI.SetActive(true);
+            IsPaused = !IsPaused;
+        }
+        else
+        {
+            Services.Instance.TimeService.SetTimeScale(0f);
+            Services.Instance.AudioService.PauseMusic();
+            _pauseMenuUI.SetActive(true);
+            _gameMenuUI.SetActive(false);
+            IsPaused = !IsPaused;
+        }
+    }
+
+    public void PressPauseButton()
     {
         if (!isShowedUI)
         {
-            if (_isPaused)
-            {
-                Services.Instance.TimeService.SetTimeScale(1.0f);
-                Services.Instance.AudioService.UnPauseMusic();
-                _pauseMenuUI.SetActive(false);
-                _gameMenuUI.SetActive(true);
-                _isPaused = !_isPaused;
-            }
-            else
-            {
-                Services.Instance.TimeService.SetTimeScale(0f);
-                Services.Instance.AudioService.PauseMusic();
-                _pauseMenuUI.SetActive(true);
-                _gameMenuUI.SetActive(false);
-                _isPaused = !_isPaused;
-            }
+            PauseButton();
         }
         else if (_gameOverUI)
         {

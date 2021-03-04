@@ -5,7 +5,7 @@
 
     private void Awake()
     {
-        _timeRemainingReturnToPool = new TimeRemaining(ReturnToPool, _timeReturnToPool);
+        _timeRemainingReturnToPool = new TimeRemaining(Destroy, _timeReturnToPool);
     }
 
     private void OnEnable()
@@ -18,8 +18,8 @@
         _timeRemainingReturnToPool.RemoveTimeRemaining();
     }
 
-    private void ReturnToPool()
+    private void Destroy()
     {
-        PoolManager.ReleaseObject(this.gameObject);
+        PoolManager.ReleaseObject(gameObject);
     }
 }

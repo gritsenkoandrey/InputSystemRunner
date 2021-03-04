@@ -6,19 +6,28 @@ public abstract class BaseItem : BaseModel
     private TimeRemaining _timeRemainingDestroyAfterTime;
     private readonly float _timeToDestroy = 3.75f;
 
-    protected void Awake()
+    private void Awake()
     {
         _timeRemainingDestroyAfterTime = new TimeRemaining(Destroy, _timeToDestroy);
     }
 
-    protected void OnEnable()
+    private void OnEnable()
     {
         _timeRemainingDestroyAfterTime.AddTimeRemaining();
     }
 
-    protected void OnDisable()
+    private void OnDisable()
     {
         _timeRemainingDestroyAfterTime.RemoveTimeRemaining();
+    }
+
+    private void OnTriggerEnter(Collider target)
+    {
+        if (target.TryGetComponent(out character))
+        {
+            Destroy();
+            Collision();
+        }
     }
 
     public virtual void Move(float speed)
@@ -27,4 +36,5 @@ public abstract class BaseItem : BaseModel
     }
 
     public abstract void Destroy();
+    public abstract void Collision();
 }

@@ -28,28 +28,6 @@ public sealed class CharacterBehaviour : BaseModel
         Services.Instance.EventService.OffCharacter -= DestroyCharacter;
     }
 
-    private void OnTriggerEnter(Collider target)
-    {
-        if (target.TryGetComponent(out obstacle))
-        {
-            obstacle.Destroy();
-            Services.Instance.EffectService.CreateEffectWithColorObject(obstacle, obstacle.transform.position);
-            Services.Instance.EventService.PickObstacle();
-        }
-        else if (target.TryGetComponent(out block))
-        {
-            block.Destroy();
-            Services.Instance.EffectService.CreateEffectWithColorObject(block, gameObject.transform.position);
-            Services.Instance.EventService.PickBlock();
-        }
-        else if (target.TryGetComponent(out coin))
-        {
-            coin.Destroy();
-            Services.Instance.EffectService.CreateEffectWithColorObject(coin, coin.transform.position);
-            Services.Instance.EventService.PickCoin();
-        }
-    }
-
     private void DestroyCharacter()
     {
         gameObject.SetActive(false);
