@@ -20,3 +20,4 @@ MonoBehaviour:
   _cameraShakeDataPath: CameraShakeData
   _soundDataPath: SoundData
   _effectDataPath: EffectData
+  _inputDataPath: InputData

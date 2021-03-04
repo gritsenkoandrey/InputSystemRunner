@@ -14,6 +14,7 @@ public sealed class Data : ScriptableObject
     [SerializeField] private string _cameraShakeDataPath = null;
     [SerializeField] private string _soundDataPath = null;
     [SerializeField] private string _effectDataPath = null;
+    [SerializeField] private string _inputDataPath = null;
 
     private static BackgroundData _backgroundData;
     private static CharacterData _characterData;
@@ -23,6 +24,7 @@ public sealed class Data : ScriptableObject
     private static CameraShakeData _cameraShakeData;
     private static SoundData _soundData;
     private static EffectData _effectData;
+    private static InputData _inputData;
 
     private static readonly Lazy<Data> _instance = new Lazy<Data>(() => Load<Data>("Data/" + typeof(Data).Name));
 
@@ -129,6 +131,19 @@ public sealed class Data : ScriptableObject
             }
 
             return _effectData;
+        }
+    }
+
+    public InputData InputData
+    {
+        get
+        {
+            if (_inputData == null)
+            {
+                _inputData = Load<InputData>("Data/" + Instance._inputDataPath);
+            }
+
+            return _inputData;
         }
     }
 

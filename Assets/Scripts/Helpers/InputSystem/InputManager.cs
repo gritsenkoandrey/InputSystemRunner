@@ -1,4 +1,4 @@
-﻿using UnityEngine.InputSystem;
+﻿using UnityEngine;
 
 public sealed class InputManager : Singleton<InputManager>
 {
@@ -18,6 +18,12 @@ public sealed class InputManager : Singleton<InputManager>
 
     public delegate void StartPauseEvent();
     public event StartPauseEvent OnStartPause;
+
+    public delegate void StartTouch(Vector2 pos, float time);
+    public event StartTouch OnStartTouch;
+
+    public delegate void EndTouch(Vector2 pos, float time);
+    public event EndTouch OnEndTouch;
 
     #endregion
 
@@ -40,26 +46,14 @@ public sealed class InputManager : Singleton<InputManager>
 
     private void Start()
     {
-        _input.Player.Move.performed += StartMove;
-        _input.Player.Jump.performed += StartJump;
+        _input.Player.Move.performed += context => OnStartMove?.Invoke(context.ReadValue<float>());
+        _input.Player.Jump.performed += context => OnStartJump?.Invoke();
         _input.Player.Pause.performed += context => OnStartPause?.Invoke();
 
-        //_input.Player.Move.performed += context => OnStartMove?.Invoke(context.ReadValue<float>());
-        //_input.Player.Jump.performed += context => OnStartJump?.Invoke();
-    }
-
-    #endregion
-
-    #region Methods
-
-    private void StartMove(InputAction.CallbackContext context)
-    {
-        OnStartMove?.Invoke(context.ReadValue<float>());
-    }
-
-    private void StartJump(InputAction.CallbackContext context)
-    {
-        OnStartJump?.Invoke();
+        _input.Player.PrimaryContact.started += context =>
+            OnStartTouch?.Invoke(_input.Player.PrimaryPosition.ReadValue<Vector2>(), (float)context.startTime);
+        _input.Player.PrimaryContact.canceled += context =>
+            OnEndTouch?.Invoke(_input.Player.PrimaryPosition.ReadValue<Vector2>(), (float)context.time);
     }
 
     #endregion

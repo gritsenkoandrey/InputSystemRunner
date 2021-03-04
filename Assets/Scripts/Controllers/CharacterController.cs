@@ -1,12 +1,28 @@
-﻿public sealed class CharacterController : BaseController, IInitialization, IFixExecute
+﻿using UnityEngine;
+
+public sealed class CharacterController : BaseController, IInitialization, IFixExecute
 {
     private readonly CharacterData _data;
+    private readonly InputData _inputData;
     private readonly InputManager _input;
+
+    private Vector2 _startPos;
+    private Vector2 _endPos;
+    private float _startTime;
+    private float _endTime;
+    private readonly float _minDistance;
+    private readonly float _maxTime;
+    private readonly float _dirThreshold;
 
     public CharacterController()
     {
         _input = InputManager.Instance;
         _data = Data.Instance.Character;
+
+        _inputData = Data.Instance.InputData;
+        _minDistance = _inputData.minDistance;
+        _maxTime = _inputData.maxTime;
+        _dirThreshold = _inputData.dirThreshold;
     }
 
     public void Initialization()
@@ -49,6 +65,9 @@
         _input.OnStartMove += MoveButton;
         _input.OnStartJump += JumpButton;
         _input.OnStartPause += PauseButton;
+
+        _input.OnStartTouch += SwipeStart;
+        _input.OnEndTouch += SwipeEnd;
     }
 
     public override void Off()
@@ -59,6 +78,9 @@
         _input.OnStartMove -= MoveButton;
         _input.OnStartJump -= JumpButton;
         _input.OnStartPause -= PauseButton;
+
+        _input.OnStartTouch -= SwipeStart;
+        _input.OnEndTouch -= SwipeEnd;
     }
 
     private void MoveButton(float input)
@@ -74,5 +96,43 @@
     private void PauseButton()
     {
         if (uInterface.GameMenuBehaviour) uInterface.GameMenuBehaviour.PauseButton();
+    }
+
+    private void SwipeStart(Vector2 pos, float time)
+    {
+        _startPos = pos;
+        _startTime = time;
+    }
+
+    private void SwipeEnd(Vector2 pos, float time)
+    {
+        _endPos = pos;
+        _endTime = time;
+        Swipe();
+    }
+
+    private void Swipe()
+    {
+        if ((_startPos -_endPos).sqrMagnitude > _minDistance && (_endTime - _startTime) < _maxTime)
+        {
+            var dir = (_endPos - _startPos).normalized;
+
+            if (Vector2.Dot(Vector2.up, dir) > _dirThreshold)
+            {
+                _data.characterBehaviour.Jump();
+            }
+            else if (Vector2.Dot(Vector2.down, dir) > _dirThreshold)
+            {
+                return;
+            }
+            else if (Vector2.Dot(Vector2.right, dir) > _dirThreshold)
+            {
+                _data.characterBehaviour.Move(-1);
+            }
+            else if (Vector2.Dot(Vector2.left, dir) > _dirThreshold)
+            {
+                _data.characterBehaviour.Move(1);
+            }
+        }
     }
 }
