@@ -1,21 +1,21 @@
 ﻿public sealed class EffectBehaviour : BaseModel
 {
-    private TimeRemaining _timeRemainingReturnToPool;
-    private readonly float _timeReturnToPool = 1.0f;
+    private TimeRemaining _timeRemainingDestroy;
+    private readonly float _timeToDestroy = 1.0f;
 
     private void Awake()
     {
-        _timeRemainingReturnToPool = new TimeRemaining(Destroy, _timeReturnToPool);
+        _timeRemainingDestroy = new TimeRemaining(Destroy, _timeToDestroy);
     }
 
     private void OnEnable()
     {
-        _timeRemainingReturnToPool.AddTimeRemaining();
+        _timeRemainingDestroy.AddTimeRemaining();
     }
 
     private void OnDisable()
     {
-        _timeRemainingReturnToPool.RemoveTimeRemaining();
+        _timeRemainingDestroy.RemoveTimeRemaining();
     }
 
     private void Destroy()

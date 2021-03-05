@@ -35,7 +35,7 @@ public sealed class CharacterController : BaseController, IInitialization, IFixE
         _data.Initialization(characterType);
         Services.Instance.EventService.OnCharacter -= SpawnCharacter;
     }
-    //todo во время паузы нужно отключать управление
+    //todo во время паузы нужно отключить управление
     public void FixedExecute()
     {
         if (!IsActive)
@@ -65,7 +65,6 @@ public sealed class CharacterController : BaseController, IInitialization, IFixE
         _input.OnStartMove += MoveButton;
         _input.OnStartJump += JumpButton;
         _input.OnStartPause += PauseButton;
-
         _input.OnStartTouch += SwipeStart;
         _input.OnEndTouch += SwipeEnd;
     }
@@ -78,7 +77,6 @@ public sealed class CharacterController : BaseController, IInitialization, IFixE
         _input.OnStartMove -= MoveButton;
         _input.OnStartJump -= JumpButton;
         _input.OnStartPause -= PauseButton;
-
         _input.OnStartTouch -= SwipeStart;
         _input.OnEndTouch -= SwipeEnd;
     }
@@ -108,10 +106,10 @@ public sealed class CharacterController : BaseController, IInitialization, IFixE
     {
         _endPos = pos;
         _endTime = time;
-        Swipe();
+        SwipeDetected();
     }
 
-    private void Swipe()
+    private void SwipeDetected()
     {
         if ((_startPos -_endPos).sqrMagnitude > _minDistance && (_endTime - _startTime) < _maxTime)
         {

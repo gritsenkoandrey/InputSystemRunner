@@ -9,9 +9,13 @@ public sealed class AudioService : Service
     private AudioSource _soundSource;
     private AudioSource _musicSource;
 
+    private float _volumeSound;
+    private float _volumeMusic;
+
     public AudioService()
     {
         _data = Data.Instance.SoundData;
+        LoadSettings();
         SetAudioSource();
     }
 
@@ -23,6 +27,7 @@ public sealed class AudioService : Service
             var sound = new GameObject("SoundManager");
             _soundSource = sound.AddComponent<AudioSource>();
             _soundSource.outputAudioMixerGroup = _data.soundAudioMixerGroup;
+            _soundSource.volume = GetSoundVolume();
             Object.DontDestroyOnLoad(sound);
         }
 
@@ -32,6 +37,7 @@ public sealed class AudioService : Service
             var music = new GameObject("MusicManager");
             _musicSource = music.AddComponent<AudioSource>();
             _musicSource.outputAudioMixerGroup = _data.musicAudioMixerGroup;
+            _musicSource.volume = GetMusicVolume();
             Object.DontDestroyOnLoad(music);
         }
     }
@@ -64,5 +70,56 @@ public sealed class AudioService : Service
     public void UnPauseMusic()
     {
         _musicSource.UnPause();
+    }
+
+    public void SetVolume(float value)
+    {
+        _soundSource.volume = value;
+        _musicSource.volume = value;
+        SetSoundVolume(value);
+        SetMusicVolume(value);
+    }
+
+    private void SaveSettings()
+    {
+        CustomPlayerPrefs.SetFloat("SoundVolume", _volumeSound);
+        CustomPlayerPrefs.SetFloat("MusicVolume", _volumeMusic);
+    }
+
+    private void LoadSettings()
+    {
+        _volumeSound = CustomPlayerPrefs.GetFloat("SoundVolume");
+        _volumeMusic = CustomPlayerPrefs.GetFloat("MusicVolume");
+    }
+
+    private void SetMusicVolume(float value)
+    {
+        _volumeMusic = value;
+        SaveSettings();
+    }
+
+    private float GetMusicVolume()
+    {
+        return _volumeMusic;
+    }
+
+    private void SetSoundVolume(float value)
+    {
+        _volumeSound = value;
+        SaveSettings();
+    }
+
+    private float GetSoundVolume()
+    {
+        return _volumeSound;
+    }
+
+    public bool SoundIsPlaying()
+    {
+        if (Mathf.Approximately(_volumeSound, 0f) && Mathf.Approximately(_volumeMusic, 0f))
+        {
+            return false;
+        }
+        else return true;
     }
 }

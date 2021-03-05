@@ -36,8 +36,7 @@ public sealed class GameMenuBehaviour : BaseUI
 
     private void Start()
     {
-        isShowedUI = false;
-
+        IsShowedUI = false;
         IsPaused = false;
 
         Services.Instance.AudioService.PlayMusic(AudioName.GAME_THEME);
@@ -73,7 +72,7 @@ public sealed class GameMenuBehaviour : BaseUI
 
     public void PressPauseButton()
     {
-        if (!isShowedUI)
+        if (!IsShowedUI)
         {
             PauseButton();
         }
@@ -85,7 +84,7 @@ public sealed class GameMenuBehaviour : BaseUI
 
     public void ShowGameOver()
     {
-        isShowedUI = true;
+        IsShowedUI = true;
         Services.Instance.AudioService.PlayMusic(AudioName.GAME_OVER);
         _gameMenuUI.SetActive(false);
         _gameOverUI.SetActive(true);
