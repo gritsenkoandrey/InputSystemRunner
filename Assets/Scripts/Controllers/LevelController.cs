@@ -68,14 +68,14 @@
         {
             _power = _maxPower;
         }
-        Services.Instance.AudioService.PlaySound(AudioName.PICK_OBSTACLE);
+        Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.PickObstacle));
         uInterface.UiShowPower.RefreshPower(_power);
     }
 
     private void PickCoin()
     {
         _countCoin++;
-        Services.Instance.AudioService.PlaySound(AudioName.PICK_COIN);
+        Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.PickCoin));
         uInterface.UiShowCoin.ScaleText();
         uInterface.UiShowCoin.Text = _countCoin;
     }
@@ -84,7 +84,7 @@
     {
         _health--;
         Services.Instance.CameraServices.CreateShake(ShakeType.Low);
-        Services.Instance.AudioService.PlaySound(AudioName.DAMAGE_ELVIS);
+        Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.PickBlock));
         uInterface.UiShowHealth.RefreshHealth(_health);
     }
 }

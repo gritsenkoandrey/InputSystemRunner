@@ -27,7 +27,7 @@ public sealed class AudioService : Service
             var sound = new GameObject("SoundManager");
             _soundSource = sound.AddComponent<AudioSource>();
             _soundSource.outputAudioMixerGroup = _data.soundAudioMixerGroup;
-            _soundSource.volume = GetSoundVolume();
+            _soundSource.volume = _volumeSound;
             Object.DontDestroyOnLoad(sound);
         }
 
@@ -37,17 +37,14 @@ public sealed class AudioService : Service
             var music = new GameObject("MusicManager");
             _musicSource = music.AddComponent<AudioSource>();
             _musicSource.outputAudioMixerGroup = _data.musicAudioMixerGroup;
-            _musicSource.volume = GetMusicVolume();
+            _musicSource.loop = true;
+            _musicSource.volume = _volumeMusic;
             Object.DontDestroyOnLoad(music);
         }
     }
 
     public void PlaySound(string audio)
     {
-        if (_soundClip != null)
-        {
-            _soundClip.UnloadAudioData();
-        }
         _soundClip = CustomResources.Load<AudioClip>(audio);
         _soundSource.PlayOneShot(_soundClip);
     }
@@ -74,10 +71,11 @@ public sealed class AudioService : Service
 
     public void SetVolume(float value)
     {
-        _soundSource.volume = value;
-        _musicSource.volume = value;
         SetSoundVolume(value);
         SetMusicVolume(value);
+        SaveSettings();
+        _soundSource.volume = GetSoundVolume();
+        _musicSource.volume = GetMusicVolume();
     }
 
     private void SaveSettings()
@@ -95,7 +93,6 @@ public sealed class AudioService : Service
     private void SetMusicVolume(float value)
     {
         _volumeMusic = value;
-        SaveSettings();
     }
 
     private float GetMusicVolume()
@@ -106,7 +103,6 @@ public sealed class AudioService : Service
     private void SetSoundVolume(float value)
     {
         _volumeSound = value;
-        SaveSettings();
     }
 
     private float GetSoundVolume()

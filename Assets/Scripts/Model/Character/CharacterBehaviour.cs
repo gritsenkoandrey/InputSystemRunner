@@ -44,7 +44,7 @@ public sealed class CharacterBehaviour : BaseModel
         {
             _body.AddForce(Vector3.up * _init.jump, ForceMode.Impulse);
             _animator.SetTrigger(AnimationName.JUMP_ANIMATION);
-            Services.Instance.AudioService.PlaySound(AudioName.JUM_ELVIS);
+            Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Jump));
         }
     }
 
@@ -57,10 +57,12 @@ public sealed class CharacterBehaviour : BaseModel
             if (Mathf.Approximately(tempPos.z, _init.middlePos))
             {
                 _body.MovePosition(Vector3.forward * input * _init.speed);
+                Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Move));
             }
             else if (Mathf.Approximately(tempPos.z, _init.minPos) && input > 0 || Mathf.Approximately(tempPos.z, _init.maxPos) && input < 0)
             {
                 _body.MovePosition(Vector3.zero);
+                Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Move));
             }
         }
     }

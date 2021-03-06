@@ -39,7 +39,7 @@ public sealed class GameMenuBehaviour : BaseUI
         IsShowedUI = false;
         IsPaused = false;
 
-        Services.Instance.AudioService.PlayMusic(AudioName.GAME_THEME);
+        Services.Instance.AudioService.PlayMusic(AudioHelper.GetName(AudioType.GameTheme));
         _gameMenuUI.SetActive(true);
         _pauseMenuUI.SetActive(false);
         _gameOverUI.SetActive(false);
@@ -85,7 +85,7 @@ public sealed class GameMenuBehaviour : BaseUI
     public void ShowGameOver()
     {
         IsShowedUI = true;
-        Services.Instance.AudioService.PlayMusic(AudioName.GAME_OVER);
+        Services.Instance.AudioService.PlayMusic(AudioHelper.GetName(AudioType.GameOver));
         _gameMenuUI.SetActive(false);
         _gameOverUI.SetActive(true);
     }
