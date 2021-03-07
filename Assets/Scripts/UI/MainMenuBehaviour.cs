@@ -12,7 +12,6 @@ public sealed class MainMenuBehaviour : BaseUI
     private GameObject _haveCoins;
     private RawImage[] _images;
 
-
     private void Awake()
     {
         _haveCoins = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TypeTag.HaveCoinUI));
@@ -61,6 +60,10 @@ public sealed class MainMenuBehaviour : BaseUI
             case (int)CharacterType.Elvis:
                 ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
                 Services.Instance.GameLevelService.StartGame(CharacterType.Elvis);
+                break;
+            case (int)CharacterType.Jammo:
+                ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
+                Services.Instance.GameLevelService.StartGame(CharacterType.Jammo);
                 break;
         }
     }

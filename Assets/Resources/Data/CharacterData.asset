@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d0c6a5228624d4e9a0898cfb4dab53, type: 3}
   m_Name: CharacterData
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5504686661500534543, guid: cc1e315310f51b440b3332f943cb525b, type: 3}
   maxPos: 3
   middlePos: 0
   minPos: -3
   speed: 3
   jump: 5
-  health: 5
   rayDis: 0.5
+  health: 5
+  power: 15

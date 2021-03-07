@@ -11,6 +11,9 @@ public sealed class AssetsPathGameObject
             GameObjectType.CharacterElvis, "Prefabs/Characters/Character_Elvis"
         },
         {
+            GameObjectType.CharacterJammo, "Prefabs/Characters/Character_Jammo"
+        },
+        {
             GameObjectType.Background, "Prefabs/Backgrounds/Background"
         },
         {

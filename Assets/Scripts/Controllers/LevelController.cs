@@ -1,6 +1,6 @@
 ﻿public sealed class LevelController : BaseController, IInitialization
 {
-    private int _countCoin = 0;
+    private int _coin = 0;
     private int _time = 0;
     private int _power;
     private int _health;
@@ -13,7 +13,6 @@
     {
         _health = Data.Instance.Character.health;
         _maxPower = Data.Instance.Character.power;
-
         _timeRemainingTimer = new TimeRemaining(Timer, _secondTimer, true);
     }
 
@@ -40,7 +39,7 @@
     {
         _power = _maxPower;
         uInterface.UiShowPower.RefreshPower(_power);
-        uInterface.UiShowCoin.Text = _countCoin;
+        uInterface.UiShowCoin.Text = _coin;
         uInterface.UiShowTime.Text = _time;
         _timeRemainingTimer.AddTimeRemaining();
         Services.Instance.EventService.StartLevel -= StartGame;
@@ -54,7 +53,7 @@
     {
         uInterface.GameMenuBehaviour.ShowGameOver();
         _timeRemainingTimer.RemoveTimeRemaining();
-        UserData.SaveData(_countCoin);
+        UserData.SaveData(_coin);
         Services.Instance.EventService.StopLevel -= EndGame;
         Services.Instance.EventService.OnPickObstacle -= PickObstacle;
         Services.Instance.EventService.OnPickCoin -= PickCoin;
@@ -74,10 +73,10 @@
 
     private void PickCoin()
     {
-        _countCoin++;
+        _coin++;
         Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.PickCoin));
         uInterface.UiShowCoin.ScaleText();
-        uInterface.UiShowCoin.Text = _countCoin;
+        uInterface.UiShowCoin.Text = _coin;
     }
 
     private void PickBlock()
