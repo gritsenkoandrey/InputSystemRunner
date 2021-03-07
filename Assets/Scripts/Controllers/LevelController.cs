@@ -53,7 +53,7 @@
     {
         uInterface.GameMenuBehaviour.ShowGameOver();
         _timeRemainingTimer.RemoveTimeRemaining();
-        UserData.SaveData(_coin);
+        Data.Instance.GameData.SaveCoinsData(_coin);
         Services.Instance.EventService.StopLevel -= EndGame;
         Services.Instance.EventService.OnPickObstacle -= PickObstacle;
         Services.Instance.EventService.OnPickCoin -= PickCoin;

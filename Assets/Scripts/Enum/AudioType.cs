@@ -8,5 +8,6 @@
     PickCoin     = 5,
     PickObstacle = 6,
     PickBlock    = 7,
-    Click        = 8
+    Click        = 8,
+    Buy          = 9
 }

@@ -42,42 +42,87 @@ public sealed class MainMenuBehaviour : BaseUI
     private void Start()
     {
         IsShowedUI = true;
-
         LoadVolumeSettings();
         InitializationCharacters();
         Services.Instance.AudioService.PlayMusic(AudioHelper.GetName(AudioType.MainTheme));
-        _haveCoins.GetComponent<Text>().text = $"You have: {UserData.LoadMaxCoin()} coins";
+        _haveCoins.GetComponent<Text>().text = $"You have: {Data.Instance.GameData.coins} coins";
     }
 
     private void StartButton()
     {
-        switch (_index)
+        if (Data.Instance.GameData.isHeroAvailable[_index])
         {
-            case (int)CharacterType.Ortiz:
-                ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
-                Services.Instance.GameLevelService.StartGame(CharacterType.Ortiz);
-                break;
-            case (int)CharacterType.Elvis:
-                ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
-                Services.Instance.GameLevelService.StartGame(CharacterType.Elvis);
-                break;
-            case (int)CharacterType.Jammo:
-                ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
-                Services.Instance.GameLevelService.StartGame(CharacterType.Jammo);
-                break;
+            switch (_index)
+            {
+                case (int)CharacterType.Ortiz:
+                    ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
+                    Services.Instance.GameLevelService.StartGame(CharacterType.Ortiz);
+                    break;
+                case (int)CharacterType.Elvis:
+                    ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
+                    Services.Instance.GameLevelService.StartGame(CharacterType.Elvis);
+                    break;
+                case (int)CharacterType.Jammo:
+                    ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
+                    Services.Instance.GameLevelService.StartGame(CharacterType.Jammo);
+                    break;
+            }
+        }
+        else
+        {
+            if (_index == (int)CharacterType.Ortiz) return;
+            else if (_index == (int)CharacterType.Elvis)
+            {
+                if (Data.Instance.GameData.coins > 10)
+                {
+                    Data.Instance.GameData.SaveCoinsData(-10);
+                    Data.Instance.GameData.SaveCharacterData(CharacterType.Elvis, true);
+                    Data.Instance.GameData.LoadData();
+                    Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Buy));
+                    _startButton.GetComponentInChildren<Text>().text = "Select";
+                    _haveCoins.GetComponent<Text>().text = $"You have: {Data.Instance.GameData.coins} coins";
+                }
+            }
+            else if (_index == (int)CharacterType.Jammo)
+            {
+                if (Data.Instance.GameData.coins > 50)
+                {
+                    Data.Instance.GameData.SaveCoinsData(-50);
+                    Data.Instance.GameData.SaveCharacterData(CharacterType.Jammo, true);
+                    Data.Instance.GameData.LoadData();
+                    Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Buy));
+                    _startButton.GetComponentInChildren<Text>().text = "Select";
+                    _haveCoins.GetComponent<Text>().text = $"You have: {Data.Instance.GameData.coins} coins";
+                }
+            }
+        }
+    }
+
+    private void CheckCharacterIsUnloked()
+    {
+        if (_index == (int)CharacterType.Ortiz)
+        {
+            _startButton.GetComponentInChildren<Text>().text = "Select";
+        }
+        else if (_index == (int)CharacterType.Elvis)
+        {
+            if (Data.Instance.GameData.isHeroAvailable[_index])
+                _startButton.GetComponentInChildren<Text>().text = "Select";
+            else _startButton.GetComponentInChildren<Text>().text = "10";
+        }
+        else if (_index == (int)CharacterType.Jammo)
+        {
+            if (Data.Instance.GameData.isHeroAvailable[_index])
+                _startButton.GetComponentInChildren<Text>().text = "Select";
+            else _startButton.GetComponentInChildren<Text>().text = "50";
         }
     }
 
     private void LoadVolumeSettings()
     {
         if (Services.Instance.AudioService.SoundIsPlaying())
-        {
             _volumeButton[1].gameObject.SetActive(false);
-        }
-        else
-        {
-            _volumeButton[0].gameObject.SetActive(false);
-        }
+        else _volumeButton[0].gameObject.SetActive(false);
     }
 
     private void VolumeOn()
@@ -108,37 +153,21 @@ public sealed class MainMenuBehaviour : BaseUI
     private void NextCharacter()
     {
         Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Click));
-
         _images[_index].gameObject.SetActive(false);
-
-        if (_index + 1 == _images.Length)
-        {
-            _index = 0;
-        }
-        else
-        {
-            _index++;
-        }
-
+        if (_index + 1 == _images.Length) _index = 0;
+        else _index++;
         _images[_index].gameObject.SetActive(true);
+        CheckCharacterIsUnloked();
     }
 
     private void PreviousCharacter()
     {
         Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Click));
-
         _images[_index].gameObject.SetActive(false);
-
-        if (_index - 1 == -1)
-        {
-            _index = _images.Length - 1;
-        }
-        else
-        {
-            _index--;
-        }
-
+        if (_index - 1 == -1) _index = _images.Length - 1;
+        else _index--;
         _images[_index].gameObject.SetActive(true);
+        CheckCharacterIsUnloked();
     }
 
     public override void Show()

@@ -15,6 +15,7 @@ public sealed class Data : ScriptableObject
     [SerializeField] private string _soundDataPath = null;
     [SerializeField] private string _effectDataPath = null;
     [SerializeField] private string _inputDataPath = null;
+    [SerializeField] private string _gameDataPath = null;
 
     private static BackgroundData _backgroundData;
     private static CharacterData _characterData;
@@ -25,6 +26,7 @@ public sealed class Data : ScriptableObject
     private static SoundData _soundData;
     private static EffectData _effectData;
     private static InputData _inputData;
+    private static GameData _gameData;
 
     private static readonly Lazy<Data> _instance = new Lazy<Data>(() => Load<Data>("Data/" + typeof(Data).Name));
 
@@ -144,6 +146,19 @@ public sealed class Data : ScriptableObject
             }
 
             return _inputData;
+        }
+    }
+
+    public GameData GameData
+    {
+        get
+        {
+            if (_gameData == null)
+            {
+                _gameData = Load<GameData>("Data/" + Instance._gameDataPath);
+            }
+
+            return _gameData;
         }
     }
 
