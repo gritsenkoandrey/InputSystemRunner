@@ -21,3 +21,4 @@ MonoBehaviour:
   _soundDataPath: SoundData
   _effectDataPath: EffectData
   _inputDataPath: InputData
+  _gameDataPath: GameData

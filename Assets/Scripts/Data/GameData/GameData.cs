@@ -1,13 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "GameData", menuName = "Data/Game/GameData")]
 public sealed class GameData : ScriptableObject
 {
-    internal bool[] isHeroAvailable;
-    internal int coins;
-
     private string _coin = "Coin";
-
     private string _ortiz = "Ortiz";
     private string _elvis = "Elvis";
     private string _jammo = "Jammo";
@@ -15,20 +12,30 @@ public sealed class GameData : ScriptableObject
     private int _maxCoin;
     private int _curCoin;
 
+    public Dictionary<CharacterType, bool> IsHeroAvailable;
+    public int Coins { get; private set; }
+
     public void LoadData()
     {
-        isHeroAvailable = new bool[3];
+        IsHeroAvailable = new Dictionary<CharacterType, bool>
+        {
+            {
+                CharacterType.Ortiz, Services.Instance.SaveData.GetBool(_ortiz, true)
+            },
+            {
+                CharacterType.Elvis, Services.Instance.SaveData.GetBool(_elvis, false)
+            },
+            {
+                CharacterType.Jammo, Services.Instance.SaveData.GetBool(_jammo, false)
+            }
+        };
 
-        isHeroAvailable[(int)CharacterType.Ortiz] = Services.Instance.SaveData.GetBool(_ortiz, true);
-        isHeroAvailable[(int)CharacterType.Elvis] = Services.Instance.SaveData.GetBool(_elvis, false);
-        isHeroAvailable[(int)CharacterType.Jammo] = Services.Instance.SaveData.GetBool(_jammo, false);
-
-        coins = LoadMaxCoin();
+        Coins = LoadMaxCoin();
     }
 
     public void SaveCharacterData(CharacterType character, bool value)
     {
-        isHeroAvailable[(int)character] = value;
+        IsHeroAvailable[character] = value;
 
         switch (character)
         {

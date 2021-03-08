@@ -1,4 +1,4 @@
-﻿public enum TypeTag : byte
+﻿public enum TagType : byte
 {
     GameOverUI  = 0,
     PauseMenuUI = 1,

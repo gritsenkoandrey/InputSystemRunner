@@ -12,18 +12,21 @@ public sealed class MainMenuBehaviour : BaseUI
     private GameObject _haveCoins;
     private RawImage[] _images;
 
+    private CharacterData _charData;
+    private GameData _gameData;
+
     private void Awake()
     {
-        _haveCoins = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TypeTag.HaveCoinUI));
+        _haveCoins = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TagType.HaveCoinUI));
+        _charData = Data.Instance.Character;
+        _gameData = Data.Instance.GameData;
     }
 
     private void OnEnable()
     {
         _startButton.onClick.AddListener(StartButton);
-
         _volumeButton[0].onClick.AddListener(VolumeOff);
         _volumeButton[1].onClick.AddListener(VolumeOn);
-
         _nextButton.onClick.AddListener(NextCharacter);
         _prevButton.onClick.AddListener(PreviousCharacter);
     }
@@ -31,10 +34,8 @@ public sealed class MainMenuBehaviour : BaseUI
     private void OnDisable()
     {
         _startButton.onClick.RemoveListener(StartButton);
-
         _volumeButton[0].onClick.RemoveListener(VolumeOff);
         _volumeButton[1].onClick.RemoveListener(VolumeOn);
-
         _nextButton.onClick.RemoveListener(NextCharacter);
         _prevButton.onClick.RemoveListener(PreviousCharacter);
     }
@@ -45,12 +46,12 @@ public sealed class MainMenuBehaviour : BaseUI
         LoadVolumeSettings();
         InitializationCharacters();
         Services.Instance.AudioService.PlayMusic(AudioHelper.GetName(AudioType.MainTheme));
-        _haveCoins.GetComponent<Text>().text = $"You have: {Data.Instance.GameData.coins} coins";
+        _haveCoins.GetComponent<Text>().text = $"You have: {_gameData.Coins} coins";
     }
 
     private void StartButton()
     {
-        if (Data.Instance.GameData.isHeroAvailable[_index])
+        if (_gameData.IsHeroAvailable[(CharacterType)_index])
         {
             switch (_index)
             {
@@ -70,51 +71,53 @@ public sealed class MainMenuBehaviour : BaseUI
         }
         else
         {
-            if (_index == (int)CharacterType.Ortiz) return;
-            else if (_index == (int)CharacterType.Elvis)
+            switch (_index)
             {
-                if (Data.Instance.GameData.coins > 10)
-                {
-                    Data.Instance.GameData.SaveCoinsData(-10);
-                    Data.Instance.GameData.SaveCharacterData(CharacterType.Elvis, true);
-                    Data.Instance.GameData.LoadData();
-                    Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Buy));
-                    _startButton.GetComponentInChildren<Text>().text = "Select";
-                    _haveCoins.GetComponent<Text>().text = $"You have: {Data.Instance.GameData.coins} coins";
-                }
-            }
-            else if (_index == (int)CharacterType.Jammo)
-            {
-                if (Data.Instance.GameData.coins > 50)
-                {
-                    Data.Instance.GameData.SaveCoinsData(-50);
-                    Data.Instance.GameData.SaveCharacterData(CharacterType.Jammo, true);
-                    Data.Instance.GameData.LoadData();
-                    Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Buy));
-                    _startButton.GetComponentInChildren<Text>().text = "Select";
-                    _haveCoins.GetComponent<Text>().text = $"You have: {Data.Instance.GameData.coins} coins";
-                }
+                case (int)CharacterType.Ortiz:
+                    break;
+                case (int)CharacterType.Elvis:
+                    if (_gameData.Coins >= 10)
+                    {
+                        _gameData.SaveCoinsData(-10);
+                        _gameData.SaveCharacterData(CharacterType.Elvis, true);
+                        _gameData.LoadData();
+                        Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Buy));
+                        _startButton.GetComponentInChildren<Text>().text = "Select";
+                        _haveCoins.GetComponent<Text>().text = $"You have: {_gameData.Coins} coins";
+                    }
+                    break;
+                case (int)CharacterType.Jammo:
+                    if (_gameData.Coins >= 50)
+                    {
+                        _gameData.SaveCoinsData(-50);
+                        _gameData.SaveCharacterData(CharacterType.Jammo, true);
+                        _gameData.LoadData();
+                        Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Buy));
+                        _startButton.GetComponentInChildren<Text>().text = "Select";
+                        _haveCoins.GetComponent<Text>().text = $"You have: {_gameData.Coins} coins";
+                    }
+                    break;
             }
         }
     }
 
     private void CheckCharacterIsUnloked()
     {
-        if (_index == (int)CharacterType.Ortiz)
+        switch (_index)
         {
-            _startButton.GetComponentInChildren<Text>().text = "Select";
-        }
-        else if (_index == (int)CharacterType.Elvis)
-        {
-            if (Data.Instance.GameData.isHeroAvailable[_index])
+            case (int)CharacterType.Ortiz:
                 _startButton.GetComponentInChildren<Text>().text = "Select";
-            else _startButton.GetComponentInChildren<Text>().text = "10";
-        }
-        else if (_index == (int)CharacterType.Jammo)
-        {
-            if (Data.Instance.GameData.isHeroAvailable[_index])
-                _startButton.GetComponentInChildren<Text>().text = "Select";
-            else _startButton.GetComponentInChildren<Text>().text = "50";
+                break;
+            case (int)CharacterType.Elvis:
+                if (_gameData.IsHeroAvailable[(CharacterType)_index])
+                    _startButton.GetComponentInChildren<Text>().text = "Select";
+                else _startButton.GetComponentInChildren<Text>().text = "Cost 10";
+                break;
+            case (int)CharacterType.Jammo:
+                if (_gameData.IsHeroAvailable[(CharacterType)_index])
+                    _startButton.GetComponentInChildren<Text>().text = "Select";
+                else _startButton.GetComponentInChildren<Text>().text = "Cost 50";
+                break;
         }
     }
 
@@ -141,6 +144,7 @@ public sealed class MainMenuBehaviour : BaseUI
 
     private void InitializationCharacters()
     {
+        _charData.InitializationImage(gameObject.transform);
         _images = GetComponentsInChildren<RawImage>();
 
         for (var i = 0; i < _images.Length; i++)

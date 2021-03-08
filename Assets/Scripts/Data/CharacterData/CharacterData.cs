@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "CharacterData", menuName = "Data/Character/CharacterData")]
 public sealed class CharacterData : ScriptableObject
@@ -14,6 +15,10 @@ public sealed class CharacterData : ScriptableObject
     public float rayDis = 0.5f;
     public int health = 5;
     public int power = 15;
+
+    [Header("Character Image")]
+    [SerializeField] private RawImage[] _images = null;
+    [SerializeField] private GameObject _rendererTexture = null;
 
     internal CharacterBehaviour characterBehaviour;
     public void Initialization(CharacterType characterType)
@@ -34,6 +39,16 @@ public sealed class CharacterData : ScriptableObject
                 character = CustomResources.Load<CharacterBehaviour>(AssetsPathGameObject.GameObjects[GameObjectType.CharacterJammo]);
                 characterBehaviour = Instantiate(character);
                 break;
+        }
+    }
+
+    public void InitializationImage(Transform pos)
+    {
+        Instantiate(_rendererTexture, pos);
+
+        for (int i = 0; i < _images.Length; i++)
+        {
+            Instantiate(_images[i], pos);
         }
     }
 }

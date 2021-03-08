@@ -15,9 +15,9 @@ public sealed class GameMenuBehaviour : BaseUI
 
     private void Awake()
     {
-        _gameMenuUI = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TypeTag.GameMenuUI));
-        _gameOverUI = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TypeTag.GameOverUI));
-        _pauseMenuUI = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TypeTag.PauseMenuUI));
+        _gameMenuUI = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TagType.GameMenuUI));
+        _gameOverUI = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TagType.GameOverUI));
+        _pauseMenuUI = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TagType.PauseMenuUI));
     }
 
     private void OnEnable()

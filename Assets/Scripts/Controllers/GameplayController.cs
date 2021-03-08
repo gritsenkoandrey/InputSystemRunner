@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public sealed class GameplayController : BaseController, IInitialization, ICleanUp
+public sealed class GamePlayController : BaseController, IInitialization, ICleanUp
 {
     public void Initialization()
     {

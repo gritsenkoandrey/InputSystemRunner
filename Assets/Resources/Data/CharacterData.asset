@@ -20,3 +20,9 @@ MonoBehaviour:
   rayDis: 0.5
   health: 5
   power: 15
+  _images:
+  - {fileID: 6695953902596170573, guid: aa88fd7da5f1bf34293561aa31cde2fa, type: 3}
+  - {fileID: 1080129435317454730, guid: 19a542570a1f9024588137f406dc0f63, type: 3}
+  - {fileID: 4190903521313803639, guid: 0f4144a1feeecaa4580d0e0b238d83a3, type: 3}
+  _rendererTexture: {fileID: 392712389678603450, guid: eea38feb8a36adb4ab1c30722cd21d58,
+    type: 3}

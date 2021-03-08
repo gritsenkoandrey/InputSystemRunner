@@ -43,7 +43,7 @@ public sealed class CharacterBehaviour : BaseModel
         if (CheckGround())
         {
             _body.AddForce(Vector3.up * _init.jump, ForceMode.Impulse);
-            _animator.SetTrigger(AnimationName.JUMP_ANIMATION);
+            _animator.SetTrigger(AnimationHlper.GetName(AnimationType.Jump));
             Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Jump));
         }
     }
