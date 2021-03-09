@@ -64,7 +64,6 @@ public sealed class CharacterController : BaseController, IInitialization, IFixE
 
         _input.OnStartMove += MoveButton;
         _input.OnStartJump += JumpButton;
-        _input.OnStartPause += PauseButton;
         _input.OnStartTouch += SwipeStart;
         _input.OnEndTouch += SwipeEnd;
     }
@@ -76,7 +75,6 @@ public sealed class CharacterController : BaseController, IInitialization, IFixE
 
         _input.OnStartMove -= MoveButton;
         _input.OnStartJump -= JumpButton;
-        _input.OnStartPause -= PauseButton;
         _input.OnStartTouch -= SwipeStart;
         _input.OnEndTouch -= SwipeEnd;
     }
@@ -89,11 +87,6 @@ public sealed class CharacterController : BaseController, IInitialization, IFixE
     private void JumpButton()
     {
         _data.characterBehaviour.Jump();
-    }
-
-    private void PauseButton()
-    {
-        if (uInterface.GameMenuBehaviour) uInterface.GameMenuBehaviour.PressPauseButton();
     }
 
     private void SwipeStart(Vector2 pos, float time)

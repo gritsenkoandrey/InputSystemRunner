@@ -131,9 +131,10 @@ GameObject:
   - component: {fileID: 6452717070512161120}
   - component: {fileID: 1789516593831948482}
   - component: {fileID: 3632916456532337270}
+  - component: {fileID: 3503250337176328212}
   m_Layer: 5
   m_Name: Have_Coins
-  m_TagString: HaveCoinsUI
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -213,6 +214,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &3503250337176328212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2791787919189719856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 721d8e78055f42d43b1deb28d1165738, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3246753639684969828
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,8 +418,9 @@ MonoBehaviour:
   _volumeButton:
   - {fileID: 4850737208537933769}
   - {fileID: 1650743578662999472}
-  _nextButton: {fileID: 9043223464572816716}
-  _prevButton: {fileID: 7215240802097813653}
+  _turnButton:
+  - {fileID: 9043223464572816716}
+  - {fileID: 7215240802097813653}
 --- !u!1 &3506080867107303180
 GameObject:
   m_ObjectHideFlags: 0

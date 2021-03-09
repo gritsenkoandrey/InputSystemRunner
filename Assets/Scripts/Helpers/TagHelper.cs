@@ -8,10 +8,7 @@ public static class TagHelper
     {
         _tags = new Dictionary<TagType, string>
         {
-            { TagType.GameOverUI, "GameOverUI" },
-            { TagType.PauseMenuUI, "PauseMenuUI" },
-            { TagType.GameMenuUI, "GameMenuUI" },
-            { TagType.HaveCoinUI, "HaveCoinsUI" }
+            { TagType.None, "None" }
         };
     }
 

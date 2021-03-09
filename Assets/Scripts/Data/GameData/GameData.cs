@@ -12,12 +12,12 @@ public sealed class GameData : ScriptableObject
     private int _maxCoin;
     private int _curCoin;
 
-    public Dictionary<CharacterType, bool> IsHeroAvailable;
+    public Dictionary<CharacterType, bool> CharacterIsUnloked;
     public int Coins { get; private set; }
 
     public void LoadData()
     {
-        IsHeroAvailable = new Dictionary<CharacterType, bool>
+        CharacterIsUnloked = new Dictionary<CharacterType, bool>
         {
             {
                 CharacterType.Ortiz, Services.Instance.SaveData.GetBool(_ortiz, true)
@@ -35,7 +35,7 @@ public sealed class GameData : ScriptableObject
 
     public void SaveCharacterData(CharacterType character, bool value)
     {
-        IsHeroAvailable[character] = value;
+        CharacterIsUnloked[character] = value;
 
         switch (character)
         {

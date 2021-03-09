@@ -5,30 +5,18 @@ public sealed class MainMenuBehaviour : BaseUI
 {
     [SerializeField] private Button _startButton = null;
     [SerializeField] private Button[] _volumeButton = null;
-    [SerializeField] private Button _nextButton = null;
-    [SerializeField] private Button _prevButton = null;
+    [SerializeField] private Button[] _turnButton = null;
 
     private int _index = 0;
-    private GameObject _haveCoins;
     private RawImage[] _images;
-
-    private CharacterData _charData;
-    private GameData _gameData;
-
-    private void Awake()
-    {
-        _haveCoins = GameObject.FindGameObjectWithTag(TagHelper.GetTag(TagType.HaveCoinUI));
-        _charData = Data.Instance.Character;
-        _gameData = Data.Instance.GameData;
-    }
 
     private void OnEnable()
     {
         _startButton.onClick.AddListener(StartButton);
         _volumeButton[0].onClick.AddListener(VolumeOff);
         _volumeButton[1].onClick.AddListener(VolumeOn);
-        _nextButton.onClick.AddListener(NextCharacter);
-        _prevButton.onClick.AddListener(PreviousCharacter);
+        _turnButton[0].onClick.AddListener(NextCharacter);
+        _turnButton[1].onClick.AddListener(PrevCharacter);
     }
 
     private void OnDisable()
@@ -36,22 +24,21 @@ public sealed class MainMenuBehaviour : BaseUI
         _startButton.onClick.RemoveListener(StartButton);
         _volumeButton[0].onClick.RemoveListener(VolumeOff);
         _volumeButton[1].onClick.RemoveListener(VolumeOn);
-        _nextButton.onClick.RemoveListener(NextCharacter);
-        _prevButton.onClick.RemoveListener(PreviousCharacter);
+        _turnButton[0].onClick.RemoveListener(NextCharacter);
+        _turnButton[1].onClick.RemoveListener(PrevCharacter);
     }
 
     private void Start()
     {
-        IsShowedUI = true;
-        LoadVolumeSettings();
-        InitializationCharacters();
+        ShowCurrentVolumeButton();
+        InitializationImages();
         Services.Instance.AudioService.PlayMusic(AudioHelper.GetName(AudioType.MainTheme));
-        _haveCoins.GetComponent<Text>().text = $"You have: {_gameData.Coins} coins";
+        Interface.UIHaveCoinsText.Text = data.Coins;
     }
 
     private void StartButton()
     {
-        if (_gameData.IsHeroAvailable[(CharacterType)_index])
+        if (data.CharacterIsUnloked[(CharacterType)_index])
         {
             switch (_index)
             {
@@ -76,32 +63,29 @@ public sealed class MainMenuBehaviour : BaseUI
                 case (int)CharacterType.Ortiz:
                     break;
                 case (int)CharacterType.Elvis:
-                    if (_gameData.Coins >= 10)
-                    {
-                        _gameData.SaveCoinsData(-10);
-                        _gameData.SaveCharacterData(CharacterType.Elvis, true);
-                        _gameData.LoadData();
-                        Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Buy));
-                        _startButton.GetComponentInChildren<Text>().text = "Select";
-                        _haveCoins.GetComponent<Text>().text = $"You have: {_gameData.Coins} coins";
-                    }
+                    UnlockCharacter(CharacterType.Elvis, 10);
                     break;
                 case (int)CharacterType.Jammo:
-                    if (_gameData.Coins >= 50)
-                    {
-                        _gameData.SaveCoinsData(-50);
-                        _gameData.SaveCharacterData(CharacterType.Jammo, true);
-                        _gameData.LoadData();
-                        Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Buy));
-                        _startButton.GetComponentInChildren<Text>().text = "Select";
-                        _haveCoins.GetComponent<Text>().text = $"You have: {_gameData.Coins} coins";
-                    }
+                    UnlockCharacter(CharacterType.Jammo, 50);
                     break;
             }
         }
     }
 
-    private void CheckCharacterIsUnloked()
+    private void UnlockCharacter(CharacterType character, int cost)
+    {
+        if (data.Coins >= cost)
+        {
+            data.SaveCoinsData(-cost);
+            data.SaveCharacterData(character, true);
+            data.LoadData();
+            Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Buy));
+            _startButton.GetComponentInChildren<Text>().text = "Select";
+            Interface.UIHaveCoinsText.Text = data.Coins;
+        }
+    }
+
+    private void CheckCharacterIsUnlocked()
     {
         switch (_index)
         {
@@ -109,19 +93,19 @@ public sealed class MainMenuBehaviour : BaseUI
                 _startButton.GetComponentInChildren<Text>().text = "Select";
                 break;
             case (int)CharacterType.Elvis:
-                if (_gameData.IsHeroAvailable[(CharacterType)_index])
+                if (data.CharacterIsUnloked[(CharacterType)_index])
                     _startButton.GetComponentInChildren<Text>().text = "Select";
                 else _startButton.GetComponentInChildren<Text>().text = "Cost 10";
                 break;
             case (int)CharacterType.Jammo:
-                if (_gameData.IsHeroAvailable[(CharacterType)_index])
+                if (data.CharacterIsUnloked[(CharacterType)_index])
                     _startButton.GetComponentInChildren<Text>().text = "Select";
                 else _startButton.GetComponentInChildren<Text>().text = "Cost 50";
                 break;
         }
     }
 
-    private void LoadVolumeSettings()
+    private void ShowCurrentVolumeButton()
     {
         if (Services.Instance.AudioService.SoundIsPlaying())
             _volumeButton[1].gameObject.SetActive(false);
@@ -142,9 +126,9 @@ public sealed class MainMenuBehaviour : BaseUI
         _volumeButton[1].gameObject.SetActive(true);
     }
 
-    private void InitializationCharacters()
+    private void InitializationImages()
     {
-        _charData.InitializationImage(gameObject.transform);
+        Data.Instance.Character.InitializationImage(gameObject.transform);
         _images = GetComponentsInChildren<RawImage>();
 
         for (var i = 0; i < _images.Length; i++)
@@ -161,17 +145,17 @@ public sealed class MainMenuBehaviour : BaseUI
         if (_index + 1 == _images.Length) _index = 0;
         else _index++;
         _images[_index].gameObject.SetActive(true);
-        CheckCharacterIsUnloked();
+        CheckCharacterIsUnlocked();
     }
 
-    private void PreviousCharacter()
+    private void PrevCharacter()
     {
         Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Click));
         _images[_index].gameObject.SetActive(false);
         if (_index - 1 == -1) _index = _images.Length - 1;
         else _index--;
         _images[_index].gameObject.SetActive(true);
-        CheckCharacterIsUnloked();
+        CheckCharacterIsUnlocked();
     }
 
     public override void Show()

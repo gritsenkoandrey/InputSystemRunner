@@ -51,6 +51,7 @@
 
     private void EndGame()
     {
+        //todo исправить null когда вызываю напрямую
         uInterface.GameMenuBehaviour.ShowGameOver();
         _timeRemainingTimer.RemoveTimeRemaining();
         Data.Instance.GameData.SaveCoinsData(_coin);

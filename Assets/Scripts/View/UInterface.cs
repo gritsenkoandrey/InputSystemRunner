@@ -10,6 +10,11 @@ public sealed class UInterface
     private GameMenuBehaviour _gameMenuBehaviour;
     private MainMenuBehaviour _mainMenuBehaviour;
 
+    private UIHaveCoins _uIHaveCoins;
+    private UIGameMenu _uIGameMenu;
+    private UIGameOver _uIGameOver;
+    private UIPauseMenu _uIPauseMenu;
+
     public UIShowTime UiShowTime
     {
         get
@@ -61,6 +66,42 @@ public sealed class UInterface
         {
             if (!_mainMenuBehaviour) _mainMenuBehaviour = Object.FindObjectOfType<MainMenuBehaviour>();
             return _mainMenuBehaviour;
+        }
+    }
+
+    public UIHaveCoins UIHaveCoinsText
+    {
+        get
+        {
+            if (!_uIHaveCoins) _uIHaveCoins = Object.FindObjectOfType<UIHaveCoins>();
+            return _uIHaveCoins;
+        }
+    }
+
+    public UIGameMenu UIGameMenu
+    {
+        get
+        {
+            if (!_uIGameMenu) _uIGameMenu = Object.FindObjectOfType<UIGameMenu>();
+            return _uIGameMenu;
+        }
+    }
+
+    public UIGameOver UIGameOver
+    {
+        get
+        {
+            if (!_uIGameOver) _uIGameOver = Object.FindObjectOfType<UIGameOver>();
+            return _uIGameOver;
+        }
+    }
+
+    public UIPauseMenu UIPauseMenu
+    {
+        get
+        {
+            if (!_uIPauseMenu) _uIPauseMenu = Object.FindObjectOfType<UIPauseMenu>();
+            return _uIPauseMenu;
         }
     }
 }
