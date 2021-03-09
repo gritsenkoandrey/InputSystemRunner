@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public sealed class GameMenuBehaviour : BaseUI
+public class GameMenuBehaviour : BaseUI
 {
     [SerializeField] private Button _restartButton = null;
     [SerializeField] private Button[] _pauseButton = null;
@@ -14,6 +14,7 @@ public sealed class GameMenuBehaviour : BaseUI
         _restartButton.onClick.AddListener(RestartButton);
         _pauseButton[0].onClick.AddListener(PauseButton);
         _pauseButton[1].onClick.AddListener(PauseButton);
+        Services.Instance.EventService.OnShowGameOverMenu += ShowGameOverMenu;
     }
 
     private void OnDisable()
@@ -21,15 +22,16 @@ public sealed class GameMenuBehaviour : BaseUI
         _restartButton.onClick.RemoveListener(RestartButton);
         _pauseButton[0].onClick.RemoveListener(PauseButton);
         _pauseButton[1].onClick.RemoveListener(PauseButton);
+        Services.Instance.EventService.OnShowGameOverMenu -= ShowGameOverMenu;
     }
 
     private void Start()
     {
         IsPaused = false;
 
-        Interface.UIGameMenu.SetActive(true);
-        Interface.UIPauseMenu.SetActive(false);
-        Interface.UIGameOver.SetActive(false);
+        uInterface.UIGameMenu.SetActive(true);
+        uInterface.UIPauseMenu.SetActive(false);
+        uInterface.UIGameOver.SetActive(false);
     }
 
     private void RestartButton()
@@ -41,22 +43,22 @@ public sealed class GameMenuBehaviour : BaseUI
     {
         if (IsPaused)
         {
-            Interface.UIPauseMenu.SetActive(false);
-            Interface.UIGameMenu.SetActive(true);
+            uInterface.UIPauseMenu.SetActive(false);
+            uInterface.UIGameMenu.SetActive(true);
             IsPaused = !IsPaused;
         }
         else
         {
-            Interface.UIPauseMenu.SetActive(true);
-            Interface.UIGameMenu.SetActive(false);
+            uInterface.UIPauseMenu.SetActive(true);
+            uInterface.UIGameMenu.SetActive(false);
             IsPaused = !IsPaused;
         }
     }
 
-    public void ShowGameOver()
+    private void ShowGameOverMenu()
     {
-        Interface.UIGameMenu.SetActive(false);
-        Interface.UIGameOver.SetActive(true);
+        uInterface.UIGameMenu.SetActive(false);
+        uInterface.UIGameOver.SetActive(true);
     }
 
     public override void Show()

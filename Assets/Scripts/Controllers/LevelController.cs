@@ -51,14 +51,13 @@
 
     private void EndGame()
     {
-        //todo исправить null когда вызываю напрямую
-        uInterface.GameMenuBehaviour.ShowGameOver();
-        _timeRemainingTimer.RemoveTimeRemaining();
-        Data.Instance.GameData.SaveCoinsData(_coin);
+        Services.Instance.EventService.ShowGameOverMenu();
         Services.Instance.EventService.StopLevel -= EndGame;
         Services.Instance.EventService.OnPickObstacle -= PickObstacle;
         Services.Instance.EventService.OnPickCoin -= PickCoin;
         Services.Instance.EventService.OnPickBlock -= PickBlock;
+        Data.Instance.GameData.SaveCoinsData(_coin);
+        _timeRemainingTimer.RemoveTimeRemaining();
     }
 
     private void PickObstacle()

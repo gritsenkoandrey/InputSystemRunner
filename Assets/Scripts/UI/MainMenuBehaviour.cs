@@ -33,7 +33,7 @@ public sealed class MainMenuBehaviour : BaseUI
         ShowCurrentVolumeButton();
         InitializationImages();
         Services.Instance.AudioService.PlayMusic(AudioHelper.GetName(AudioType.MainTheme));
-        Interface.UIHaveCoinsText.Text = data.Coins;
+        uInterface.UIHaveCoins.Text = data.Coins;
     }
 
     private void StartButton()
@@ -81,7 +81,7 @@ public sealed class MainMenuBehaviour : BaseUI
             data.LoadData();
             Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Buy));
             _startButton.GetComponentInChildren<Text>().text = "Select";
-            Interface.UIHaveCoinsText.Text = data.Coins;
+            uInterface.UIHaveCoins.Text = data.Coins;
         }
     }
 

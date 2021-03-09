@@ -557,7 +557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 392712389678603451}
   m_Layer: 0
-  m_Name: 3DView
+  m_Name: RendererTexture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

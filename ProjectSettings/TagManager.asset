@@ -3,11 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - GameOverUI
-  - PauseMenuUI
-  - HaveCoinsUI
-  - GameMenuUI
+  tags: []
   layers:
   - Default
   - TransparentFX

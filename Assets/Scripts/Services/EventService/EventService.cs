@@ -18,6 +18,8 @@ public sealed class EventService : Service
     public event Action OnPickCoin;
     public event Action OnPickBlock;
 
+    public event Action OnShowGameOverMenu;
+
     public EventService()
     {
         StartLevel += delegate { };
@@ -35,6 +37,8 @@ public sealed class EventService : Service
         OnPickObstacle += delegate { };
         OnPickCoin += delegate { };
         OnPickBlock += delegate { };
+
+        OnShowGameOverMenu += delegate { };
     }
 
     public void StartLevelTimer() => StartLevel?.Invoke();
@@ -48,4 +52,5 @@ public sealed class EventService : Service
     public void PickObstacle() => OnPickObstacle?.Invoke();
     public void PickCoin() => OnPickCoin?.Invoke();
     public void PickBlock() => OnPickBlock?.Invoke();
+    public void ShowGameOverMenu() => OnShowGameOverMenu?.Invoke();
 }

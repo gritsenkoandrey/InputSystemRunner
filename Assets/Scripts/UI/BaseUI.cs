@@ -2,12 +2,12 @@
 
 public abstract class BaseUI : MonoBehaviour
 {
-    protected UInterface Interface;
+    protected UInterface uInterface;
     protected GameData data;
 
     protected virtual void Awake()
     {
-        Interface = new UInterface();
+        uInterface = new UInterface();
         data = Data.Instance.GameData;
     }
 

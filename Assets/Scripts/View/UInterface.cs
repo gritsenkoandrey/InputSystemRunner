@@ -6,10 +6,6 @@ public sealed class UInterface
     private UIShowHealth _uiShowHealth;
     private UIShowPower _uiShowPower;
     private UIShowCoin _uiShowCoin;
-
-    private GameMenuBehaviour _gameMenuBehaviour;
-    private MainMenuBehaviour _mainMenuBehaviour;
-
     private UIHaveCoins _uIHaveCoins;
     private UIGameMenu _uIGameMenu;
     private UIGameOver _uIGameOver;
@@ -51,25 +47,7 @@ public sealed class UInterface
         }
     }
 
-    public GameMenuBehaviour GameMenuBehaviour
-    {
-        get
-        {
-            if (!_gameMenuBehaviour) _gameMenuBehaviour = Object.FindObjectOfType<GameMenuBehaviour>();
-            return _gameMenuBehaviour;
-        }
-    }
-
-    public MainMenuBehaviour MainMenuBehaviour
-    {
-        get
-        {
-            if (!_mainMenuBehaviour) _mainMenuBehaviour = Object.FindObjectOfType<MainMenuBehaviour>();
-            return _mainMenuBehaviour;
-        }
-    }
-
-    public UIHaveCoins UIHaveCoinsText
+    public UIHaveCoins UIHaveCoins
     {
         get
         {
