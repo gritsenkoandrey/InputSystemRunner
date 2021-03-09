@@ -16,7 +16,7 @@ public sealed class AssetsPathScreen
                 screen = "Prefabs/UI/Screen/Main_Menu",
                 elements = new Dictionary<ScreenElementType, string>
                 {
-                    {ScreenElementType.MainMenu, "MainMenu"}
+                    { ScreenElementType.MainMenu, "MainMenu" }
                 }
             }
         },
@@ -26,7 +26,27 @@ public sealed class AssetsPathScreen
                 screen = "Prefabs/UI/Screen/Game_Menu",
                 elements = new Dictionary<ScreenElementType, string>
                 {
-                    {ScreenElementType.GameMenu, "GameMenu"}
+                    { ScreenElementType.GameMenu, "GameMenu" }
+                }
+            }
+        },
+        {
+            ScreenType.GameOverMenu, new ScreenPath
+            {
+                screen = "Prefabs/UI/Screen/Game_Over_Menu",
+                elements = new Dictionary<ScreenElementType, string>
+                {
+                    { ScreenElementType.GameOverMenu, "GameOverMenu" }
+                }
+            }
+        },
+        {
+            ScreenType.PauseMenu, new ScreenPath
+            {
+                screen = "Prefabs/UI/Screen/Pause_Menu",
+                elements = new Dictionary<ScreenElementType, string>
+                {
+                    { ScreenElementType.PauseMenu, "PauseMenu" }
                 }
             }
         }

@@ -51,7 +51,7 @@
 
     private void EndGame()
     {
-        Services.Instance.EventService.ShowGameOverMenu();
+        ScreenInterface.GetScreenInterface().Execute(ScreenType.GameOverMenu);
         Services.Instance.EventService.StopLevel -= EndGame;
         Services.Instance.EventService.OnPickObstacle -= PickObstacle;
         Services.Instance.EventService.OnPickCoin -= PickCoin;

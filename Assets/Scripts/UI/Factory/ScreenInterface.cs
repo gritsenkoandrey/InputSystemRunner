@@ -27,6 +27,12 @@
             case ScreenType.MainMenu:
                 _currentWindow = _screenFactory.GetMainMenu();
                 break;
+            case ScreenType.GameOverMenu:
+                _currentWindow = _screenFactory.GetGameOverMenu();
+                break;
+            case ScreenType.PauseMenu:
+                _currentWindow = _screenFactory.GetPauseMenu();
+                break;
         }
 
         _currentWindow?.Show();
