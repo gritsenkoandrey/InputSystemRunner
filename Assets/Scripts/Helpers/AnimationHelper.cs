@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-public static class AnimationHlper
+public static class AnimationHelper
 {
     private static readonly Dictionary<AnimationType, string> _types;
 
-    static AnimationHlper()
+    static AnimationHelper()
     {
         _types = new Dictionary<AnimationType, string>
         {

@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 8881397307315070717}
   - component: {fileID: 4800570934099697832}
   m_Layer: 5
-  m_Name: Clean_Button
+  m_Name: Settings_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,8 +261,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -25}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchoredPosition: {x: 50, y: -50}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7734446389838452202
 CanvasRenderer:
@@ -291,7 +291,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fd80ce84293b7fb4080b8be66ccdfbb2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a223a11a42081d34dbc392c161a631b5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -540,7 +540,7 @@ MonoBehaviour:
   _turnButton:
   - {fileID: 9043223464572816716}
   - {fileID: 7215240802097813653}
-  _cleanButton: {fileID: 4800570934099697832}
+  _settingsButton: {fileID: 4800570934099697832}
 --- !u!1 &3506080867107303180
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ public sealed class MainMenuBehaviour : BaseUI
     [SerializeField] private Button _startButton = null;
     [SerializeField] private Button[] _volumeButton = null;
     [SerializeField] private Button[] _turnButton = null;
-    [SerializeField] private Button _cleanButton = null;
+    [SerializeField] private Button _settingsButton = null;
 
     private int _index = 0;
     private RawImage[] _images;
@@ -18,8 +18,7 @@ public sealed class MainMenuBehaviour : BaseUI
         _volumeButton[1].onClick.AddListener(VolumeOn);
         _turnButton[0].onClick.AddListener(NextCharacter);
         _turnButton[1].onClick.AddListener(PrevCharacter);
-
-        _cleanButton.onClick.AddListener(CleanData);
+        _settingsButton.onClick.AddListener(SettingsMenu);
     }
 
     private void OnDisable()
@@ -29,8 +28,7 @@ public sealed class MainMenuBehaviour : BaseUI
         _volumeButton[1].onClick.RemoveListener(VolumeOn);
         _turnButton[0].onClick.RemoveListener(NextCharacter);
         _turnButton[1].onClick.RemoveListener(PrevCharacter);
-
-        _cleanButton.onClick.RemoveListener(CleanData);
+        _settingsButton.onClick.RemoveListener(SettingsMenu);
     }
 
     private void Start()
@@ -163,12 +161,9 @@ public sealed class MainMenuBehaviour : BaseUI
         CheckCharacterIsUnlocked();
     }
 
-    private void CleanData()
+    private void SettingsMenu()
     {
-        gameData.CleanData();
-        gameData.LoadData();
-        Services.Instance.EventService.ShowHaveCoins();
-        CheckCharacterIsUnlocked();
+        ScreenInterface.GetScreenInterface().Execute(ScreenType.SettingsMenu);
     }
 
     public override void Show()

@@ -8,6 +8,7 @@ public sealed class ScreenFactory
     private MainMenuBehaviour _mainMenu;
     private GameOverMenuBehaviour _gameOverMenu;
     private PauseMenuBehaviour _pauseMenu;
+    private SettingsMenuBehaviour _settingsMenu;
 
     public ScreenFactory()
     {
@@ -65,5 +66,18 @@ public sealed class ScreenFactory
         }
 
         return _pauseMenu;
+    }
+
+    public SettingsMenuBehaviour GetSettingsMenu()
+    {
+        if (_settingsMenu == null)
+        {
+            var resources =
+                CustomResources.Load<SettingsMenuBehaviour>(AssetsPathScreen.screens[ScreenType.SettingsMenu].screen);
+            _settingsMenu = Object.Instantiate(resources, _canvas.transform.position, Quaternion.identity,
+                _canvas.transform);
+        }
+
+        return _settingsMenu;
     }
 }

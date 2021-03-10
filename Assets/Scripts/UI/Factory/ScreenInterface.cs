@@ -33,6 +33,9 @@
             case ScreenType.PauseMenu:
                 _currentWindow = _screenFactory.GetPauseMenu();
                 break;
+            case ScreenType.SettingsMenu:
+                _currentWindow = _screenFactory.GetSettingsMenu();
+                break;
         }
 
         _currentWindow?.Show();

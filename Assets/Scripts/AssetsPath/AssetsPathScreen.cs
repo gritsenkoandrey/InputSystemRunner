@@ -49,6 +49,16 @@ public sealed class AssetsPathScreen
                     { ScreenElementType.PauseMenu, "PauseMenu" }
                 }
             }
+        },
+        {
+            ScreenType.SettingsMenu, new ScreenPath
+            {
+                screen = "Prefabs/UI/Screen/Settings_Menu",
+                elements = new Dictionary<ScreenElementType, string>
+                {
+                    { ScreenElementType.SettingsMenu, "SettingsMenu" }
+                }
+            }
         }
     };
 }
