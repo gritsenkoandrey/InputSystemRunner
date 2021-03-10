@@ -15,12 +15,6 @@ public sealed class PauseMenuBehaviour : BaseUI
         _pauseButton.onClick.RemoveListener(PauseButton);
     }
 
-    private void Start()
-    {
-        Services.Instance.AudioService.PauseMusic();
-        Services.Instance.TimeService.SetTimeScale(0f);
-    }
-
     private void PauseButton()
     {
         Services.Instance.AudioService.UnPauseMusic();
