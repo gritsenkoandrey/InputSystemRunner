@@ -19,6 +19,7 @@
     public void Initialization()
     {
         Services.Instance.EventService.StartLevel += StartGame;
+        Services.Instance.EventService.OnShowHaveCoins += ShowHaveCoins;
     }
 
     private void Timer()
@@ -43,6 +44,7 @@
         uInterface.UiShowTime.Text = _time;
         _timeRemainingTimer.AddTimeRemaining();
         Services.Instance.EventService.StartLevel -= StartGame;
+        Services.Instance.EventService.OnShowHaveCoins -= ShowHaveCoins;
         Services.Instance.EventService.StopLevel += EndGame;
         Services.Instance.EventService.OnPickObstacle += PickObstacle;
         Services.Instance.EventService.OnPickCoin += PickCoin;
@@ -85,5 +87,10 @@
         Services.Instance.CameraServices.CreateShake(ShakeType.Low);
         Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.PickBlock));
         uInterface.UiShowHealth.RefreshHealth(_health);
+    }
+
+    private void ShowHaveCoins()
+    {
+        uInterface.UIHaveCoins.Text = Data.Instance.GameData.Coins;
     }
 }

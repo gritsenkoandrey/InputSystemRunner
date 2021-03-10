@@ -86,8 +86,8 @@ public sealed class AudioService : Service
 
     private void LoadSettings()
     {
-        _volumeSound = CustomPlayerPrefs.GetFloat("SoundVolume");
-        _volumeMusic = CustomPlayerPrefs.GetFloat("MusicVolume");
+        _volumeSound = CustomPlayerPrefs.GetFloat("SoundVolume", 1.0f);
+        _volumeMusic = CustomPlayerPrefs.GetFloat("MusicVolume", 1.0f);
     }
 
     private void SetMusicVolume(float value)

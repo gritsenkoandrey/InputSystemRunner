@@ -20,6 +20,10 @@ public sealed class CharacterData : ScriptableObject
     [SerializeField] private RawImage[] _images = null;
     [SerializeField] private GameObject _rendererTexture = null;
 
+    [Header("Character Cost")]
+    [SerializeField] private int _elvisCost = 10;
+    [SerializeField] private int _jammoCost = 50;
+
     internal CharacterBehaviour characterBehaviour;
     public void Initialization(CharacterType characterType)
     {
@@ -49,6 +53,19 @@ public sealed class CharacterData : ScriptableObject
         for (int i = 0; i < _images.Length; i++)
         {
             Instantiate(_images[i], pos);
+        }
+    }
+
+    public int GetCharacterCost(CharacterType character)
+    {
+        switch (character)
+        {
+            case CharacterType.Elvis:
+                return _elvisCost;
+            case CharacterType.Jammo:
+                return _jammoCost;
+            default:
+                return 0;
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public sealed class UIShowHealth : MonoBehaviour
+public sealed class UIShowHealth : UInterfaceBase
 {
     private Transform[] _health;
 
-    private void OnEnable()
+    private void Awake()
     {
         _health = new Transform[Data.Instance.Character.health];
 
@@ -12,11 +12,6 @@ public sealed class UIShowHealth : MonoBehaviour
         {
             _health[i] = transform.GetChild(i);
         }
-    }
-
-    public void SetActive(bool value)
-    {
-        gameObject.SetActive(value);
     }
 
     public void RefreshHealth(int health)

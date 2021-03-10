@@ -1,19 +1,13 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
-public sealed class UIShowTime : MonoBehaviour
+public sealed class UIShowTime : UInterfaceBase
 {
     private Text _text;
 
     public int Text { set { _text.text = $"{value}"; } }
 
-    private void OnEnable()
+    private void Awake()
     {
         _text = GetComponentInChildren<Text>();
-    }
-
-    public void SetActive(bool value)
-    {
-        gameObject.SetActive(value);
     }
 }

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public sealed class UIShowCoin : MonoBehaviour
+public sealed class UIShowCoin : UInterfaceBase
 {
     private Text _text;
     private RectTransform _rectTransform;
@@ -12,21 +12,11 @@ public sealed class UIShowCoin : MonoBehaviour
 
     public int Text { set { _text.text = $"{value}"; } }
 
-    private void OnEnable()
+    private void Awake()
     {
         _text = GetComponentInChildren<Text>();
         _rectTransform = _text.GetComponent<RectTransform>();
         _sequence = DOTween.Sequence();
-    }
-
-    private void OnDisable()
-    {
-        _rectTransform.DOKill();
-    }
-
-    public void SetActive(bool value)
-    { 
-        gameObject.SetActive(value);
     }
 
     public void ScaleText()

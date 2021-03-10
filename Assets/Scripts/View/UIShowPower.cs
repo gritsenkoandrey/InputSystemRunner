@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public class UIShowPower : MonoBehaviour
+public class UIShowPower : UInterfaceBase
 {
     private Transform[] _power;
 
-    private void OnEnable()
+    private void Awake()
     {
         _power = new Transform[Data.Instance.Character.power];
 
@@ -12,11 +12,6 @@ public class UIShowPower : MonoBehaviour
         {
             _power[i] = transform.GetChild(i);
         }
-    }
-
-    public void SetActive(bool value)
-    {
-        gameObject.SetActive(value);
     }
 
     public void RefreshPower(int power)

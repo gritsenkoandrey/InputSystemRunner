@@ -6,6 +6,7 @@ public sealed class MainMenuBehaviour : BaseUI
     [SerializeField] private Button _startButton = null;
     [SerializeField] private Button[] _volumeButton = null;
     [SerializeField] private Button[] _turnButton = null;
+    [SerializeField] private Button _cleanButton = null;
 
     private int _index = 0;
     private RawImage[] _images;
@@ -17,6 +18,8 @@ public sealed class MainMenuBehaviour : BaseUI
         _volumeButton[1].onClick.AddListener(VolumeOn);
         _turnButton[0].onClick.AddListener(NextCharacter);
         _turnButton[1].onClick.AddListener(PrevCharacter);
+
+        _cleanButton.onClick.AddListener(CleanData);
     }
 
     private void OnDisable()
@@ -26,6 +29,8 @@ public sealed class MainMenuBehaviour : BaseUI
         _volumeButton[1].onClick.RemoveListener(VolumeOn);
         _turnButton[0].onClick.RemoveListener(NextCharacter);
         _turnButton[1].onClick.RemoveListener(PrevCharacter);
+
+        _cleanButton.onClick.RemoveListener(CleanData);
     }
 
     private void Start()
@@ -33,12 +38,12 @@ public sealed class MainMenuBehaviour : BaseUI
         ShowCurrentVolumeButton();
         InitializationImages();
         Services.Instance.AudioService.PlayMusic(AudioHelper.GetName(AudioType.MainTheme));
-        uInterface.UIHaveCoins.Text = data.Coins;
+        Services.Instance.EventService.ShowHaveCoins();
     }
 
     private void StartButton()
     {
-        if (data.CharacterIsUnloked[(CharacterType)_index])
+        if (gameData.CharacterIsUnloked[(CharacterType)_index])
         {
             switch (_index)
             {
@@ -63,10 +68,10 @@ public sealed class MainMenuBehaviour : BaseUI
                 case (int)CharacterType.Ortiz:
                     break;
                 case (int)CharacterType.Elvis:
-                    UnlockCharacter(CharacterType.Elvis, 10);
+                    UnlockCharacter(CharacterType.Elvis, charData.GetCharacterCost(CharacterType.Elvis));
                     break;
                 case (int)CharacterType.Jammo:
-                    UnlockCharacter(CharacterType.Jammo, 50);
+                    UnlockCharacter(CharacterType.Jammo, charData.GetCharacterCost(CharacterType.Jammo));
                     break;
             }
         }
@@ -74,14 +79,14 @@ public sealed class MainMenuBehaviour : BaseUI
 
     private void UnlockCharacter(CharacterType character, int cost)
     {
-        if (data.Coins >= cost)
+        if (gameData.Coins >= cost)
         {
-            data.SaveCoinsData(-cost);
-            data.SaveCharacterData(character, true);
-            data.LoadData();
+            gameData.SaveCoinsData(-cost);
+            gameData.SaveCharacterData(character, true);
+            gameData.LoadData();
             Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Buy));
+            Services.Instance.EventService.ShowHaveCoins();
             _startButton.GetComponentInChildren<Text>().text = "Select";
-            uInterface.UIHaveCoins.Text = data.Coins;
         }
     }
 
@@ -93,14 +98,14 @@ public sealed class MainMenuBehaviour : BaseUI
                 _startButton.GetComponentInChildren<Text>().text = "Select";
                 break;
             case (int)CharacterType.Elvis:
-                if (data.CharacterIsUnloked[(CharacterType)_index])
+                if (gameData.CharacterIsUnloked[(CharacterType)_index])
                     _startButton.GetComponentInChildren<Text>().text = "Select";
-                else _startButton.GetComponentInChildren<Text>().text = "Cost 10";
+                else _startButton.GetComponentInChildren<Text>().text = $"Cost {charData.GetCharacterCost(CharacterType.Elvis)}";
                 break;
             case (int)CharacterType.Jammo:
-                if (data.CharacterIsUnloked[(CharacterType)_index])
+                if (gameData.CharacterIsUnloked[(CharacterType)_index])
                     _startButton.GetComponentInChildren<Text>().text = "Select";
-                else _startButton.GetComponentInChildren<Text>().text = "Cost 50";
+                else _startButton.GetComponentInChildren<Text>().text = $"Cost {charData.GetCharacterCost(CharacterType.Jammo)}";
                 break;
         }
     }
@@ -128,7 +133,7 @@ public sealed class MainMenuBehaviour : BaseUI
 
     private void InitializationImages()
     {
-        Data.Instance.Character.InitializationImage(gameObject.transform);
+        charData.InitializationImage(gameObject.transform);
         _images = GetComponentsInChildren<RawImage>();
 
         for (var i = 0; i < _images.Length; i++)
@@ -155,6 +160,14 @@ public sealed class MainMenuBehaviour : BaseUI
         if (_index - 1 == -1) _index = _images.Length - 1;
         else _index--;
         _images[_index].gameObject.SetActive(true);
+        CheckCharacterIsUnlocked();
+    }
+
+    private void CleanData()
+    {
+        gameData.CleanData();
+        gameData.LoadData();
+        Services.Instance.EventService.ShowHaveCoins();
         CheckCharacterIsUnlocked();
     }
 
