@@ -10,8 +10,8 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: -5596525657414670669}
-    m_Position: {x: 120, y: 280, z: 0}
+    m_State: {fileID: -342841662472759961}
+    m_Position: {x: 130, y: 320, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -21,8 +21,8 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 50, y: 160, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: -5596525657414670669}
---- !u!1102 &-5596525657414670669
+  m_DefaultState: {fileID: -342841662472759961}
+--- !u!1102 &-342841662472759961
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
@@ -55,7 +55,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Character_Elvis_Idle
+  m_Name: Character_Idle
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Jump

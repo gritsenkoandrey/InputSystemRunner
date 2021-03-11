@@ -136,4 +136,4 @@ public sealed class SpawnController : BaseController, IInitialization, IFixExecu
         BlockList.ClearList();
         CoinList.ClearList();
     }
-}   
+}

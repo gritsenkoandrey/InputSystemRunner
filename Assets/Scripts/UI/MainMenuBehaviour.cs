@@ -163,6 +163,7 @@ public sealed class MainMenuBehaviour : BaseUI
 
     private void SettingsMenu()
     {
+        Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Click));
         ScreenInterface.GetScreenInterface().Execute(ScreenType.SettingsMenu);
     }
 

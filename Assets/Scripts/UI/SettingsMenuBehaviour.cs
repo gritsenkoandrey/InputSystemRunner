@@ -20,11 +20,14 @@ public sealed class SettingsMenuBehaviour : BaseUI
 
     private void ReturnMainMenu()
     {
+        Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Click));
         ScreenInterface.GetScreenInterface().Execute(ScreenType.MainMenu);
     }
 
+    //todo при переходе на окно main menu нужно обновить доступность персонажей CheckCharacterIsUnlocked
     private void ResetProgress()
     {
+        Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Click));
         gameData.CleanData();
         gameData.LoadData();
         Services.Instance.EventService.ShowHaveCoins();
