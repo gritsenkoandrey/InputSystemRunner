@@ -22,9 +22,7 @@ public sealed class GameMenuBehaviour : BaseUI
 
     private void PauseButton()
     {
-        Services.Instance.AudioService.PauseMusic();
-        Services.Instance.TimeService.SetTimeScale(0f);
-        ScreenInterface.GetScreenInterface().Execute(ScreenType.PauseMenu);
+        Services.Instance.GameLevelService.PauseGame();
     }
 
     public override void Show()

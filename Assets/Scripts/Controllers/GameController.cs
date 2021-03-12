@@ -10,7 +10,7 @@ public sealed class GameController : MonoBehaviour
 
         Cleaner();
         Initialization();
-        ScreenInterface.GetScreenInterface().Execute(ScreenType.MainMenu);
+        Services.Instance.GameLevelService.InitGame();
     }
 
     private void Update()

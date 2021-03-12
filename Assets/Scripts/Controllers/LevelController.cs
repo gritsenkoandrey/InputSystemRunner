@@ -18,8 +18,7 @@
 
     public void Initialization()
     {
-        Services.Instance.EventService.StartLevel += StartGame;
-        Services.Instance.EventService.OnShowHaveCoins += ShowHaveCoins;
+        Subscribe();
     }
 
     private void Timer()
@@ -30,34 +29,21 @@
         _time++;
         uInterface.UiShowTime.Text = _time;
 
-        if (_power <= 0 || _health <= 0)
-        {
-            Services.Instance.GameLevelService.GameOver();
-        }
+        if (_power <= 0 || _health <= 0) Services.Instance.GameLevelService.EndGame();
     }
 
-    private void StartGame()
+    private void StartTimer()
     {
         _power = _maxPower;
         uInterface.UiShowPower.RefreshPower(_power);
         uInterface.UiShowCoin.Text = _coin;
         uInterface.UiShowTime.Text = _time;
         _timeRemainingTimer.AddTimeRemaining();
-        Services.Instance.EventService.StartLevel -= StartGame;
-        Services.Instance.EventService.OnShowHaveCoins -= ShowHaveCoins;
-        Services.Instance.EventService.StopLevel += EndGame;
-        Services.Instance.EventService.OnPickObstacle += PickObstacle;
-        Services.Instance.EventService.OnPickCoin += PickCoin;
-        Services.Instance.EventService.OnPickBlock += PickBlock;
     }
 
-    private void EndGame()
+    private void StopTimer()
     {
-        ScreenInterface.GetScreenInterface().Execute(ScreenType.GameOverMenu);
-        Services.Instance.EventService.StopLevel -= EndGame;
-        Services.Instance.EventService.OnPickObstacle -= PickObstacle;
-        Services.Instance.EventService.OnPickCoin -= PickCoin;
-        Services.Instance.EventService.OnPickBlock -= PickBlock;
+        UnSubscribe();
         Data.Instance.GameData.SaveCoinsData(_coin);
         _timeRemainingTimer.RemoveTimeRemaining();
     }
@@ -65,10 +51,7 @@
     private void PickObstacle()
     {
         _power++;
-        if (_power > _maxPower)
-        {
-            _power = _maxPower;
-        }
+        if (_power > _maxPower) _power = _maxPower;
         Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.PickObstacle));
         uInterface.UiShowPower.RefreshPower(_power);
     }
@@ -89,8 +72,28 @@
         uInterface.UiShowHealth.RefreshHealth(_health);
     }
 
-    private void ShowHaveCoins()
+    private void HaveCoin(int coins)
     {
-        uInterface.UIHaveCoins.Text = Data.Instance.GameData.Coins;
+        uInterface.UIHaveCoins.Text = coins;
+    }
+
+    private void Subscribe()
+    {
+        Services.Instance.EventService.OnStartTimer += StartTimer;
+        Services.Instance.EventService.OnStopTimer += StopTimer;
+        Services.Instance.EventService.OnPickObstacle += PickObstacle;
+        Services.Instance.EventService.OnPickCoin += PickCoin;
+        Services.Instance.EventService.OnPickBlock += PickBlock;
+        Services.Instance.EventService.OnHaveCoin += HaveCoin;
+    }
+
+    private void UnSubscribe()
+    {
+        Services.Instance.EventService.OnStartTimer -= StartTimer;
+        Services.Instance.EventService.OnStopTimer -= StopTimer;
+        Services.Instance.EventService.OnPickObstacle -= PickObstacle;
+        Services.Instance.EventService.OnPickCoin -= PickCoin;
+        Services.Instance.EventService.OnPickBlock -= PickBlock;
+        Services.Instance.EventService.OnHaveCoin -= HaveCoin;
     }
 }

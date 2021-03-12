@@ -19,16 +19,23 @@ public sealed class CharacterBehaviour : BaseModel
     private void OnEnable()
     {
         IsVisible = true;
-        Services.Instance.EventService.OffCharacter += DestroyCharacter;
+        Services.Instance.EventService.OnVisibleCharacter += VisibleCharacter;
+        Services.Instance.EventService.OnCharacterDisable += DisableCharacter;
     }
 
     private void OnDisable()
     {
         IsVisible = false;
-        Services.Instance.EventService.OffCharacter -= DestroyCharacter;
+        Services.Instance.EventService.OnVisibleCharacter -= VisibleCharacter;
+        Services.Instance.EventService.OnCharacterDisable -= DisableCharacter;
     }
 
-    private void DestroyCharacter()
+    private void VisibleCharacter(bool value)
+    {
+        IsVisible = value;
+    }
+
+    private void DisableCharacter()
     {
         gameObject.SetActive(false);
     }
@@ -40,7 +47,7 @@ public sealed class CharacterBehaviour : BaseModel
 
     public void Jump()
     {
-        if (CheckGround())
+        if (CheckGround() && IsVisible)
         {
             _body.AddForce(Vector3.up * _init.jump, ForceMode.Impulse);
             _animator.SetTrigger(AnimationHelper.GetName(AnimationType.Jump));
@@ -50,7 +57,7 @@ public sealed class CharacterBehaviour : BaseModel
 
     public void Move(float input)
     {
-        if (CheckGround())
+        if (CheckGround() && IsVisible)
         {
             var tempPos = transform.position;
 

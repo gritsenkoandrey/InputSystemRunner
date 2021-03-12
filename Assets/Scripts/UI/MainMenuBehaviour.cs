@@ -36,7 +36,7 @@ public sealed class MainMenuBehaviour : BaseUI
         ShowCurrentVolumeButton();
         InitializationImages();
         Services.Instance.AudioService.PlayMusic(AudioHelper.GetName(AudioType.MainTheme));
-        Services.Instance.EventService.ShowHaveCoins();
+        Services.Instance.EventService.HaveCoin(gameData.Coins);
     }
 
     private void StartButton()
@@ -46,15 +46,12 @@ public sealed class MainMenuBehaviour : BaseUI
             switch (_index)
             {
                 case (int)CharacterType.Ortiz:
-                    ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
                     Services.Instance.GameLevelService.StartGame(CharacterType.Ortiz);
                     break;
                 case (int)CharacterType.Elvis:
-                    ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
                     Services.Instance.GameLevelService.StartGame(CharacterType.Elvis);
                     break;
                 case (int)CharacterType.Jammo:
-                    ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
                     Services.Instance.GameLevelService.StartGame(CharacterType.Jammo);
                     break;
             }
@@ -83,7 +80,7 @@ public sealed class MainMenuBehaviour : BaseUI
             gameData.SaveCharacterData(character, true);
             gameData.LoadData();
             Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Buy));
-            Services.Instance.EventService.ShowHaveCoins();
+            Services.Instance.EventService.HaveCoin(gameData.Coins);
             _startButton.GetComponentInChildren<Text>().text = "Select";
         }
     }

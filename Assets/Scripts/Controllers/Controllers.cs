@@ -13,9 +13,8 @@
 
     public Controllers()
     {
-        _initializations = new IInitialization[2];
-        _initializations[0] = new GamePlayController();
-        _initializations[1] = new LevelController();
+        _initializations = new IInitialization[1];
+        _initializations[0] = new LevelController();
 
         _executeControllers = new IExecute[1];
         _executeControllers[0] = new TimeRemainingController();
@@ -28,7 +27,7 @@
         _cleanUps = new ICleanUp[3];
         _cleanUps[0] = new TimeRemainingCleanUp();
         _cleanUps[1] = new SpawnController();
-        _cleanUps[2] = new GamePlayController();
+        _cleanUps[2] = new ScreenInterfaceController();
     }
 
     public void Initialization()

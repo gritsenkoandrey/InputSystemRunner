@@ -30,7 +30,7 @@ public sealed class SettingsMenuBehaviour : BaseUI
         Services.Instance.AudioService.PlaySound(AudioHelper.GetName(AudioType.Click));
         gameData.CleanData();
         gameData.LoadData();
-        Services.Instance.EventService.ShowHaveCoins();
+        Services.Instance.EventService.HaveCoin(gameData.Coins);
     }
 
     public override void Hide()

@@ -27,7 +27,7 @@ public sealed class SpawnController : BaseController, IInitialization, IFixExecu
     public void Initialization()
     {
         CreatePool(_count);
-        Services.Instance.EventService.StartSpawn += StartSpawn;
+        Services.Instance.EventService.OnStartSpawn += StartSpawn;
     }
 
     public void FixedExecute()
@@ -60,14 +60,14 @@ public sealed class SpawnController : BaseController, IInitialization, IFixExecu
     private void StartSpawn()
     {
         _timeRemainingSpawn.AddTimeRemaining();
-        Services.Instance.EventService.StartSpawn -= StartSpawn;
-        Services.Instance.EventService.StopSpawn += StopSpawn;
+        Services.Instance.EventService.OnStartSpawn -= StartSpawn;
+        Services.Instance.EventService.OnStopSpawn += StopSpawn;
     }
 
     private void StopSpawn()
     {
         _timeRemainingSpawn.RemoveTimeRemaining();
-        Services.Instance.EventService.StopSpawn -= StopSpawn;
+        Services.Instance.EventService.OnStopSpawn -= StopSpawn;
     }
 
     private void Spawn()

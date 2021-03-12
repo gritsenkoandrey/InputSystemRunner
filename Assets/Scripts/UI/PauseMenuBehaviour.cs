@@ -17,9 +17,7 @@ public sealed class PauseMenuBehaviour : BaseUI
 
     private void PauseButton()
     {
-        Services.Instance.AudioService.UnPauseMusic();
-        Services.Instance.TimeService.SetTimeScale(1.0f);
-        ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
+        Services.Instance.GameLevelService.UnPauseGame();
     }
 
     public override void Show()

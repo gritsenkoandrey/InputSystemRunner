@@ -12,13 +12,13 @@ public sealed class BackgroundBehaviour : BaseModel
     private void OnEnable()
     {
         IsVisible = true;
-        Services.Instance.EventService.OffBackground += DestroyBackground;
+        Services.Instance.EventService.OnBackgroundDisable += DestroyBackground;
     }
 
     private void OnDisable()
     {
         IsVisible = false;
-        Services.Instance.EventService.OffBackground -= DestroyBackground;
+        Services.Instance.EventService.OnBackgroundDisable -= DestroyBackground;
     }
 
     public void Move()

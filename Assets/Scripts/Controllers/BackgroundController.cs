@@ -9,7 +9,7 @@
 
     public void Initialization()
     {
-        Services.Instance.EventService.OnBackground += SpawnBackground;
+        Services.Instance.EventService.OnBackgroundEnable += SpawnBackground;
     }
 
     public void FixedExecute()
@@ -36,7 +36,7 @@
     private void SpawnBackground()
     {
         _data.Initialization();
-        Services.Instance.EventService.OnBackground -= SpawnBackground;
+        Services.Instance.EventService.OnBackgroundEnable -= SpawnBackground;
     }
 
     private void MovementBackground()

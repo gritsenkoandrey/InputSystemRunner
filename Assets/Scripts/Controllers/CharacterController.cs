@@ -27,15 +27,15 @@ public sealed class CharacterController : BaseController, IInitialization, IFixE
 
     public void Initialization()
     {
-        Services.Instance.EventService.OnCharacter += SpawnCharacter;
+        Services.Instance.EventService.OnCharacterEnable += SpawnCharacter;
     }
 
     private void SpawnCharacter(CharacterType characterType)
     {
         _data.Initialization(characterType);
-        Services.Instance.EventService.OnCharacter -= SpawnCharacter;
+        Services.Instance.EventService.OnCharacterEnable -= SpawnCharacter;
     }
-    //todo во время паузы нужно отключить управление
+
     public void FixedExecute()
     {
         if (!IsActive)
