@@ -9,5 +9,6 @@
     PickObstacle = 6,
     PickBlock    = 7,
     Click        = 8,
-    Buy          = 9
+    Buy          = 9,
+    Reset        = 10
 }

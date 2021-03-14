@@ -6,7 +6,9 @@
     Obstacle           = 3,
     Block              = 4,
     Coin               = 5,
-    Background         = 6,
+    BackgroundOne      = 6,
     Canvas             = 7,
-    CharacterJammo     = 8
+    CharacterJammo     = 8,
+    BackgroundTwo      = 9,
+    BackgroundThree    = 10
 }

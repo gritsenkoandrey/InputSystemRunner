@@ -33,9 +33,9 @@
         }
     }
 
-    private void SpawnBackground()
+    private void SpawnBackground(BackgroundType background)
     {
-        _data.Initialization();
+        _data.Initialization(background);
         Services.Instance.EventService.OnBackgroundEnable -= SpawnBackground;
     }
 

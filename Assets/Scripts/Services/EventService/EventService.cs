@@ -4,17 +4,17 @@ public sealed class EventService : Service
 {
     public event Action OnStartTimer;
     public event Action OnStopTimer;
-    public event Action <CharacterType> OnCharacterEnable;
+    public event Action<CharacterType> OnCharacterEnable;
     public event Action OnCharacterDisable;
     public event Action<bool> OnVisibleCharacter;
-    public event Action OnBackgroundEnable;
+    public event Action<BackgroundType> OnBackgroundEnable;
     public event Action OnBackgroundDisable;
     public event Action OnStartSpawn;
     public event Action OnStopSpawn;
     public event Action OnPickObstacle;
     public event Action OnPickCoin;
     public event Action OnPickBlock;
-    public event Action <int>OnHaveCoin;
+    public event Action<int> OnHaveCoin;
 
     public EventService()
     {
@@ -38,7 +38,7 @@ public sealed class EventService : Service
     public void EnableCharacter(CharacterType characterType) => OnCharacterEnable?.Invoke(characterType);
     public void DisableCharacter() => OnCharacterDisable?.Invoke();
     public void VisibleCharacter(bool value) => OnVisibleCharacter?.Invoke(value);
-    public void EnableBackground() => OnBackgroundEnable?.Invoke();
+    public void EnableBackground(BackgroundType background) => OnBackgroundEnable?.Invoke(background);
     public void DisableBackground() => OnBackgroundDisable?.Invoke();
     public void StartSpawn() => OnStartSpawn?.Invoke();
     public void StopSpawn() => OnStopSpawn?.Invoke();

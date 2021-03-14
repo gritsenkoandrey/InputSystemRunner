@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public static class AnimationHelper
 {
-    private static readonly Dictionary<AnimationType, string> _types;
+    private static readonly Dictionary<AnimationType, int> _types;
 
     static AnimationHelper()
     {
-        _types = new Dictionary<AnimationType, string>
+        _types = new Dictionary<AnimationType, int>
         {
-            { AnimationType.Jump, "Jump" }
+            { AnimationType.Jump, Animator.StringToHash("Jump") }
         };
     }
 
-    public static string GetName(AnimationType type)
+    public static int GetName(AnimationType type)
     {
         return _types[type];
     }

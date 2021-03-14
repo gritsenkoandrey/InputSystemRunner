@@ -17,7 +17,7 @@ public sealed class PauseMenuBehaviour : BaseUI
 
     private void PauseButton()
     {
-        Services.Instance.GameLevelService.UnPauseGame();
+        Services.Instance.GameLevelService.UnpauseGame();
     }
 
     public override void Show()

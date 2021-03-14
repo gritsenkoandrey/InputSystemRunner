@@ -46,13 +46,13 @@ public sealed class MainMenuBehaviour : BaseUI
             switch (_index)
             {
                 case (int)CharacterType.Ortiz:
-                    Services.Instance.GameLevelService.StartGame(CharacterType.Ortiz);
+                    Services.Instance.GameLevelService.StartGame(CharacterType.Ortiz, BackgroundType.BackgroundOne);
                     break;
                 case (int)CharacterType.Elvis:
-                    Services.Instance.GameLevelService.StartGame(CharacterType.Elvis);
+                    Services.Instance.GameLevelService.StartGame(CharacterType.Elvis, BackgroundType.BackgroundTwo);
                     break;
                 case (int)CharacterType.Jammo:
-                    Services.Instance.GameLevelService.StartGame(CharacterType.Jammo);
+                    Services.Instance.GameLevelService.StartGame(CharacterType.Jammo, BackgroundType.BackgroundThree);
                     break;
             }
         }

@@ -10,12 +10,12 @@ public sealed class GameLevelService : Service
         Data.Instance.GameData.LoadData();
     }
 
-    public void StartGame(CharacterType characterType)
+    public void StartGame(CharacterType character, BackgroundType background)
     {
         ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
 
-        Services.Instance.EventService.EnableCharacter(characterType);
-        Services.Instance.EventService.EnableBackground();
+        Services.Instance.EventService.EnableCharacter(character);
+        Services.Instance.EventService.EnableBackground(background);
         Services.Instance.EventService.StartSpawn();
         Services.Instance.EventService.StartTimer();
     }
@@ -39,11 +39,11 @@ public sealed class GameLevelService : Service
         Services.Instance.TimeService.SetTimeScale(0f);
     }
 
-    public void UnPauseGame()
+    public void UnpauseGame()
     {
         ScreenInterface.GetScreenInterface().Execute(ScreenType.GameMenu);
 
-        Services.Instance.AudioService.UnPauseMusic();
+        Services.Instance.AudioService.UnpauseMusic();
         Services.Instance.EventService.VisibleCharacter(true);
         Services.Instance.TimeService.SetTimeScale(1.0f);
     }

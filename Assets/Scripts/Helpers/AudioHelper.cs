@@ -17,7 +17,8 @@ public static class AudioHelper
             { AudioType.PickCoin, "Sounds/PickCoin" },
             { AudioType.PickObstacle, "Sounds/PickObstacle" },
             { AudioType.Click, "Sounds/Click" },
-            { AudioType.Buy, "Sounds/Buy" }
+            { AudioType.Buy, "Sounds/Buy" },
+            { AudioType.Reset, "Sounds/Reset" }
         };
     }
 

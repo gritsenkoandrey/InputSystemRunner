@@ -14,10 +14,16 @@ public sealed class AssetsPathGameObject
             GameObjectType.CharacterJammo, "Prefabs/Characters/Character_Jammo"
         },
         {
-            GameObjectType.Background, "Prefabs/Backgrounds/Background"
+            GameObjectType.BackgroundOne, "Prefabs/Backgrounds/Background_01"
         },
         {
             GameObjectType.Canvas, "Prefabs/Canvas/Canvas"
-        }
+        },
+        {
+            GameObjectType.BackgroundTwo, "Prefabs/Backgrounds/Background_02"
+        },
+        {
+            GameObjectType.BackgroundThree, "Prefabs/Backgrounds/Background_03"
+        },
     };
 }

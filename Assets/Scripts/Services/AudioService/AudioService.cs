@@ -64,7 +64,7 @@ public sealed class AudioService : Service
         _musicSource.Pause();
     }
 
-    public void UnPauseMusic()
+    public void UnpauseMusic()
     {
         _musicSource.UnPause();
     }
