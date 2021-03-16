@@ -10,5 +10,6 @@
     Canvas             = 7,
     CharacterJammo     = 8,
     BackgroundTwo      = 9,
-    BackgroundThree    = 10
+    BackgroundThree    = 10,
+    Light              = 11
 }

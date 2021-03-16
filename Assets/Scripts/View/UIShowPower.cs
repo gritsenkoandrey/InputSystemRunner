@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class UIShowPower : UInterfaceBase
+public class UIShowPower : UIBase
 {
     private Transform[] _power;
 

@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public sealed class GameOverMenuBehaviour : BaseUI
+public sealed class GameOverMenuBehaviour : BaseMenu
 {
     [SerializeField] private Button _restartButton = null;
 

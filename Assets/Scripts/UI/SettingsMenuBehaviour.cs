@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public sealed class SettingsMenuBehaviour : BaseUI
+public sealed class SettingsMenuBehaviour : BaseMenu
 {
     [SerializeField] private Button _returnMainMenu = null;
     [SerializeField] private Button _resetProgress = null;

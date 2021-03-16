@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public sealed class UIShowHealth : UInterfaceBase
+public sealed class UIShowHealth : UIBase
 {
     private Transform[] _health;
 

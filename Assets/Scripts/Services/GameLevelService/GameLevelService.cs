@@ -6,6 +6,7 @@ public sealed class GameLevelService : Service
     {
         ScreenInterface.GetScreenInterface().Execute(ScreenType.MainMenu);
 
+        Services.Instance.LightService.InitLight();
         Services.Instance.CameraServices.SetCamera(Camera.main);
         Data.Instance.GameData.LoadData();
     }

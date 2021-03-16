@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class BaseUI : MonoBehaviour
+public abstract class BaseMenu : MonoBehaviour
 {
     protected GameData gameData;
     protected CharacterData charData;

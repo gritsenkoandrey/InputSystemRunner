@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class UInterfaceBase : MonoBehaviour
+public abstract class UIBase : MonoBehaviour
 {
     public virtual void SetActive(bool value)
     {

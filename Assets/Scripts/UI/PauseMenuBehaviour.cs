@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public sealed class PauseMenuBehaviour : BaseUI
+public sealed class PauseMenuBehaviour : BaseMenu
 {
     [SerializeField] private Button _pauseButton = null;
 

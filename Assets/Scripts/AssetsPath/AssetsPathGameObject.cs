@@ -25,5 +25,8 @@ public sealed class AssetsPathGameObject
         {
             GameObjectType.BackgroundThree, "Prefabs/Backgrounds/Background_03"
         },
+        {
+            GameObjectType.Light, "Prefabs/Lights/Light"
+        }
     };
 }

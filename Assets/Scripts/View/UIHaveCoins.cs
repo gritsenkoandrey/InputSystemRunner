@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UI;
 
-public sealed class UIHaveCoins : UInterfaceBase
+public sealed class UIHaveCoins : UIBase
 {
     private Text _text;
 

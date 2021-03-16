@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public sealed class UIShowCoin : UInterfaceBase
+public sealed class UIShowCoin : UIBase
 {
     private Text _text;
     private RectTransform _rectTransform;

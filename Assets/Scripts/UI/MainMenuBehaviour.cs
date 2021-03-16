@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public sealed class MainMenuBehaviour : BaseUI
+public sealed class MainMenuBehaviour : BaseMenu
 {
     [SerializeField] private Button _startButton = null;
     [SerializeField] private Button[] _volumeButton = null;

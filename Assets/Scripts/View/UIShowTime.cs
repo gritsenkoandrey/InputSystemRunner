@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UI;
 
-public sealed class UIShowTime : UInterfaceBase
+public sealed class UIShowTime : UIBase
 {
     private Text _text;
 

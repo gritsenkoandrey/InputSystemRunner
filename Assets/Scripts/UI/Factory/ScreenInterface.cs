@@ -1,6 +1,6 @@
 ﻿public sealed class ScreenInterface
 {
-    private BaseUI _currentWindow;
+    private BaseMenu _currentWindow;
     private readonly ScreenFactory _screenFactory;
     private static ScreenInterface _instance;
 

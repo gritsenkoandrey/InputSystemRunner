@@ -18,6 +18,7 @@ public sealed class Services
     public GameLevelService GameLevelService { get; private set; }
     public AudioService AudioService { get; private set; }
     public EffectService EffectService { get; private set; }
+    public LightService LightService { get; private set; }
 
     private void Initialize()
     {
@@ -29,5 +30,6 @@ public sealed class Services
         GameLevelService = new GameLevelService();
         AudioService = new AudioService();
         EffectService = new EffectService();
+        LightService = new LightService();
     }
 }
